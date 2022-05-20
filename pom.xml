@@ -33,6 +33,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>me.mattstudios.mf</pattern>
+                            <shadedPattern>homeward.plugin.homewardcooking.mf</shadedPattern> <!-- Replace package here here -->
+                        </relocation>
+                    </relocations>
+
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -45,6 +54,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <outputDirectory>H:\1.18-plugin-production\plugins</outputDirectory>
+                </configuration>
+            </plugin>
+
         </plugins>
         <resources>
             <resource>
@@ -63,6 +82,11 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>redempt.dev</id>
+            <url>https://redempt.dev</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -71,6 +95,17 @@
             <artifactId>paper-api</artifactId>
             <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.mattstudios.utils</groupId>
+            <artifactId>matt-framework</artifactId>
+            <version>1.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Redempt</groupId>
+            <artifactId>RedLib</artifactId>
+            <version>6.5.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
