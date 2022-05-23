@@ -1,0 +1,8 @@
+package loadsequenceclass;
+
+public class LoadSequence {
+    public static void main(String[] args) {
+        System.out.println();
+    }
+
+}
