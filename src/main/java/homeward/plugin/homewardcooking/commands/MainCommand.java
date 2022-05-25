@@ -35,7 +35,7 @@ public class MainCommand extends CommandBase {
 //    }
 
     @SubCommand("mojangnms")
-    public void testMohjangMappingNMS(CommandSender commandSender) {
+    public void testMojangMappingNMS(CommandSender commandSender) {
 
         CraftPlayer craftPlayer = (CraftPlayer) commandSender; //CraftBukkit
         ServerPlayer serverPlayer = craftPlayer.getHandle(); //NMS
