@@ -8,7 +8,9 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
-
+/**
+ * Weak Access
+ */
 public class GUIImpl implements GUI, InventoryHolder {
 
     public String value = null;
@@ -57,6 +59,7 @@ public class GUIImpl implements GUI, InventoryHolder {
     @Override
     public void open(Player player) {
         Inventory inventory = Bukkit.createInventory(player, size);
+
     }
 
     @Override
