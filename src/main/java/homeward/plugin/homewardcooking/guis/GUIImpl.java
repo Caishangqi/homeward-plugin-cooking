@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
+
 /**
  * Weak Access
  */
@@ -15,11 +16,11 @@ public class GUIImpl implements GUI, InventoryHolder {
 
     public String value = null;
 
-    public String guiname = null;
+    private String guiname = null;
 
     public Inventory inventory = null;
 
-    public int size = 9;
+    private int size = 9;
 
     @Override
     public String getGUIName() {
@@ -44,11 +45,13 @@ public class GUIImpl implements GUI, InventoryHolder {
     @Override
     public void handleDrag(InventoryDragEvent event) {
         /**/
+        event.setCancelled(true);
     }
 
     @Override
     public void handleMoved(InventoryMoveItemEvent event) {
         /**/
+        event.setCancelled(true);
     }
 
     @Override
@@ -58,12 +61,29 @@ public class GUIImpl implements GUI, InventoryHolder {
 
     @Override
     public void open(Player player) {
-        Inventory inventory = Bukkit.createInventory(player, size);
+        Inventory inventory = Bukkit.createInventory(player, size, guiname);
+        player.openInventory(inventory);
 
     }
 
     @Override
     public @NotNull Inventory getInventory() {
         return inventory;
+    }
+
+    public String getGuiname() {
+        return guiname;
+    }
+
+    public void setGuiname(String guiname) {
+        this.guiname = guiname;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

@@ -1,6 +1,8 @@
 
 package homeward.plugin.homewardcooking.commands;
 
+import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.guis.GUIImpl;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Default;
 import me.mattstudios.mf.annotations.SubCommand;
@@ -15,9 +17,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
 @Command("hwc")
 public class MainCommand extends CommandBase {
+
 //    @SubCommand("nms")
 //    public void testNMS(CommandSender commandSender) {
 //        CraftPlayer craftPlayer = (CraftPlayer) commandSender; //CraftBukkit
@@ -47,6 +51,14 @@ public class MainCommand extends CommandBase {
 
         serverPlayer.sendMessage(Component.nullToEmpty("Sending weather change"), serverPlayer.getUUID());
 
+    }
+
+    @SubCommand("open")
+    public void openCookingInterfaces(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+        GUIImpl gui = new GUIImpl();
+        gui.setGuiname("厨艺锅");
+        gui.open(player);
     }
 
 

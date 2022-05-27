@@ -7,6 +7,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  */
 public class CookingGUI extends GUIImpl {
 
+
     /**
      * 设置厨艺菜单的基础渲染
      */
