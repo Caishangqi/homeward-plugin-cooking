@@ -28,6 +28,7 @@
 ## 未来计划 TODO
 - 支持多个插件的物品 ItemsAdder MMOItems Oraxen 等
 - 提供完成烹饪，开始烹饪，烹饪中的API
+- 新增燃料设置，可以在配置文件中取消
 - 烹饪锅的升级 和 玩家烹饪属性与mcmmo和mmocore专业等级兼容
 
 ## 特别说明 Special Information
