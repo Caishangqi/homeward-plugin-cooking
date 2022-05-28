@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
+import homeward.plugin.homewardcooking.listeners.cookingmaingui.CookingGUIClickListener;
 import homeward.plugin.homewardcooking.listeners.cookingmaingui.CookingGUIDragListener;
 import me.mattstudios.mf.base.CommandManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +18,7 @@ public final class Homewardcooking extends JavaPlugin {
         loadDependencies();
         registerCommand();
         getServer().getPluginManager().registerEvents(new CookingGUIDragListener(), plugin);
+        getServer().getPluginManager().registerEvents(new CookingGUIClickListener(), plugin);
     }
 
     private void registerCommand() {

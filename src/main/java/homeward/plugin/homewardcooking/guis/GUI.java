@@ -1,30 +1,52 @@
 package homeward.plugin.homewardcooking.guis;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.jetbrains.annotations.NotNull;
 
-public interface GUI {
+import java.util.List;
 
 
+public abstract class GUI implements InventoryHolder {
 
-    String getGUIName();
+    protected String value;
 
-    void setGUIName(String value);
+    protected String guiName;
 
-    int getSlot();
+    protected List<Integer> doWorkSlot;
 
-    void handleClicked(InventoryClickEvent event);
+    protected Inventory inventory;
 
-    void handleDrag(InventoryDragEvent event);
 
-    void handleMoved(InventoryMoveItemEvent event);
+    public abstract String getGuiName();
 
-    void setGUIContent();
+    public abstract void setGuiName(String menuName);
 
-    void open(Player player);
+    public abstract int getSlot();
 
-    
+    public abstract void handelMenu(InventoryClickEvent e);
+
+    public abstract void dragItem(InventoryDragEvent e) throws InterruptedException;
+
+    public abstract void moveItem(InventoryMoveItemEvent e);
+
+    public abstract void setMenuItems();
+
+    public void open(Player player) {
+
+        inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
+        this.setMenuItems();
+        player.openInventory(inventory);
+
+    }
+
+    @Override
+    public @NotNull Inventory getInventory() {
+        return inventory;
+    }
 }

@@ -2,7 +2,6 @@
 package homeward.plugin.homewardcooking.commands;
 
 import homeward.plugin.homewardcooking.guis.CookingGUI;
-import homeward.plugin.homewardcooking.guis.GUIImpl;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Default;
 import me.mattstudios.mf.annotations.SubCommand;
@@ -56,9 +55,10 @@ public class MainCommand extends CommandBase {
     @SubCommand("open")
     public void openCookingInterfaces(CommandSender commandSender) {
         Player player = (Player) commandSender;
-        GUIImpl gui = new GUIImpl();
-        gui.setGuiname("厨艺锅");
-        gui.open(player);
+        CookingGUI cookingGUI = new CookingGUI();
+        cookingGUI.setGuiName("厨艺锅");
+        cookingGUI.open(player);
+
     }
 
 
