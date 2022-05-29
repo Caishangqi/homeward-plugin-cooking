@@ -16,9 +16,11 @@
 
 ## 介绍 Introduction
 使用 **4格配方** 任意搭配任何食材进行烹饪，指定的搭配会在制作完成后解锁新的配方并记录在食谱中，如果你的配方没有与配置的配方符合你将获得默认菜系或者失败的菜系。你的制作不一定是要百分之百与配方核对，配方是动态的，有些配方只需要你满足若干个原料相同即可做出相同菜系！
-![cookingpot](https://user-images.githubusercontent.com/39553613/170850088-71e8ec0a-91dc-4bae-8d4c-d35742916dd0.gif)
 
 
+<p align="center">
+  <img alt="cookingpot" src="https://user-images.githubusercontent.com/39553613/170850097-ef06ef08-3877-4001-be42-04a65404d74f.gif">
+</p>
 
 ## 特性
 
