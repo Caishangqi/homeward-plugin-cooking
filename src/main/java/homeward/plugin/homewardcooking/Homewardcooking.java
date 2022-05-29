@@ -7,6 +7,7 @@ import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.base.CommandManager;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -19,8 +20,14 @@ public final class Homewardcooking extends JavaPlugin {
     public static Homewardcooking plugin;
     public static CommandManager commandManager;
 
+    public static FileConfiguration config;
+
     @Override
     public void onEnable() {
+
+        //注册默认Config,没有的话创建一个
+        saveDefaultConfig();
+        config = getConfig();
 
         // Plugin startup logic
         loadDependencies();
