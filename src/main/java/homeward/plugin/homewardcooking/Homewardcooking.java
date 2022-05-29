@@ -27,28 +27,28 @@ public final class Homewardcooking extends JavaPlugin {
         registerCommands();
         registerListeners();
         loadingRecipes();
-        CommonUtils.getInstance().log(Level.INFO, Type.LOADED,"插件加载成功 5/5");
+        CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "插件加载成功 5/5");
     }
 
     private void loadingRecipes() {
         CommonUtils.getInstance().loadRecipes();
-        CommonUtils.getInstance().log(Level.INFO, Type.LOADED,"配方加载成功 4/5");
+        CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "配方加载成功 4/5");
     }
 
     private void registerListeners() {
         CommonUtils.getInstance().register();
-        CommonUtils.getInstance().log(Level.INFO, Type.LOADED,"事件加载成功 3/5");
+        CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "事件加载成功 3/5");
     }
 
     private void registerCommands() {
         commandManager.register(new MainCommand());
-        CommonUtils.getInstance().log(Level.INFO, Type.LOADED,"指令加载成功 2/5");
+        CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "指令加载成功 2/5");
     }
 
     private void loadDependencies() {
         plugin = this;
         commandManager = new CommandManager(this);
-        CommonUtils.getInstance().log(Level.INFO, Type.LOADED,"依赖加载成功 1/5");
+        CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "依赖加载成功 1/5");
     }
 
     @Override
@@ -56,6 +56,11 @@ public final class Homewardcooking extends JavaPlugin {
         // Plugin shutdown logic
         unloadDependencies();
         disableTask();
+        disableMessages();
+    }
+
+    private void disableMessages() {
+        CommonUtils.getInstance().log(Level.INFO, Type.UNLOADED, "&6插件禁用成功");
     }
 
     private void disableTask() {
