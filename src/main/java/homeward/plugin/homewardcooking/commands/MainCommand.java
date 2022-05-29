@@ -14,6 +14,7 @@ import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 //import net.minecraft.server.network.PlayerConnection;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -58,6 +59,15 @@ public class MainCommand extends CommandBase {
         CookingGUI cookingGUI = new CookingGUI();
         cookingGUI.setGuiName("厨艺锅");
         cookingGUI.open(player);
+
+    }
+
+    @SubCommand("give")
+    public void giveCookingPot(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+
+
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6给予 " + player.getDisplayName() + " &6厨艺锅"));
 
     }
 

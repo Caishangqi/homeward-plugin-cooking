@@ -1,10 +1,18 @@
 package homeward.plugin.homewardcooking.guis;
 
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.inventory.DragType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 import static org.bukkit.event.inventory.InventoryAction.*;
@@ -12,6 +20,10 @@ import static org.bukkit.event.inventory.InventoryAction.*;
 public class CookingGUI extends GUI {
 
     private String guiName;
+    private static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
+    private static final int avaliableOuputSlots = 24;
+    private static final int MiscellaneousSlots = 42;
+    private static final int ButtonSlots = 40;
 
     @Override
     public String getGuiName() {
@@ -35,6 +47,18 @@ public class CookingGUI extends GUI {
             System.out.println("move out");
             e.setCancelled(true);
         }
+
+        if (e.getRawSlot() == 40) {
+            e.setCancelled(true);
+        }
+
+        if (Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList()).contains(e.getRawSlot())) {
+            e.setCancelled(false);
+        } else {
+            e.setCancelled(true);
+        }
+
+
     }
 
     @Override
@@ -58,5 +82,34 @@ public class CookingGUI extends GUI {
     @Override
     public void setMenuItems() {
 
+        ItemStack button = new ItemStack(Material.OAK_BUTTON);
+        ItemMeta buttonItemMeta = button.getItemMeta();
+        buttonItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6开始烹饪"));
+        button.setItemMeta(buttonItemMeta);
+
+        inventory.setItem(40, button);
+
+        fillMenu();
+
+    }
+
+    private void fillMenu() {
+        List<Integer> list = Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList());
+        list.add(avaliableOuputSlots);
+        list.add(MiscellaneousSlots);
+        list.add(ButtonSlots);
+
+        ItemStack fillBlock = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta fillBlockItemMeta = fillBlock.getItemMeta();
+        fillBlockItemMeta.setDisplayName("");
+        fillBlock.setItemMeta(fillBlockItemMeta);
+
+        for (int i = 0; i <= getSlot() - 1; i++) {
+            if (list.contains(i)) {
+
+            } else {
+                inventory.setItem(i, fillBlock);
+            }
+        }
     }
 }

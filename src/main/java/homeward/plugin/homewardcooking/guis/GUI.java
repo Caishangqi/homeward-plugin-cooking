@@ -22,6 +22,8 @@ public abstract class GUI implements InventoryHolder {
 
     protected Inventory inventory;
 
+    protected Player whoOwnsInventory;
+
 
     public abstract String getGuiName();
 
@@ -39,9 +41,14 @@ public abstract class GUI implements InventoryHolder {
 
     public void open(Player player) {
 
-        inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
-        this.setMenuItems();
-        player.openInventory(inventory);
+        if (whoOwnsInventory == null) {
+            inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
+            this.setMenuItems();
+            whoOwnsInventory = player;
+            player.openInventory(inventory);
+        } else {
+            player.openInventory(inventory);
+        }
 
     }
 
