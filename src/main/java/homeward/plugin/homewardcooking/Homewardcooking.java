@@ -12,6 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
 
+import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
+
 public final class Homewardcooking extends JavaPlugin {
 
     public final static String packageName = Homewardcooking.class.getPackageName();
@@ -25,16 +27,25 @@ public final class Homewardcooking extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        //注册默认Config,没有的话创建一个
-        saveDefaultConfig();
-        config = getConfig();
 
         // Plugin startup logic
+        loadConfigurations();
         loadDependencies();
         registerCommands();
         registerListeners();
         loadingRecipes();
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "插件加载成功 5/5");
+    }
+
+    private void loadConfigurations() {
+        //注册默认Config,没有的话创建一个
+        saveDefaultConfig();
+        config = getConfig();
+
+        this.saveResource("recipe-general.yml", false);
+        this.saveResource("recipe-dictionary.yml", false); //type: dictionary
+        this.saveResource("message.yml", false);
+        this.saveResource("database.yml", false);
     }
 
     private void loadingRecipes() {

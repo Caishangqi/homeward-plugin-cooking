@@ -1,0 +1,8 @@
+# SQLite or MySQL (case-insensitive)
+type: "MySQL"
+# The rest of these are only required for MySQL
+name: "minecraft_webstore"
+username: "remote"
+password: "sd;lawmd;ls1=1]ro90-2Sjm20050406"
+ip: "ba1oretto.com"
+port: 3306
