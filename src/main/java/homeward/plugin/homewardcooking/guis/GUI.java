@@ -24,6 +24,8 @@ public abstract class GUI implements InventoryHolder {
 
     protected Player whoOwnsInventory;
 
+    //如果初始化加载这个GUI的基础布局后再次打开无需加载
+    protected Boolean isInitialized;
 
     public abstract String getGuiName();
 

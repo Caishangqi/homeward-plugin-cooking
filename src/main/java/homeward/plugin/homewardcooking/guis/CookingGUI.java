@@ -22,8 +22,10 @@ public class CookingGUI extends GUI {
     private String guiName;
     private static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
     private static final int avaliableOuputSlots = 24;
-    private static final int MiscellaneousSlots = 42;
-    private static final int ButtonSlots = 40;
+    private static final int miscellaneousSlots = 42;
+    private static final int startButton = 40;
+
+    private static final int recipesButton = 13;
 
     @Override
     public String getGuiName() {
@@ -87,7 +89,14 @@ public class CookingGUI extends GUI {
         buttonItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6开始烹饪"));
         button.setItemMeta(buttonItemMeta);
 
-        inventory.setItem(40, button);
+        ItemStack recipesButton = new ItemStack(Material.KNOWLEDGE_BOOK);
+        ItemMeta recipesButtonItemMeta = recipesButton.getItemMeta();
+        recipesButtonItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7游览已知配方"));
+        recipesButton.setItemMeta(recipesButtonItemMeta);
+
+
+        inventory.setItem(startButton, button);
+        inventory.setItem(this.recipesButton, recipesButton);
 
         fillMenu();
 
@@ -96,12 +105,13 @@ public class CookingGUI extends GUI {
     private void fillMenu() {
         List<Integer> list = Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList());
         list.add(avaliableOuputSlots);
-        list.add(MiscellaneousSlots);
-        list.add(ButtonSlots);
+        list.add(miscellaneousSlots);
+        list.add(startButton);
+        list.add(recipesButton);
 
         ItemStack fillBlock = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta fillBlockItemMeta = fillBlock.getItemMeta();
-        fillBlockItemMeta.setDisplayName("");
+        fillBlockItemMeta.setDisplayName(" ");
         fillBlock.setItemMeta(fillBlockItemMeta);
 
         for (int i = 0; i <= getSlot() - 1; i++) {
