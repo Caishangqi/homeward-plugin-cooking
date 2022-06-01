@@ -1,6 +1,7 @@
 
 package homeward.plugin.homewardcooking.commands;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Default;
@@ -15,9 +16,15 @@ import net.minecraft.server.level.ServerPlayer;
 //import net.minecraft.server.network.PlayerConnection;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Command("hwc")
 public class MainCommand extends CommandBase {
@@ -68,6 +75,21 @@ public class MainCommand extends CommandBase {
 
 
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6给予 " + player.getDisplayName() + " &6厨艺锅"));
+        ItemStack cauldron = new ItemStack(Material.CAULDRON);
+        NBTItem nbtCauldron = new NBTItem(new ItemStack(cauldron));
+        nbtCauldron.setInteger("CookingPot",1);
+        nbtCauldron.applyNBT(cauldron);
+
+        ItemMeta cauldronItemMeta = cauldron.getItemMeta();
+        cauldronItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&f厨艺锅"));
+        List<String> lore = new ArrayList<String>();
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&7崭新的厨艺锅，放置在地上打开"));
+        cauldronItemMeta.setLore(lore);
+        cauldron.setItemMeta(cauldronItemMeta);
+
+
+
+        player.getInventory().addItem(cauldron);
 
     }
 

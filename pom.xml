@@ -39,6 +39,10 @@
                             <pattern>me.mattstudios.mf</pattern>
                             <shadedPattern>homeward.plugin.homewardcooking.mf</shadedPattern> <!-- Replace package here here -->
                         </relocation>
+                        <relocation>
+                            <pattern>de.tr7zw.changeme.nbtapi</pattern>
+                            <shadedPattern>homeward.plugin.homewardcooking.mf</shadedPattern>
+                        </relocation>
                     </relocations>
 
                 </configuration>
@@ -88,6 +92,7 @@
                         </configuration>
                     </execution>
                 </executions>
+
             </plugin>
 
             <plugin>
@@ -126,6 +131,11 @@
             <url>https://redempt.dev</url>
         </repository>
 
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+            <layout>default</layout>
+        </repository>
 
     </repositories>
 
@@ -146,6 +156,12 @@
             <artifactId>RedLib</artifactId>
             <version>6.5.2</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
+            <version>2.9.2</version>
         </dependency>
 
 <!--        &lt;!&ndash;nms Code directly code&ndash;&gt;-->
