@@ -3,6 +3,7 @@ package homeward.plugin.homewardcooking.commands;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Default;
 import me.mattstudios.mf.annotations.SubCommand;
@@ -75,19 +76,7 @@ public class MainCommand extends CommandBase {
 
 
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6给予 " + player.getDisplayName() + " &6厨艺锅"));
-        ItemStack cauldron = new ItemStack(Material.CAULDRON);
-        NBTItem nbtCauldron = new NBTItem(new ItemStack(cauldron));
-        nbtCauldron.setInteger("CookingPot",1);
-        nbtCauldron.applyNBT(cauldron);
-
-        ItemMeta cauldronItemMeta = cauldron.getItemMeta();
-        cauldronItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&f厨艺锅"));
-        List<String> lore = new ArrayList<String>();
-        lore.add(ChatColor.translateAlternateColorCodes('&',"&7崭新的厨艺锅，放置在地上打开"));
-        cauldronItemMeta.setLore(lore);
-        cauldron.setItemMeta(cauldronItemMeta);
-
-
+        ItemStack cauldron = new CookingPotThing().getVanillaItemStack();
 
         player.getInventory().addItem(cauldron);
 

@@ -27,7 +27,6 @@ public final class Homewardcooking extends JavaPlugin {
     @Override
     public void onEnable() {
 
-
         // Plugin startup logic
         loadConfigurations();
         loadDependencies();
