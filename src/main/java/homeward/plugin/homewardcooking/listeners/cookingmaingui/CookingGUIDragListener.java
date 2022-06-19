@@ -14,16 +14,12 @@ public class CookingGUIDragListener implements Listener {
     public void onCookingGUIDrag(InventoryDragEvent event) throws InterruptedException {
 
         InventoryHolder holder = event.getInventory().getHolder();
-
         InventoryHolder top = event.getView().getTopInventory().getHolder();
         InventoryHolder bottom = event.getView().getBottomInventory().getHolder();
 
         if (holder instanceof CookingGUI) {
             ((CookingGUI) holder).dragItem(event);
         }
-
-
-
 
     }
 

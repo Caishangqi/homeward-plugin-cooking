@@ -34,13 +34,13 @@ public final class Homewardcooking extends JavaPlugin {
         registerListeners();
         loadingRecipes();
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "插件加载成功 5/5");
+
     }
 
     private void loadConfigurations() {
         //注册默认Config,没有的话创建一个
         saveDefaultConfig();
         config = getConfig();
-
         this.saveResource("recipe-general.yml", false);
         this.saveResource("recipe-dictionary.yml", false); //type: dictionary
         this.saveResource("message.yml", false);

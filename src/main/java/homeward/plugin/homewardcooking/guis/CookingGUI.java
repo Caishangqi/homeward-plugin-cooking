@@ -24,7 +24,6 @@ public class CookingGUI extends GUI {
     private static final int avaliableOuputSlots = 24;
     private static final int miscellaneousSlots = 42;
     private static final int startButton = 40;
-
     private static final int recipesButton = 13;
 
     @Override

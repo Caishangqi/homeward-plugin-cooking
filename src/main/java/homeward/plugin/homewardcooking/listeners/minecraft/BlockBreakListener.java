@@ -17,6 +17,7 @@ import static org.bukkit.Material.CAULDRON;
 public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) throws IOException {
+
         Player player = event.getPlayer();
 
         if (event.getBlock().getBlockData().getMaterial() == CAULDRON) {
@@ -32,31 +33,18 @@ public class BlockBreakListener implements Listener {
 
             if (file.hasKey(locationKey)) {
 
+                event.setDropItems(false);
                 file.removeKey(locationKey);
                 file.save();
                 player.sendMessage("移除物品数据成功");
+                //聪明代码
                 Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(breakBlock.getLocation(), new CookingPotThing().getVanillaItemStack());
+
+
+
             }
 
         }
 
-        if (event.getBlock().breakNaturally() && event.getBlock().getBlockData().getMaterial() == CAULDRON) {
-            NBTFile file = new NBTFile(new File(event.getBlock().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
-
-            Block breakBlock = event.getBlock();
-
-            int blockX = breakBlock.getLocation().getBlockX();
-            int blockY = breakBlock.getLocation().getBlockY();
-            int blockZ = breakBlock.getLocation().getBlockZ();
-
-            String locationKey = "" + blockX + "" + blockY + "" + blockZ;
-
-            if (file.hasKey(locationKey)) {
-                file.removeKey(locationKey);
-                file.save();
-                Bukkit.broadcastMessage("(天然)移除物品数据成功");
-            }
-
-        }
     }
 }
