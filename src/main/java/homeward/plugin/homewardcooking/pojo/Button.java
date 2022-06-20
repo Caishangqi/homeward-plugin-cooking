@@ -47,13 +47,17 @@ public enum Button {
     }
 
     public ItemStack getButton() {
+        return CommonUtils.getInstance().buildItems(this.getMaterial(), this.getName());
+    /**
         switch(this) {
             case START_BUTTON:
                 return CommonUtils.getInstance().buildItems(START_BUTTON.getMaterial(), START_BUTTON.getName());
             case RECIPE_BUTTON:
                 return CommonUtils.getInstance().buildItems(RECIPE_BUTTON.getMaterial(),RECIPE_BUTTON.getName());
         }
-        return null;
+    */
+
+
     }
 
 }
