@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class CookingGUI extends GUI {
     private static final int startButton = 40;
     private static final int recipesButton = 13;
     //谁打开了这个GUI
-    private List<Player> openedPlayers;
+    private List<Player> openedPlayers = new ArrayList<>();
 
     @Override
     public String getGuiName() {
