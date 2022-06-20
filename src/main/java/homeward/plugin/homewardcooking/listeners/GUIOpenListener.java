@@ -14,5 +14,6 @@ public class GUIOpenListener implements Listener {
         CookingGUI cookingGUI = new CookingGUI();
         cookingGUI.setGuiName("厨艺锅");
         cookingGUI.open(player);
+        player.swingMainHand();
     }
 }
