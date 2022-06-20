@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
+import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.listeners.cookingmaingui.CookingGUIClickListener;
 import homeward.plugin.homewardcooking.listeners.cookingmaingui.CookingGUIDragListener;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -10,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 
 import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
@@ -23,6 +25,9 @@ public final class Homewardcooking extends JavaPlugin {
     public static CommandManager commandManager;
 
     public static FileConfiguration config;
+
+    //GUI 打开池
+    public static HashMap<String, CookingGUI> GUIPools;
 
     @Override
     public void onEnable() {

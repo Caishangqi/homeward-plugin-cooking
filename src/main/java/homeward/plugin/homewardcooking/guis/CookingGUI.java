@@ -4,6 +4,7 @@ import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.DragType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -26,6 +27,8 @@ public class CookingGUI extends GUI {
     private static final int miscellaneousSlots = 42;
     private static final int startButton = 40;
     private static final int recipesButton = 13;
+    //谁打开了这个GUI
+    private List<Player> openedPlayers;
 
     @Override
     public String getGuiName() {
@@ -40,6 +43,22 @@ public class CookingGUI extends GUI {
     @Override
     public int getSlot() {
         return 54;
+    }
+
+    public List<Player> getOpenedPlayers() {
+        return openedPlayers;
+    }
+
+    public void setOpenedPlayers(List<Player> openedPlayers) {
+        this.openedPlayers = openedPlayers;
+    }
+
+    public void addPlayerToOpenPlayers(Player player) {
+        this.openedPlayers.add(player);
+    }
+
+    public void removePlayerFromOpenPlayers(Player player) {
+        this.openedPlayers.remove(player);
     }
 
     @Override
