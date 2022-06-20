@@ -27,7 +27,7 @@ public final class Homewardcooking extends JavaPlugin {
     public static FileConfiguration config;
 
     //GUI 打开池
-    public static HashMap<String, CookingGUI> GUIPools;
+    public static HashMap<String, CookingGUI> GUIPools = new HashMap<String,CookingGUI>();
 
     @Override
     public void onEnable() {
