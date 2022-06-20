@@ -23,6 +23,7 @@ import static org.bukkit.event.inventory.InventoryAction.*;
 public class CookingGUI extends GUI {
 
     private String guiName;
+    private String locationKey;
     private static final int[] avaliableInputSlots = new int[] {38, 29, 20, 11};
     private static final int avaliableOuputSlots = 24;
     private static final int miscellaneousSlots = 42;
@@ -30,6 +31,14 @@ public class CookingGUI extends GUI {
     private static final int recipesButton = 13;
     //谁打开了这个GUI
     private List<Player> openedPlayers = new ArrayList<>();
+
+    public String getLocationKey() {
+        return locationKey;
+    }
+
+    public void setLocationKey(String locationKey) {
+        this.locationKey = locationKey;
+    }
 
     @Override
     public String getGuiName() {

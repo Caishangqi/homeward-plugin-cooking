@@ -2,17 +2,19 @@ package homeward.plugin.homewardcooking.pojo;
 
 import org.bukkit.inventory.ItemStack;
 
-public class CookingData {
+import java.io.Serializable;
+
+public class CookingData implements Serializable {
 
     private String recipe;
 
-    private ItemStack slotI;
-    private ItemStack slotII;
-    private ItemStack slotIII;
-    private ItemStack slotIV;
+    private String slotI;
+    private String slotII;
+    private String slotIII;
+    private String slotIV;
 
-    private ItemStack mainOutput;
-    private ItemStack additionalOutput;
+    private String mainOutput;
+    private String additionalOutput;
 
     private Integer timeRemaining;
     private Integer timeTotal;
@@ -25,51 +27,51 @@ public class CookingData {
         this.recipe = recipe;
     }
 
-    public ItemStack getSlotI() {
+    public String getSlotI() {
         return slotI;
     }
 
-    public void setSlotI(ItemStack slotI) {
+    public void setSlotI(String slotI) {
         this.slotI = slotI;
     }
 
-    public ItemStack getSlotII() {
+    public String getSlotII() {
         return slotII;
     }
 
-    public void setSlotII(ItemStack slotII) {
+    public void setSlotII(String slotII) {
         this.slotII = slotII;
     }
 
-    public ItemStack getSlotIII() {
+    public String getSlotIII() {
         return slotIII;
     }
 
-    public void setSlotIII(ItemStack slotIII) {
+    public void setSlotIII(String slotIII) {
         this.slotIII = slotIII;
     }
 
-    public ItemStack getSlotIV() {
+    public String getSlotIV() {
         return slotIV;
     }
 
-    public void setSlotIV(ItemStack slotIV) {
+    public void setSlotIV(String slotIV) {
         this.slotIV = slotIV;
     }
 
-    public ItemStack getMainOutput() {
+    public String getMainOutput() {
         return mainOutput;
     }
 
-    public void setMainOutput(ItemStack mainOutput) {
+    public void setMainOutput(String mainOutput) {
         this.mainOutput = mainOutput;
     }
 
-    public ItemStack getAdditionalOutput() {
+    public String getAdditionalOutput() {
         return additionalOutput;
     }
 
-    public void setAdditionalOutput(ItemStack additionalOutput) {
+    public void setAdditionalOutput(String additionalOutput) {
         this.additionalOutput = additionalOutput;
     }
 

@@ -1,5 +1,10 @@
 package homeward.plugin.homewardcooking.utils;
 
+import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.CookingData;
+import org.bukkit.inventory.ItemStack;
+
+import java.io.IOException;
 import java.util.Set;
 
 public class GUIManipulation {
@@ -27,5 +32,12 @@ public class GUIManipulation {
 
         }
         return cache;
+    }
+
+    public static void dataInjectionToGUI(CookingData cookingData, CookingGUI cookingGUI) throws IOException, ClassNotFoundException {
+        cookingGUI.getInventory().setItem(11, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotI()));
+        cookingGUI.getInventory().setItem(20, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotII()));
+        cookingGUI.getInventory().setItem(29, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIII()));
+        cookingGUI.getInventory().setItem(38, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIV()));
     }
 }
