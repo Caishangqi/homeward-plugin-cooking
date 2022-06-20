@@ -5,6 +5,7 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import me.mattstudios.mf.annotations.Command;
+import me.mattstudios.mf.annotations.Completion;
 import me.mattstudios.mf.annotations.Default;
 import me.mattstudios.mf.annotations.SubCommand;
 import me.mattstudios.mf.base.CommandBase;
@@ -71,17 +72,17 @@ public class MainCommand extends CommandBase {
     }
 
     @SubCommand("give")
-    public void giveCookingPot(CommandSender commandSender) {
-        Player player = (Player) commandSender;
+    @Completion({"#players",  "#range:1-64"})
+    public void giveCookingPot(CommandSender commandSender, final Player player, final Integer number) {
 
 
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6给予 " + player.getDisplayName() + " &6厨艺锅"));
         ItemStack cauldron = CookingPotThing.getVanillaItemStack();
-
+        cauldron.setAmount(number);
         player.getInventory().addItem(cauldron);
 
-    }
 
+    }
 
     @Default
     public void defaultCommand(final CommandSender commandSender) {
