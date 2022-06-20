@@ -3,10 +3,14 @@ package homeward.plugin.homewardcooking.utils;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.reflections.Reflections;
+import redempt.redlib.itemutils.ItemBuilder;
 
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -48,6 +52,29 @@ public class CommonUtils {
         //Bukkit.getLogger().log(level, ChatColor.translateAlternateColorCodes('&', "[HWC] " + type.getName() + " " + message));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "[HWC] " + type.getName() + " " + message));
 
+    }
+
+    public ItemStack buildItems(Material material, String name, List<String> lore) {
+        ItemStack item = new ItemBuilder(material)
+                .setName(ChatColor.translateAlternateColorCodes('&', name));
+        //.setLore("Cool lore");
+        for (String oneLore : lore) {
+            ((ItemBuilder) item).setLore(ChatColor.translateAlternateColorCodes('&', oneLore));
+        }
+        return item;
+    }
+
+    public ItemStack buildItems(Material material, String name, String lore) {
+        ItemStack item = new ItemBuilder(material)
+                .setName(ChatColor.translateAlternateColorCodes('&', name))
+                .setLore(ChatColor.translateAlternateColorCodes('&', lore));
+        return item;
+    }
+
+    public ItemStack buildItems(Material material, String name) {
+        ItemStack item = new ItemBuilder(material)
+                .setName(ChatColor.translateAlternateColorCodes('&', name));
+        return item;
     }
 
 

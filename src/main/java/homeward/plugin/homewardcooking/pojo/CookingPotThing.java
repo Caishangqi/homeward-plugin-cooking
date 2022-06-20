@@ -11,9 +11,10 @@ import java.util.List;
 
 public class CookingPotThing {
 
-    private ItemStack vanillaItemStack;
+    private static ItemStack vanillaItemStack;
 
-    public ItemStack getVanillaItemStack() {
+    public static ItemStack getVanillaItemStack() {
+
         ItemStack cauldron = new ItemStack(Material.CAULDRON);
         NBTItem nbtCauldron = new NBTItem(new ItemStack(cauldron));
         nbtCauldron.setInteger("CookingPot",1);
@@ -25,10 +26,9 @@ public class CookingPotThing {
         lore.add(ChatColor.translateAlternateColorCodes('&',"&7崭新的厨艺锅，放置在地上打开"));
         cauldronItemMeta.setLore(lore);
         cauldron.setItemMeta(cauldronItemMeta);
-
         vanillaItemStack = cauldron;
-
         return vanillaItemStack;
-
     }
+
+
 }

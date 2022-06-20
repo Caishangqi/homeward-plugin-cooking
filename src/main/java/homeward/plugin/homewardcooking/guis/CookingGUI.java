@@ -1,5 +1,6 @@
 package homeward.plugin.homewardcooking.guis;
 
+import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -20,7 +21,7 @@ import static org.bukkit.event.inventory.InventoryAction.*;
 public class CookingGUI extends GUI {
 
     private String guiName;
-    private static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
+    private static final int[] avaliableInputSlots = new int[] {38, 29, 20, 11};
     private static final int avaliableOuputSlots = 24;
     private static final int miscellaneousSlots = 42;
     private static final int startButton = 40;
@@ -83,19 +84,8 @@ public class CookingGUI extends GUI {
     @Override
     public void setMenuItems() {
 
-        ItemStack button = new ItemStack(Material.OAK_BUTTON);
-        ItemMeta buttonItemMeta = button.getItemMeta();
-        buttonItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6开始烹饪"));
-        button.setItemMeta(buttonItemMeta);
-
-        ItemStack recipesButton = new ItemStack(Material.KNOWLEDGE_BOOK);
-        ItemMeta recipesButtonItemMeta = recipesButton.getItemMeta();
-        recipesButtonItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7游览已知配方"));
-        recipesButton.setItemMeta(recipesButtonItemMeta);
-
-
-        inventory.setItem(startButton, button);
-        inventory.setItem(this.recipesButton, recipesButton);
+        inventory.setItem(startButton, Button.START_BUTTON.getButton());
+        inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
 
         fillMenu();
 

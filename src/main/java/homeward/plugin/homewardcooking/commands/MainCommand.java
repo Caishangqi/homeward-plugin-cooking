@@ -76,7 +76,7 @@ public class MainCommand extends CommandBase {
 
 
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6给予 " + player.getDisplayName() + " &6厨艺锅"));
-        ItemStack cauldron = new CookingPotThing().getVanillaItemStack();
+        ItemStack cauldron = CookingPotThing.getVanillaItemStack();
 
         player.getInventory().addItem(cauldron);
 

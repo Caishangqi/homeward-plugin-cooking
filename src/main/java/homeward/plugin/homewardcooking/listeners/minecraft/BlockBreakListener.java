@@ -38,9 +38,7 @@ public class BlockBreakListener implements Listener {
                 file.save();
                 player.sendMessage("移除物品数据成功");
                 //聪明代码
-                Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(breakBlock.getLocation(), new CookingPotThing().getVanillaItemStack());
-
-
+                Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(breakBlock.getLocation(), CookingPotThing.getVanillaItemStack());
 
             }
 
