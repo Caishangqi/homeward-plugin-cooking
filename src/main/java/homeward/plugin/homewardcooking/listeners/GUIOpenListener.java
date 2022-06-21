@@ -39,10 +39,14 @@ public class GUIOpenListener implements Listener {
             System.out.println("下方");
             CookingGUI cookingGUI = new CookingGUI();
             cookingGUI.setGuiName("厨艺锅");
+            cookingGUI.open(player);
             //数据载入
 
             //数据载入结束
-            cookingGUI.open(player);
+
+
+
+
             cookingGUI.addPlayerToOpenPlayers(player);
             cookingGUI.setLocationKey(locationKey);
             player.swingMainHand();

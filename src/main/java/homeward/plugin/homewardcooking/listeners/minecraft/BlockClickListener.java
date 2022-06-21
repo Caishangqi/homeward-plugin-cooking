@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import static org.bukkit.event.block.Action.LEFT_CLICK_BLOCK;
 import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
+import static org.bukkit.inventory.EquipmentSlot.HAND;
 
 public class BlockClickListener implements Listener {
 
@@ -34,10 +35,8 @@ public class BlockClickListener implements Listener {
 
             String locationKey = "" + blockX + "" + blockY + "" + blockZ;
 
-            if (file.hasKey(locationKey)) {
-
+            if (file.hasKey(locationKey) && event.getHand()==HAND) {
                 Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player,locationKey));
-
                 // ->
             }
 
