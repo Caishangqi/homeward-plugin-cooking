@@ -2,12 +2,9 @@ package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
-import homeward.plugin.homewardcooking.listeners.cookingmaingui.CookingGUIClickListener;
-import homeward.plugin.homewardcooking.listeners.cookingmaingui.CookingGUIDragListener;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.base.CommandManager;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -46,7 +43,7 @@ public final class Homewardcooking extends JavaPlugin {
         //注册默认Config,没有的话创建一个
         saveDefaultConfig();
         config = getConfig();
-        this.saveResource("recipe-general.yml", false);
+        this.saveResource("recipes/recipe-general.yml", false);
         this.saveResource("recipe-dictionary.yml", false); //type: dictionary
         this.saveResource("message.yml", false);
         this.saveResource("database.yml", false);
