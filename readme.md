@@ -36,7 +36,11 @@
 ## 指令
 `/hwc` 为插件主指令
 
-`/hwc give` 给予自己一个烹饪锅
+`/hwc give <玩家> <数量>` 给予指定玩家若干个烹饪锅
+
+`/hwc checkPool` 检查当前GUI池里的GUI数量
+
+`/hwc removePool` 移除当前GUI池里的所有缓存GUI
 
 `/hwc open` 打开建设中的GUI菜单
 
@@ -46,6 +50,7 @@
 - 提供完成烹饪，开始烹饪，烹饪中的API
 - 新增燃料设置，可以在配置文件中取消
 - 烹饪锅的升级 和 玩家烹饪属性与mcmmo和mmocore专业等级兼容
+- 原版模式下拥有美观的物品悬浮效果
 
 ## 特别说明 Special Information
 
