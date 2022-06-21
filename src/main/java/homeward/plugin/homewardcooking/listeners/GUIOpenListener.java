@@ -34,6 +34,7 @@ public class GUIOpenListener implements Listener {
             player.swingMainHand();
 
         } else {
+
             CookingGUI cookingGUI = new CookingGUI();
             cookingGUI.setGuiName("厨艺锅");
             cookingGUI.open(player);
