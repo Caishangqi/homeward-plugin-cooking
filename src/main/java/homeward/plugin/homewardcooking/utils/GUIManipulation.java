@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.utils;
 
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -38,27 +39,27 @@ public class GUIManipulation {
     public static void dataInjectionToGUI(CookingData cookingData, CookingGUI cookingGUI) throws IOException, ClassNotFoundException {
 
         if (cookingData.getSlotI() == null) {
-            cookingGUI.getInventory().setItem(11, new ItemStack(Material.AIR));
+            cookingGUI.getInventory().setItem(11, CommonMaterial.AIR.getItemStack());
         } else {
             cookingGUI.getInventory().setItem(11, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotI()));
         }
 
         if (cookingData.getSlotII() == null) {
-            cookingGUI.getInventory().setItem(20, new ItemStack(Material.AIR));
+            cookingGUI.getInventory().setItem(20, CommonMaterial.AIR.getItemStack());
         } else {
             cookingGUI.getInventory().setItem(20, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotII()));
 
         }
 
         if (cookingData.getSlotIII() == null) {
-            cookingGUI.getInventory().setItem(29, new ItemStack(Material.AIR));
+            cookingGUI.getInventory().setItem(29, CommonMaterial.AIR.getItemStack());
         } else {
             cookingGUI.getInventory().setItem(29, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIII()));
 
         }
 
         if (cookingData.getSlotIV() == null) {
-            cookingGUI.getInventory().setItem(38, new ItemStack(Material.AIR));
+            cookingGUI.getInventory().setItem(38, CommonMaterial.AIR.getItemStack());
         } else {
             cookingGUI.getInventory().setItem(38, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIV()));
 

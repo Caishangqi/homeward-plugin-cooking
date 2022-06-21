@@ -3,6 +3,7 @@ package homeward.plugin.homewardcooking.listeners.cookingmaingui;
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.Material;
@@ -36,25 +37,25 @@ public class CookingGUICloseListener implements Listener {
             if (cookingGUI.getInventory().getItem(avaliableInputSlots[3]) != null) {
                 cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[3])));
             } else {
-                cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(new ItemStack(Material.AIR)));
+                cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
             if (cookingGUI.getInventory().getItem(avaliableInputSlots[2]) != null) {
                 cookingData.setSlotII(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[2])));
             } else {
-                cookingData.setSlotII(StreamItemsUtils.writeEncodedObject(new ItemStack(Material.AIR)));
+                cookingData.setSlotII(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
             if (cookingGUI.getInventory().getItem(avaliableInputSlots[1]) != null) {
                 cookingData.setSlotIII(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[1])));
             } else {
-                cookingData.setSlotIII(StreamItemsUtils.writeEncodedObject(new ItemStack(Material.AIR)));
+                cookingData.setSlotIII(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
             if (cookingGUI.getInventory().getItem(avaliableInputSlots[0]) != null) {
                 cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[0])));
             } else {
-                cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(new ItemStack(Material.AIR)));
+                cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
             file.setObject(locationKey,cookingData);
