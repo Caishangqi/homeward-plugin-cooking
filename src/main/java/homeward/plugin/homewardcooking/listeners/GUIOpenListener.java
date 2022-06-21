@@ -22,9 +22,6 @@ public class GUIOpenListener implements Listener {
         NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
         CookingData cookingData = file.getObject(locationKey, CookingData.class);
 
-
-        System.out.println(Homewardcooking.GUIPools.containsKey(locationKey));
-
         if (Homewardcooking.GUIPools.containsKey(locationKey)) {
             System.out.println("上方");
             CookingGUI currentPotGUI = Homewardcooking.GUIPools.get(locationKey);
@@ -37,7 +34,6 @@ public class GUIOpenListener implements Listener {
             player.swingMainHand();
 
         } else {
-            System.out.println("下方");
             CookingGUI cookingGUI = new CookingGUI();
             cookingGUI.setGuiName("厨艺锅");
             cookingGUI.open(player);
