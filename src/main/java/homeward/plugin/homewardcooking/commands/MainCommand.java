@@ -75,7 +75,7 @@ public class MainCommand extends CommandBase {
     @SubCommand("checkPool")
     public void checkPool(CommandSender commandSender) {
         Player player = (Player) commandSender;
-        player.sendMessage(String.valueOf(Homewardcooking.GUIPools.size()));
+        player.sendMessage(String.valueOf("当前GUI池中缓存的GUI数量为 " + Homewardcooking.GUIPools.size() + " 个"));
 
     }
 
@@ -83,7 +83,7 @@ public class MainCommand extends CommandBase {
     public void removePool(CommandSender commandSender) {
         Player player = (Player) commandSender;
         Homewardcooking.GUIPools.clear();
-        player.sendMessage(String.valueOf(Homewardcooking.GUIPools.size()));
+        player.sendMessage("GUI池清除成功！");
 
     }
 
