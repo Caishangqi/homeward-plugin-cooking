@@ -37,6 +37,7 @@ public class BlockClickListener implements Listener {
             if (file.hasKey(locationKey)) {
 
                 Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player,locationKey));
+
                 // ->
             }
 

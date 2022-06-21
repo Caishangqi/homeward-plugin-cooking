@@ -2,6 +2,7 @@
 package homeward.plugin.homewardcooking.commands;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import me.mattstudios.mf.annotations.Command;
@@ -68,6 +69,21 @@ public class MainCommand extends CommandBase {
         CookingGUI cookingGUI = new CookingGUI();
         cookingGUI.setGuiName("厨艺锅");
         cookingGUI.open(player);
+
+    }
+
+    @SubCommand("checkPool")
+    public void checkPool(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+        player.sendMessage(String.valueOf(Homewardcooking.GUIPools.size()));
+
+    }
+
+    @SubCommand("removePool")
+    public void removePool(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+        Homewardcooking.GUIPools.clear();
+        player.sendMessage(String.valueOf(Homewardcooking.GUIPools.size()));
 
     }
 
