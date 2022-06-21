@@ -35,7 +35,8 @@ public class BlockClickListener implements Listener {
 
             String locationKey = "" + blockX + "" + blockY + "" + blockZ;
 
-            if (file.hasKey(locationKey) && event.getHand()==HAND) {
+            //PlayerInteractEvent默认主手副手都触发 除非判断主手
+            if (file.hasKey(locationKey) && event.getHand() == HAND) {
                 Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player,locationKey));
                 // ->
             }
