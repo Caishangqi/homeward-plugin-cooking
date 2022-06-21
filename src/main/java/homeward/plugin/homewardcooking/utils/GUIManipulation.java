@@ -35,6 +35,7 @@ public class GUIManipulation {
     }
 
     public static void dataInjectionToGUI(CookingData cookingData, CookingGUI cookingGUI) throws IOException, ClassNotFoundException {
+
         cookingGUI.getInventory().setItem(11, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotI()));
         cookingGUI.getInventory().setItem(20, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotII()));
         cookingGUI.getInventory().setItem(29, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIII()));
