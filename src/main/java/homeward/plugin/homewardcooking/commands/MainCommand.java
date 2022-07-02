@@ -55,7 +55,6 @@ public class MainCommand extends CommandBase {
         ServerPlayer serverPlayer = craftPlayer.getHandle(); //NMS
 
         ServerGamePacketListenerImpl listener = serverPlayer.connection;
-
         ClientboundGameEventPacket packet = new ClientboundGameEventPacket(ClientboundGameEventPacket.STOP_RAINING, 0.0f);
         listener.send(packet);
 

@@ -56,5 +56,5 @@
 
 这是一个专门给服务器使用的插件，主要需求会依照服务器需求进行配置，您的需求可能会被延后，感谢谅解。
 
-_This is a plug-in specially used for the server. The main requirements will be configured according to the server
+_This is a plugin specially used for the server. The main requirements will be configured according to the server
 requirements. Your requirements may be delayed. Thank you for your understanding._
