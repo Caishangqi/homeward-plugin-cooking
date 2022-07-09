@@ -201,13 +201,6 @@
             <version>0.10.2</version>
         </dependency>
 
-        <!--依赖内置-->
-        <dependency>
-            <groupId>com.baioretto</groupId>
-            <artifactId>homewardlib</artifactId>
-            <version>1.1.0</version>
-            <scope>compile</scope>
-        </dependency>
 
 
     </dependencies>
