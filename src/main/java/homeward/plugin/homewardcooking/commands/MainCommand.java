@@ -5,6 +5,7 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
+import homeward.plugin.homewardcooking.utils.RecipesLoader;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Completion;
 import me.mattstudios.mf.annotations.Default;
@@ -87,7 +88,7 @@ public class MainCommand extends CommandBase {
     }
 
     @SubCommand("give")
-    @Completion({"#players",  "#range:1-64"})
+    @Completion({"#players", "#range:1-64"})
     public void giveCookingPot(CommandSender commandSender, final Player player, final Integer number) {
 
 
@@ -99,6 +100,27 @@ public class MainCommand extends CommandBase {
 
     }
 
+    @SubCommand("fileinfo")
+    public void fileInfoCheck(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+
+        RecipesLoader recipesLoader = new RecipesLoader();
+        recipesLoader.importRecipes();
+
+        player.sendMessage(String.valueOf(recipesLoader.getLoadRecipes().size()));
+
+    }
+
+    @SubCommand("recipes")
+    public void showRecipes(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+
+        RecipesLoader recipesLoader = new RecipesLoader();
+        recipesLoader.importRecipes();
+
+
+
+    }
     @Default
     public void defaultCommand(final CommandSender commandSender) {
 

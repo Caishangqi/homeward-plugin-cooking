@@ -17,6 +17,7 @@ public class GUIOpenListener implements Listener {
 
     @EventHandler
     public void onGUIOpen(GUIOpenEvent event) throws IOException, ClassNotFoundException {
+
         String locationKey = event.getLocationKey();
         Player player = event.getPlayer();
         NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));

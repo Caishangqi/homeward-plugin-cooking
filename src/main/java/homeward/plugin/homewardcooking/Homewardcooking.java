@@ -3,6 +3,7 @@ package homeward.plugin.homewardcooking;
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import homeward.plugin.homewardcooking.utils.RecipesLoader;
 import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.base.CommandManager;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,9 +23,10 @@ public final class Homewardcooking extends JavaPlugin {
     public static CommandManager commandManager;
 
     public static FileConfiguration config;
+    public static RecipesLoader recipesLoader;
 
     //GUI 打开池
-    public static HashMap<String, CookingGUI> GUIPools = new HashMap<String,CookingGUI>();
+    public static HashMap<String, CookingGUI> GUIPools = new HashMap<String, CookingGUI>();
 
     @Override
     public void onEnable() {

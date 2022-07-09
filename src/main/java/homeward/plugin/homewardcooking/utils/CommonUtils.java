@@ -37,6 +37,8 @@ public class CommonUtils {
     }
 
     public void loadRecipes() {
+        Homewardcooking.recipesLoader = new RecipesLoader();
+        Homewardcooking.recipesLoader.importRecipes();
 
     }
 
