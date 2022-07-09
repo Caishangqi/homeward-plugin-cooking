@@ -2,19 +2,19 @@ example-cooking:
   recipe-name: "示例菜肴"
   recipe-namespace: dining
   recipe-inputs:
-    first-input:
+    1:
       time-required: 10
       type: minecraft
       material: APPLE
-    second-input:
+    2:
       time-required: 10
       type: minecraft
       material: BREAD
-    third-input:
+    3:
       time-required: 10
       type: minecraft
       material: POTATO
-    fourth-input:
+    4:
       type: null
   recipe-outputs:
     main-output:
