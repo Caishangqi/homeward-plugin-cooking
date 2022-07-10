@@ -59,3 +59,7 @@
 
 _This is a plugin specially used for the server. The main requirements will be configured according to the server
 requirements. Your requirements may be delayed. Thank you for your understanding._
+
+## 特别鸣谢 Special Thanks
+
+[Baioretto](https://github.com/Ba1oretto) 的配方加载支持，在 [这里](https://github.com/Ba1oretto/Brewing) 可以查看与这个插件类型类似的出色作品。
