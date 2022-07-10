@@ -3,7 +3,7 @@ package homeward.plugin.homewardcooking;
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
-import homeward.plugin.homewardcooking.utils.RecipesLoader;
+import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.base.CommandManager;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -44,7 +44,7 @@ public final class Homewardcooking extends JavaPlugin {
         saveDefaultConfig();
         config = getConfig();
         this.saveResource("recipes/recipe-general.yml", false);
-        this.saveResource("recipe-dictionary.yml", false); //type: dictionary
+        this.saveResource("dictionary/dictionary.yml", false); //type: dictionary
         this.saveResource("message.yml", false);
         this.saveResource("database.yml", false);
     }

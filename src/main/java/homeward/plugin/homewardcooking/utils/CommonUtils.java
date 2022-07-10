@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.utils;
 
 import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
