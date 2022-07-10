@@ -44,6 +44,7 @@
 
 `/hwc open` 打开建设中的GUI菜单
 
+`/hwc recipes` 查看当前成功加载的配方
 
 ## 未来计划 TODO
 - 支持多个插件的物品 ItemsAdder MMOItems Oraxen 等
