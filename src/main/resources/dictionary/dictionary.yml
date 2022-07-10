@@ -1,0 +1,17 @@
+demo-vegetable:
+  1:
+    type: minecraft
+    material: GRASS
+  2:
+    type: minecraft
+    material: POTATO
+  3:
+    type: minecraft
+    material: STONE
+demo-meat:
+  1:
+    type: minecraft
+    material: RAW_PORK
+  2:
+    type: minecraft
+    material: IRON_INGOT

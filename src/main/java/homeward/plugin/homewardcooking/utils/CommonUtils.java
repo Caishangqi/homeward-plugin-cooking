@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.utils;
 
 import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,7 +41,11 @@ public class CommonUtils {
     public void loadRecipes() {
         Homewardcooking.recipesLoader = new RecipesLoader();
         Homewardcooking.recipesLoader.importRecipes();
+    }
 
+    public void loadDictionary() {
+        Homewardcooking.dictionaryLoader = new DictionaryLoader();
+        Homewardcooking.dictionaryLoader.importDictionary();
     }
 
     public static CommonUtils getInstance() {

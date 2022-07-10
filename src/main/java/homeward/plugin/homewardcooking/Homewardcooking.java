@@ -3,6 +3,7 @@ package homeward.plugin.homewardcooking;
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.base.CommandManager;
@@ -22,6 +23,7 @@ public final class Homewardcooking extends JavaPlugin {
 
     public static FileConfiguration config;
     public static RecipesLoader recipesLoader;
+    public static DictionaryLoader dictionaryLoader;
 
     //GUI 打开池
     public static HashMap<String, CookingGUI> GUIPools = new HashMap<String, CookingGUI>();
@@ -51,6 +53,7 @@ public final class Homewardcooking extends JavaPlugin {
 
     private void loadingRecipes() {
         CommonUtils.getInstance().loadRecipes();
+        CommonUtils.getInstance().loadDictionary();
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "配方加载成功 4/5");
     }
 

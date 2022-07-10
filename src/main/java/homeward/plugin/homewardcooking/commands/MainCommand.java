@@ -5,6 +5,7 @@ import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
+import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import me.mattstudios.mf.annotations.Command;
@@ -112,7 +113,16 @@ public class MainCommand extends CommandBase {
 
         HashMap<String, CookingRecipe> loadRecipes = Homewardcooking.recipesLoader.getLoadRecipes();
         Set<String> strings = loadRecipes.keySet();
-        CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的配方: &7"+ String.valueOf(strings));
+        CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的配方: &7" + String.valueOf(strings));
+    }
+
+    @SubCommand("dictionary")
+    public void showDictionary(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+
+        HashMap<String, DictionaryLabel> loadedDictionary = Homewardcooking.dictionaryLoader.getLoadedDictionary();
+        Set<String> strings = loadedDictionary.keySet();
+        CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的词典: &7" + String.valueOf(strings));
     }
 
     @Default
