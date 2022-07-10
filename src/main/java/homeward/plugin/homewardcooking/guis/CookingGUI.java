@@ -2,10 +2,8 @@ package homeward.plugin.homewardcooking.guis;
 
 import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.DragType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -17,8 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.Thread.sleep;
-import static org.bukkit.event.inventory.InventoryAction.*;
+import static org.bukkit.event.inventory.InventoryAction.MOVE_TO_OTHER_INVENTORY;
 
 public class CookingGUI extends GUI {
 
