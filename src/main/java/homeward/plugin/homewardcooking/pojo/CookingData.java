@@ -1,7 +1,5 @@
 package homeward.plugin.homewardcooking.pojo;
 
-import org.bukkit.inventory.ItemStack;
-
 import java.io.Serializable;
 
 public class CookingData implements Serializable {

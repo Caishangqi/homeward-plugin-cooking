@@ -3,7 +3,6 @@ package homeward.plugin.homewardcooking.utils;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -50,9 +49,15 @@ public class RecipesLoader {
             Set<String> keys = configuration.getKeys(false);
 
             Iterator<String> it = keys.iterator();
-            while (it.hasNext()) {
+            while (it.hasNext() && !keys.isEmpty()) {
                 String key = it.next();
-                loadSingleRecipe(key, configuration);
+                try {
+                    loadSingleRecipe(key, configuration);
+                } catch (Exception exception) {
+                    CommonUtils.getInstance().log(Level.WARNING, Type.FATAL, "配方 " + key + " 加载失败");
+                    exception.printStackTrace();
+                }
+
             }
         }
     }
@@ -62,11 +67,20 @@ public class RecipesLoader {
         CookingRecipe cookingRecipe = new CookingRecipe(); //先创建一个配方对象
         //从recipe-input截取getConfigurationSection获取他的部分
         ConfigurationSection recipeInputs = configuration.getConfigurationSection(key + ".recipe-inputs");
+        //从recipe-outputs截取main-output从getConfigurationSection获取他的部分
+        ConfigurationSection recipeMainOutput = configuration.getConfigurationSection(key + ".recipe-outputs.main-output");
+        ConfigurationSection additionalOutPut = configuration.getConfigurationSection(key + ".recipe-outputs.additional-output");
         //获取所有recipe-inputs下的keys 1,2,3,4
         Set<String> keys = recipeInputs.getKeys(false);
+        Set<String> recipeMainOutputKeys = recipeMainOutput.getKeys(false);
+        Set<String> additionalOutPutKeys = additionalOutPut.getKeys(false);
+
 
         //遍历这些keys
         Iterator<String> it = keys.iterator(); //1,2,3,4
+        Iterator<String> itOfRecipeMainOutputKeys = recipeMainOutputKeys.iterator();
+        Iterator<String> itOfAdditionalOutPutKeys = additionalOutPutKeys.iterator();
+
         //如果有这个key
         while (it.hasNext()) {
             //新建一个配方材料pojo
@@ -95,8 +109,47 @@ public class RecipesLoader {
             cookingRecipe.getContents().add(recipeContent);
 
         }
+
+        while (itOfRecipeMainOutputKeys.hasNext()) {
+            RecipeContent recipeOutputContent = new RecipeContent();
+            String input = itOfRecipeMainOutputKeys.next();
+            switch (input) {
+                case "type":
+                    String type = recipeMainOutput.getString("type");
+                    recipeOutputContent.setType(type);
+                    break;
+                case "material":
+                    String material = recipeMainOutput.getString("material");
+                    recipeOutputContent.setType(material);
+            }
+            cookingRecipe.setMainOutPut(recipeOutputContent);
+        }
+
+        while (itOfAdditionalOutPutKeys.hasNext()) {
+            String next = itOfAdditionalOutPutKeys.next();
+            RecipeContent recipeAdditionalOutPutContent = new RecipeContent();
+            ConfigurationSection additionalOutPutConfigurationSection = additionalOutPut.getConfigurationSection(next);
+            Set<String> sectionKeys = additionalOutPutConfigurationSection.getKeys(false);
+            for (String numberKeys : sectionKeys) {
+                switch (numberKeys) {
+                    case "type":
+                        String type = additionalOutPutConfigurationSection.getString("type");
+                        recipeAdditionalOutPutContent.setType(type);
+                        break;
+                    case "material":
+                        String material = additionalOutPutConfigurationSection.getString("material");
+                        recipeAdditionalOutPutContent.setMaterial(material);
+                        break;
+                    case "command":
+                        String command = additionalOutPutConfigurationSection.getString("command");
+                        recipeAdditionalOutPutContent.setCommand(command);
+                }
+            }
+            cookingRecipe.getAdditionalOutPut().add(recipeAdditionalOutPutContent);
+        }
+
         if (loadRecipes.containsKey(key)) {
-            CommonUtils.getInstance().log(Level.WARNING, Type.FATAL, "你的配方" + " " + key + " 是重复的");
+            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 是重复的");
 
         } else {
             loadRecipes.put(key, cookingRecipe);

@@ -12,8 +12,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
-
 public final class Homewardcooking extends JavaPlugin {
 
     public final static String packageName = Homewardcooking.class.getPackageName();

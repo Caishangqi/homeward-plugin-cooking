@@ -4,7 +4,7 @@ import homeward.plugin.homewardcooking.Homewardcooking;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.event.Event;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.reflections.Reflections;
@@ -54,6 +54,10 @@ public class CommonUtils {
         //Bukkit.getLogger().log(level, ChatColor.translateAlternateColorCodes('&', "[HWC] " + type.getName() + " " + message));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "[HWC] " + type.getName() + " " + message));
 
+    }
+
+    public void sendPluginMessageInServer(Player player, String message) {
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&6协调料理锅&7] " + message));
     }
 
     public ItemStack buildItems(Material material, String name, List<String> lore) {

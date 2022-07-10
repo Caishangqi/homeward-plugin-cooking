@@ -1,7 +1,6 @@
 package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CookingRecipe {
@@ -10,6 +9,7 @@ public class CookingRecipe {
     private RecipeContent mainOutPut;
     private List<RecipeContent> additionalOutPut = new ArrayList<>();
     private String recipeName;
+    private Integer totalRequiredTimes;
 
     public List<RecipeContent> getContents() {
         return contents;
@@ -41,5 +41,13 @@ public class CookingRecipe {
 
     public void setAdditionalOutPut(List<RecipeContent> additionalOutPut) {
         this.additionalOutPut = additionalOutPut;
+    }
+
+    public Integer getTotalRequiredTimes() {
+        return totalRequiredTimes;
+    }
+
+    public void setTotalRequiredTimes(Integer totalRequiredTimes) {
+        this.totalRequiredTimes = totalRequiredTimes;
     }
 }

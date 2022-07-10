@@ -1,12 +1,19 @@
 package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
-import org.bukkit.Material;
-
 public class RecipeContent {
 
-   private Integer timeRequired;
-   private String type;
-   private String material;
+    private Integer timeRequired;
+    private String type;
+    private String material;
+    private String command;
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
 
     public Integer getTimeRequired() {
         return timeRequired;

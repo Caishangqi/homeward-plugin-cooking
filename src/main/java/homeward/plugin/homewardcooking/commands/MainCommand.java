@@ -1,34 +1,29 @@
 
 package homeward.plugin.homewardcooking.commands;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
+import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
+import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.RecipesLoader;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Completion;
 import me.mattstudios.mf.annotations.Default;
 import me.mattstudios.mf.annotations.SubCommand;
 import me.mattstudios.mf.base.CommandBase;
-//import net.minecraft.network.chat.IChatBaseComponent;
-//import net.minecraft.network.protocol.game.PacketPlayOutGameStateChange;
-//import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
-//import net.minecraft.server.network.PlayerConnection;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Set;
 
 @Command("hwc")
 public class MainCommand extends CommandBase {
@@ -115,12 +110,11 @@ public class MainCommand extends CommandBase {
     public void showRecipes(CommandSender commandSender) {
         Player player = (Player) commandSender;
 
-        RecipesLoader recipesLoader = new RecipesLoader();
-        recipesLoader.importRecipes();
-
-
-
+        HashMap<String, CookingRecipe> loadRecipes = Homewardcooking.recipesLoader.getLoadRecipes();
+        Set<String> strings = loadRecipes.keySet();
+        CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的配方: &7"+ String.valueOf(strings));
     }
+
     @Default
     public void defaultCommand(final CommandSender commandSender) {
 
