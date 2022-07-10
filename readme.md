@@ -46,6 +46,8 @@
 
 `/hwc recipes` 查看当前成功加载的配方
 
+`/hwc dictionary` 查看当前成功加载的词典
+
 ## 未来计划 TODO
 - 支持多个插件的物品 ItemsAdder MMOItems Oraxen 等
 - 提供完成烹饪，开始烹饪，烹饪中的API

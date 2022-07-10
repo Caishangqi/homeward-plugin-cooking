@@ -96,17 +96,6 @@ public class MainCommand extends CommandBase {
 
     }
 
-    @SubCommand("fileinfo")
-    public void fileInfoCheck(CommandSender commandSender) {
-        Player player = (Player) commandSender;
-
-        RecipesLoader recipesLoader = new RecipesLoader();
-        recipesLoader.importRecipes();
-
-        player.sendMessage(String.valueOf(recipesLoader.getLoadRecipes().size()));
-
-    }
-
     @SubCommand("recipes")
     public void showRecipes(CommandSender commandSender) {
         Player player = (Player) commandSender;

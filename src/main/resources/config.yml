@@ -21,7 +21,8 @@ recipes-settings:
   check-conflict-recipes: false
   #打碎载体方块是否返回内部物品
   break-block-return-items: true
-
+  #是否启用矿物词典模式 (实验性)
+  enable-dictionary: false
 experimental-settings:
   #使用异步去核对配方
   match-recipes-asynchronous: false
