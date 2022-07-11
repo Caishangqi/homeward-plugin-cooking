@@ -7,7 +7,6 @@ import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
-import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import me.mattstudios.mf.annotations.Command;
 import me.mattstudios.mf.annotations.Completion;
 import me.mattstudios.mf.annotations.Default;

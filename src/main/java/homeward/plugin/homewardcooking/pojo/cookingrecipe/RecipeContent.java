@@ -5,7 +5,6 @@ import homeward.plugin.homewardcooking.utils.Type;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Objects;
 import java.util.logging.Level;
 
 public class RecipeContent {

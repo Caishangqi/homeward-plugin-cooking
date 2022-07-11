@@ -1,6 +1,5 @@
 package homeward.plugin.homewardcooking.events;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

@@ -1,7 +1,6 @@
 package homeward.plugin.homewardcooking.utils.loaders;
 
 import homeward.plugin.homewardcooking.Homewardcooking;
-import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
