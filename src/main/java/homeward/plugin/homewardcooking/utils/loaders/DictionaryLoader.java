@@ -89,7 +89,14 @@ public class DictionaryLoader {
         }
 
 
-        loadedDictionary.put(key, dictionaryLabel);
+        if (loadedDictionary.containsKey(key)) {
+            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的词典 " + " " + key + " 是重复的");
+
+        } else {
+            loadedDictionary.put(key, dictionaryLabel);
+            CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "词典 " + key + " 加载成功");
+        }
+
     }
 
     public HashMap<String, DictionaryLabel> getLoadedDictionary() {
