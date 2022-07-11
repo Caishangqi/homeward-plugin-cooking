@@ -104,6 +104,8 @@ public class DictionaryLoader {
             CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "词典 " + key + " 加载成功");
         }
 
+
+
     }
 
     public HashMap<String, DictionaryLabel> getLoadedDictionary() {
