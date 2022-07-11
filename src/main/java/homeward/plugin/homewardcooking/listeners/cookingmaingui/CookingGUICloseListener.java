@@ -54,11 +54,17 @@ public class CookingGUICloseListener implements Listener {
                 cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
-            if (cookingGUI.getInventory().getItem(24) != null) {
-                cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(24)));
-            } else {
-                cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
+            //TODO 这里摆烂了
+            try {
+                if (cookingGUI.getInventory().getItem(24) != null) {
+                    cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(24)));
+                } else {
+                    cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
+                }
+            } catch (Exception exception) {
+
             }
+
 
             file.setObject(locationKey, cookingData);
             file.save();

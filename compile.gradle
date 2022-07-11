@@ -1,0 +1,47 @@
+def mcversion = '1.18.2-R0.1-SNAPSHOT'
+def normalJarName = "${getRootProject().name}-${version}.jar"
+def normalJarPath = new File(project.buildDir, "libs/${normalJarName}")
+def obfuscatedJarName = "${getRootProject().name}-${version}-obf.jar"
+def obfuscatedJarPath = new File(project.buildDir, "libs/${obfuscatedJarName}")
+
+task mmtmo(type: MojangMappingToMojangObfuscated) {
+    group 'specialsource'
+    mustRunAfter shadowJar
+
+    md5SpecialSourceJar.set new File('H:\\JAVA 教科书\\Java DaNei\\IDEA 项目\\homeward-plugin-cooking\\SpecialSource-1.10.0-shaded.jar')
+
+    minecraftVersion.set mcversion
+    input.set normalJarPath
+}
+
+task motso(type: MojangObfuscatedToSpigotObfuscated) {
+    group 'specialsource'
+    mustRunAfter mmtmo
+
+    md5SpecialSourceJar.set new File('H:\\JAVA 教科书\\Java DaNei\\IDEA 项目\\homeward-plugin-cooking\\SpecialSource-1.10.0-shaded.jar')
+
+    minecraftVersion.set mcversion
+    input.set obfuscatedJarPath
+}
+
+task copyJar(type: Copy) {
+    group 'specialsource'
+
+    from normalJarPath
+    into findProperty('server.plugin.folder')
+
+    rename {
+        "${rootProject.name}-${rootProject.version}.jar"
+    }
+
+    mustRunAfter motso
+}
+
+task compileAll {
+    group 'specialsource'
+
+    dependsOn shadowJar
+    dependsOn mmtmo
+    dependsOn motso
+    dependsOn copyJar
+}

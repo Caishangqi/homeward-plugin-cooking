@@ -28,6 +28,4 @@ public class CookingProcessListener implements Listener {
         }
 
     }
-
-
 }
