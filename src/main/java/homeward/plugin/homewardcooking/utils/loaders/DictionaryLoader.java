@@ -65,6 +65,7 @@ public class DictionaryLoader {
     }
 
     private void loadSingleDictionary(String key, FileConfiguration configuration) {
+        Boolean validDictionary = true;
         DictionaryLabel dictionaryLabel = new DictionaryLabel();
         ConfigurationSection numberSection = configuration.getConfigurationSection(key); // [1,2,3]
         Set<String> containedItemsInDictionary = configuration.getConfigurationSection(key).getKeys(false);
@@ -81,7 +82,9 @@ public class DictionaryLoader {
                         break;
                     case "material":
                         String material = configurationSectionInNumber.getString("material");
-                        recipeContent.setMaterial(material);
+                        if (!recipeContent.setMaterial(material, key)) {
+                            validDictionary = false;
+                        }
                 }
 
 
@@ -94,6 +97,8 @@ public class DictionaryLoader {
         if (loadedDictionary.containsKey(key)) {
             CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的词典 " + " " + key + " 是重复的");
 
+        } else if (!validDictionary) {
+            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的词典" + " " + key + " 加载失败");
         } else {
             loadedDictionary.put(key, dictionaryLabel);
             CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "词典 " + key + " 加载成功");

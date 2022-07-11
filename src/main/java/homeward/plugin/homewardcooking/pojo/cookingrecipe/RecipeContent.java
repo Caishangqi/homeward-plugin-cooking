@@ -53,7 +53,7 @@ public class RecipeContent {
         return material;
     }
 
-    public void setMaterial(String material) {
+    public boolean setMaterial(String material, String key) {
 
         this.material = material;
 
@@ -72,8 +72,11 @@ public class RecipeContent {
                 case "MMOITEMS":
                     CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "暂不支持的物品类型，尽情期待");
             }
+        } else {
+            CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "配方 " + key + "中没有找到相应的 type 元素(type应当写在前)");
+            return false;
         }
 
-
+        return true;
     }
 }

@@ -67,6 +67,8 @@ public class RecipesLoader {
     //将一个FileConfiguration文件里的所有配方加载
     private void loadSingleRecipe(String key, FileConfiguration configuration) {
         CookingRecipe cookingRecipe = new CookingRecipe(); //先创建一个配方对象
+        Boolean validRecipe = true; //检查是否符合配方标准
+
         //从recipe-input截取getConfigurationSection获取他的部分
         ConfigurationSection recipeInputs = configuration.getConfigurationSection(key + ".recipe-inputs");
         //从recipe-outputs截取main-output从getConfigurationSection获取他的部分
@@ -87,6 +89,7 @@ public class RecipesLoader {
         while (it.hasNext()) {
             //新建一个配方材料pojo
             RecipeContent recipeContent = new RecipeContent();
+
             String input = it.next(); //当前是哪个key 1,2,3,4
             //截取1,下面的keys
             ConfigurationSection inputsConfigurationSection = recipeInputs.getConfigurationSection(input); //1
@@ -104,7 +107,11 @@ public class RecipesLoader {
                         break;
                     case "material":
                         String material = inputsConfigurationSection.getString("material");
-                        recipeContent.setMaterial(material);
+                        if (!recipeContent.setMaterial(material, key)) {
+                            validRecipe = false;
+                        }
+
+
                 }
             }
 
@@ -140,7 +147,9 @@ public class RecipesLoader {
                         break;
                     case "material":
                         String material = additionalOutPutConfigurationSection.getString("material");
-                        recipeAdditionalOutPutContent.setMaterial(material);
+                        if (!recipeAdditionalOutPutContent.setMaterial(material, key)) {
+                            validRecipe = false;
+                        }
                         break;
                     case "command":
                         String command = additionalOutPutConfigurationSection.getString("command");
@@ -153,6 +162,8 @@ public class RecipesLoader {
         if (loadRecipes.containsKey(key)) {
             CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 是重复的");
 
+        } else if (!validRecipe) {
+            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 加载失败");
         } else {
             loadRecipes.put(key, cookingRecipe);
             CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "配方" + key + "加载成功");
