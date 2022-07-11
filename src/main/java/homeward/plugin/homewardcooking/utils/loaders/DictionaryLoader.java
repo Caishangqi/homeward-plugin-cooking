@@ -68,7 +68,6 @@ public class DictionaryLoader {
         DictionaryLabel dictionaryLabel = new DictionaryLabel();
         ConfigurationSection numberSection = configuration.getConfigurationSection(key); // [1,2,3]
         Set<String> containedItemsInDictionary = configuration.getConfigurationSection(key).getKeys(false);
-        System.out.println(containedItemsInDictionary); // [1,2,3]
         RecipeContent recipeContent = new RecipeContent();
         for (String itemNumber : containedItemsInDictionary) {
 
