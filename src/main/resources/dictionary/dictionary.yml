@@ -11,7 +11,7 @@ demo-vegetable:
 demo-meat:
   1:
     type: minecraft
-    material: RAW_PORK
+    material: PORKCHOP
   2:
     type: minecraft
     material: IRON_INGOT

@@ -47,7 +47,7 @@ public class DictionaryLoader {
     private void turnConfigFileToDictionary() {
 
         for (FileConfiguration configuration : loadedDictionaryFiles.values()) {
-            Set<String> keys = configuration.getKeys(false);
+            Set<String> keys = configuration.getKeys(false); //2个demo keys
 
             Iterator<String> it = keys.iterator();
             while (it.hasNext() && !keys.isEmpty()) {
@@ -66,10 +66,13 @@ public class DictionaryLoader {
 
     private void loadSingleDictionary(String key, FileConfiguration configuration) {
         DictionaryLabel dictionaryLabel = new DictionaryLabel();
-        Set<String> containedItemsInDictionary = configuration.getKeys(false);
+        ConfigurationSection numberSection = configuration.getConfigurationSection(key); // [1,2,3]
+        Set<String> containedItemsInDictionary = configuration.getConfigurationSection(key).getKeys(false);
+        System.out.println(containedItemsInDictionary); // [1,2,3]
         RecipeContent recipeContent = new RecipeContent();
         for (String itemNumber : containedItemsInDictionary) {
-            ConfigurationSection configurationSectionInNumber = configuration.getConfigurationSection(itemNumber);
+
+            ConfigurationSection configurationSectionInNumber = numberSection.getConfigurationSection(itemNumber);
             for (String keys : configurationSectionInNumber.getKeys(false)) {
 
                 switch (keys) {
