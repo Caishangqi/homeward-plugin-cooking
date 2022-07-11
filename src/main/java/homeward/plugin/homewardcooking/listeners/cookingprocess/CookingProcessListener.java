@@ -16,13 +16,13 @@ public class CookingProcessListener implements Listener {
     public void onCookingProcess(CookingProcessEvent event) {
         //TODO 开始处理配方
         CookingRecipe targetRecipe = event.getTargetRecipe();
+        System.out.println(targetRecipe.getMainOutPut() + "CPL");
         ItemStack targetItems = (ItemStack) targetRecipe.getMainOutPut().getObjectMaterial();
 
         if (event.getWhoCalled().getOpenInventory().getTopInventory().getHolder() instanceof CookingGUI) {
             HashMap<String, CookingGUI> guiPools = Homewardcooking.GUIPools;
             CookingGUI cookingGUI = guiPools.get(event.getLocationKey());
             cookingGUI.getInventory().setItem(24, targetItems);
-            System.out.println("确实开始了" + targetRecipe.getMainOutPut().getType());
         } else {
             System.out.println("???");
         }

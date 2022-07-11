@@ -6,22 +6,27 @@ example-cooking:
       time-required: 10
       type: minecraft
       material: APPLE
+      quantity: 1
     2:
       time-required: 10
       type: minecraft
       material: BREAD
+      quantity: 1
     3:
       time-required: 10
       type: minecraft
       material: POTATO
+      quantity: 1
     4:
       time-required: 10
       type: minecraft
       material: DIAMOND
+      quantity: 1
   recipe-outputs:
     main-output:
       type: minecraft
       material: TURTLE_EGG
+      quantity: 1
     additional-output:
       1:
         type: command
@@ -34,22 +39,27 @@ example-cooking-2:
       time-required: 10
       type: minecraft
       material: APPLE
+      quantity: 1
     second-input:
       time-required: 10
       type: minecraft
       material: BREAD
+      quantity: 1
     third-input:
       time-required: 10
       type: minecraft
       material: POTATO
+      quantity: 1
     fourth-input:
       time-required: 10
       type: minecraft
       material: DIRT
+      quantity: 1
   recipe-outputs:
     main-output:
       type: minecraft
       material: GOLD_INGOT
+      quantity: 1
     additional-output:
       1:
         type: command

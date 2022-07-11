@@ -17,6 +17,16 @@ public class RecipeContent {
     //真正序列化完毕的物品在这里
     private Object objectMaterial;
 
+    private Integer quantity = 1;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public Object getObjectMaterial() {
         return objectMaterial;
     }
@@ -57,11 +67,12 @@ public class RecipeContent {
 
         this.material = material;
 
+
         if (this.type != null) {
-            switch (this.type) {
+            switch (getType()) {
                 case "minecraft":
                     try {
-                        ItemStack objectMaterial = new ItemStack(Material.valueOf(material));
+                        ItemStack objectMaterial = new ItemStack(Material.valueOf(material), quantity);
                         this.setObjectMaterial(objectMaterial);
                     } catch (Exception exception) {
                         CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "未找到以开头 " + this.type + " 类型的 " + material + " 物品");
@@ -74,17 +85,8 @@ public class RecipeContent {
             }
         } else {
             CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "配方 " + key + "中没有找到相应的 type 元素(type应当写在前)");
-            //暂时摆烂
-            try {
-                ItemStack objectMaterial = new ItemStack(Material.valueOf(material));
-                this.setObjectMaterial(objectMaterial);
-            } catch (Exception exception) {
-                CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "未找到以开头 " + this.type + " 类型的 " + material + " 物品");
-                exception.printStackTrace();
-            }
             return true;
         }
-
         return true;
     }
 }

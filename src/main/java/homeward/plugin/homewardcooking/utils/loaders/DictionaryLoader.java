@@ -80,6 +80,10 @@ public class DictionaryLoader {
                         String type = configurationSectionInNumber.getString("type");
                         recipeContent.setType(type);
                         break;
+                    case "quantity":
+                        int quantity = configurationSectionInNumber.getInt("quantity", 1);
+                        recipeContent.setQuantity(quantity);
+                        break;
                     case "material":
                         String material = configurationSectionInNumber.getString("material");
                         if (!recipeContent.setMaterial(material, key)) {
@@ -103,7 +107,6 @@ public class DictionaryLoader {
             loadedDictionary.put(key, dictionaryLabel);
             CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "词典 " + key + " 加载成功");
         }
-
 
 
     }

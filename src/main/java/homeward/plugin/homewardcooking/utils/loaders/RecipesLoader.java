@@ -5,9 +5,12 @@ import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
+import net.minecraft.world.item.Items;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Item;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.HashMap;
@@ -104,30 +107,35 @@ public class RecipesLoader {
                     case "type":
                         String type = inputsConfigurationSection.getString("type");
                         recipeContent.setType(type);
+
+                        break;
+                    case "quantity":
+                        int quantity = inputsConfigurationSection.getInt("quantity", 1);
+                        recipeContent.setQuantity(quantity);
                         break;
                     case "material":
                         String material = inputsConfigurationSection.getString("material");
                         if (!recipeContent.setMaterial(material, key)) {
                             validRecipe = false;
                         }
-
-
                 }
             }
-
             cookingRecipe.getContents().add(recipeContent);
-
         }
 
+        RecipeContent recipeOutputContent = new RecipeContent();
         while (itOfRecipeMainOutputKeys.hasNext()) {
-            RecipeContent recipeOutputContent = new RecipeContent();
+
             String input = itOfRecipeMainOutputKeys.next();
             switch (input) {
                 case "type":
-                    String type = recipeMainOutput.getString("type");
+                    String type = recipeMainOutput.get("type").toString();
                     recipeOutputContent.setType(type);
-                    System.out.println(recipeOutputContent.getType());
                     //这里确认可以赋值
+                    break;
+                case "quantity":
+                    int quantity = recipeMainOutput.getInt("quantity", 1);
+                    recipeOutputContent.setQuantity(quantity);
                     break;
                 case "material":
                     String material = recipeMainOutput.getString("material");
@@ -135,11 +143,15 @@ public class RecipesLoader {
                     if (!recipeOutputContent.setMaterial(material, key)) {
                         validRecipe = false;
                     }
-
-
+                    ItemStack objectMaterial = (ItemStack) recipeOutputContent.getObjectMaterial();
+                    break;
+                default:
+                    break;
             }
-            cookingRecipe.setMainOutPut(recipeOutputContent);
+
+
         }
+        cookingRecipe.setMainOutPut(recipeOutputContent);
 
         while (itOfAdditionalOutPutKeys.hasNext()) {
             String next = itOfAdditionalOutPutKeys.next();
@@ -157,6 +169,10 @@ public class RecipesLoader {
                         if (!recipeAdditionalOutPutContent.setMaterial(material, key)) {
                             validRecipe = false;
                         }
+                        break;
+                    case "quantity":
+                        int quantity = additionalOutPutConfigurationSection.getInt("quantity", 1);
+                        recipeAdditionalOutPutContent.setQuantity(quantity);
                         break;
                     case "command":
                         String command = additionalOutPutConfigurationSection.getString("command");
