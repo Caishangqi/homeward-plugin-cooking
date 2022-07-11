@@ -26,3 +26,31 @@ example-cooking:
       1:
         type: command
         command: "say hello"
+example-cooking-2:
+  recipe-name: "炼金术"
+  recipe-namespace: dining
+  recipe-inputs:
+    first-input:
+      time-required: 10
+      type: minecraft
+      material: APPLE
+    second-input:
+      time-required: 10
+      type: minecraft
+      material: BREAD
+    third-input:
+      time-required: 10
+      type: minecraft
+      material: POTATO
+    fourth-input:
+      time-required: 10
+      type: minecraft
+      material: DIRT
+  recipe-outputs:
+    main-output:
+      type: minecraft
+      material: GOLD_INGOT
+    additional-output:
+      1:
+        type: command
+        command: "say hello"
