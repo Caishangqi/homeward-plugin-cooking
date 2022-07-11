@@ -64,6 +64,13 @@ public class GUIManipulation {
 
         }
 
+        if (cookingData.getMainOutput() == null) {
+            cookingGUI.getInventory().setItem(24, CommonMaterial.AIR.getItemStack());
+        } else {
+            cookingGUI.getInventory().setItem(24, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput()));
+
+        }
+
 
     }
 }

@@ -15,11 +15,13 @@ example-cooking:
       type: minecraft
       material: POTATO
     4:
-      type: null
+      time-required: 10
+      type: minecraft
+      material: DIAMOND
   recipe-outputs:
     main-output:
       type: minecraft
-      material: DIAMOND
+      material: TURTLE_EGG
     additional-output:
       1:
         type: command

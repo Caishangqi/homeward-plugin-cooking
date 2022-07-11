@@ -54,7 +54,13 @@ public class CookingGUICloseListener implements Listener {
                 cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
-            file.setObject(locationKey,cookingData);
+            if (cookingGUI.getInventory().getItem(24) != null) {
+                cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(24)));
+            } else {
+                cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
+            }
+
+            file.setObject(locationKey, cookingData);
             file.save();
 
             //如果这个GUI没有任何人查看，就直接把他删除否则一直存放到 GUIPoll中

@@ -1,8 +1,13 @@
 package homeward.plugin.homewardcooking.guis;
 
+import homeward.plugin.homewardcooking.events.CookingInitialEvent;
 import homeward.plugin.homewardcooking.pojo.Button;
+import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -21,7 +26,7 @@ public class CookingGUI extends GUI {
 
     private String guiName;
     private String locationKey;
-    private static final int[] avaliableInputSlots = new int[] {38, 29, 20, 11};
+    private static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
     private static final int avaliableOuputSlots = 24;
     private static final int miscellaneousSlots = 42;
     private static final int startButton = 40;
@@ -86,7 +91,36 @@ public class CookingGUI extends GUI {
             e.setCancelled(true);
         }
 
+        if (e.getRawSlot() == 24 && e.getCursor().getType() == Material.AIR) {
+            e.setCancelled(false);
+        }
 
+        //配方按钮点击开始逻辑
+        if (e.getRawSlot() == Button.START_BUTTON.getSlot()) {
+
+            Player whoClicked = (Player) e.getWhoClicked();
+
+            Bukkit.getServer().getPluginManager().callEvent(new CookingInitialEvent(whoClicked, getContainItemList(), locationKey));
+            //whoClicked.playSound(whoClicked.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
+
+        }
+
+
+    }
+
+    public List<ItemStack> getContainItemList() {
+        List<ItemStack> containedList = new ArrayList<>();
+        for (int i : avaliableInputSlots) {
+            try {
+                containedList.add(this.getInventory().getItem(i));
+            } catch (Exception exception) {
+                containedList.add(CommonMaterial.AIR.getItemStack());
+                exception.printStackTrace();
+            }
+
+        }
+
+        return containedList;
     }
 
     @Override

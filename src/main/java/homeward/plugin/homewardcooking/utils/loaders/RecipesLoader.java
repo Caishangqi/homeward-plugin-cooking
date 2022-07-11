@@ -76,7 +76,7 @@ public class RecipesLoader {
         ConfigurationSection additionalOutPut = configuration.getConfigurationSection(key + ".recipe-outputs.additional-output");
         //获取所有recipe-inputs下的keys 1,2,3,4
         Set<String> keys = recipeInputs.getKeys(false);
-        Set<String> recipeMainOutputKeys = recipeMainOutput.getKeys(false);
+        Set<String> recipeMainOutputKeys = recipeMainOutput.getKeys(false); //type, material
         Set<String> additionalOutPutKeys = additionalOutPut.getKeys(false);
 
 
@@ -126,10 +126,17 @@ public class RecipesLoader {
                 case "type":
                     String type = recipeMainOutput.getString("type");
                     recipeOutputContent.setType(type);
+                    System.out.println(recipeOutputContent.getType());
+                    //这里确认可以赋值
                     break;
                 case "material":
                     String material = recipeMainOutput.getString("material");
-                    recipeOutputContent.setType(material);
+                    //这里的setMaterial进入对象内部获取type的时候是空的 不知道为什么 TODO - 修复
+                    if (!recipeOutputContent.setMaterial(material, key)) {
+                        validRecipe = false;
+                    }
+
+
             }
             cookingRecipe.setMainOutPut(recipeOutputContent);
         }

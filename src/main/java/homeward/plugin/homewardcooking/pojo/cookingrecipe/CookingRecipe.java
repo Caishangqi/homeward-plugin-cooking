@@ -1,5 +1,7 @@
 package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
+import org.bukkit.inventory.ItemStack;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,8 @@ public class CookingRecipe {
     private List<RecipeContent> additionalOutPut = new ArrayList<>();
     private String recipeName;
     private Integer totalRequiredTimes;
+
+    private List<ItemStack> objectItems = new ArrayList<>();
 
     public List<RecipeContent> getContents() {
         return contents;
@@ -49,5 +53,18 @@ public class CookingRecipe {
 
     public void setTotalRequiredTimes(Integer totalRequiredTimes) {
         this.totalRequiredTimes = totalRequiredTimes;
+    }
+
+    public List<ItemStack> getObjectItems() {
+
+        for (RecipeContent recipes : contents) {
+            ItemStack objectMaterial = (ItemStack) recipes.getObjectMaterial();
+            objectItems.add(objectMaterial);
+        }
+        return objectItems;
+    }
+
+    public void setObjectItems(List<ItemStack> objectItems) {
+        this.objectItems = objectItems;
     }
 }
