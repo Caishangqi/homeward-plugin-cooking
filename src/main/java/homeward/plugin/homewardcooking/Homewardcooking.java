@@ -2,11 +2,14 @@ package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.CookingData;
+import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
 import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import me.mattstudios.mf.base.CommandManager;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,6 +30,8 @@ public final class Homewardcooking extends JavaPlugin {
 
     //GUI 打开池
     public static HashMap<String, CookingGUI> GUIPools = new HashMap<String, CookingGUI>();
+    //任务调度池
+    public static HashMap<Location, CookingProcessObject> processPool = new Pools().getProcessPool();
 
     @Override
     public void onEnable() {

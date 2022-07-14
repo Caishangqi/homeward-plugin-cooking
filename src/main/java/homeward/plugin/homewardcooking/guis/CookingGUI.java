@@ -144,6 +144,7 @@ public class CookingGUI extends GUI {
 
         inventory.setItem(startButton, Button.START_BUTTON.getButton());
         inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
+        inventory.setItem(Button.PROCESS_BUTTON.getSlot(),Button.PROCESS_BUTTON.getButton());
 
         fillMenu();
 

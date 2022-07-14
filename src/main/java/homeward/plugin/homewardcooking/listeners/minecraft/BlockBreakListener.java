@@ -29,7 +29,7 @@ public class BlockBreakListener implements Listener {
             int blockY = breakBlock.getLocation().getBlockY();
             int blockZ = breakBlock.getLocation().getBlockZ();
 
-            String locationKey = "" + blockX + "" + blockY + "" + blockZ;
+            String locationKey = breakBlock.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
 
             if (file.hasKey(locationKey)) {
 

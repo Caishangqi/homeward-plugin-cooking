@@ -101,6 +101,7 @@ public class RecipesLoader {
                     case "time-required":
                         String timeRequired = inputsConfigurationSection.getString("time-required");
                         recipeContent.setTimeRequired(Integer.valueOf(timeRequired));
+                        cookingRecipe.setTotalRequiredTimes(Integer.valueOf(cookingRecipe.getTotalRequiredTimes() + timeRequired));
                         break;
                     case "type":
                         String type = inputsConfigurationSection.getString("type");

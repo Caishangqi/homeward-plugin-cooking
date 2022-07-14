@@ -10,6 +10,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public abstract class GUI implements InventoryHolder {
@@ -47,12 +48,18 @@ public abstract class GUI implements InventoryHolder {
             inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
             this.setMenuItems();
             whoOwnsInventory = player;
+
+            test.accept(this);
+
             player.openInventory(inventory);
         } else {
             player.openInventory(inventory);
         }
 
     }
+
+    public Consumer<GUI> test;
+
 
     @Override
     public @NotNull Inventory getInventory() {

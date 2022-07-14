@@ -4,14 +4,18 @@ import de.tr7zw.changeme.nbtapi.NBTFile;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.events.GUIOpenEvent;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.guis.GUI;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class GUIOpenListener implements Listener {
 
@@ -38,9 +42,11 @@ public class GUIOpenListener implements Listener {
 
             CookingGUI cookingGUI = new CookingGUI();
             cookingGUI.setGuiName("厨艺锅");
+
+            cookingGUI.test = consumersss(cookingData,cookingGUI);
             cookingGUI.open(player);
             //数据载入
-            GUIManipulation.dataInjectionToGUI(cookingData, cookingGUI);
+            // GUIManipulation.dataInjectionToGUI(cookingData, cookingGUI);
             //数据载入结束
             cookingGUI.addPlayerToOpenPlayers(player);
             cookingGUI.setLocationKey(locationKey);
@@ -49,5 +55,15 @@ public class GUIOpenListener implements Listener {
 
         }
 
+    }
+
+    public Consumer<GUI> consumersss (CookingData cookingData, CookingGUI cookingGUI) {
+        return gui -> {
+            try {
+                GUIManipulation.dataInjectionToGUI(cookingData, cookingGUI);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        };
     }
 }

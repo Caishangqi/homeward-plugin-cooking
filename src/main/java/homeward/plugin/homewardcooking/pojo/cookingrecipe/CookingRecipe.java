@@ -11,7 +11,7 @@ public class CookingRecipe {
     private RecipeContent mainOutPut;
     private List<RecipeContent> additionalOutPut = new ArrayList<>();
     private String recipeName;
-    private Integer totalRequiredTimes;
+    private Integer totalRequiredTimes = 0;
 
     private List<ItemStack> objectItems = new ArrayList<>();
 

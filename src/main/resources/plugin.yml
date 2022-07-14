@@ -1,5 +1,5 @@
 name: HomewardCooking
-version: '${project.version}'
+version: '${version}'
 main: homeward.plugin.homewardcooking.Homewardcooking
 api-version: 1.18
 prefix: HWC

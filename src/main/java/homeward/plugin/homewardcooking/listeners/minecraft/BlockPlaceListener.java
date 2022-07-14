@@ -2,7 +2,9 @@ package homeward.plugin.homewardcooking.listeners.minecraft;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.pojo.CookingData;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,11 +32,18 @@ public class BlockPlaceListener implements Listener {
             int blockY = blockPlaced.getLocation().getBlockY();
             int blockZ = blockPlaced.getLocation().getBlockZ();
 
-            String locationKey = "" + blockX + "" + blockY + "" + blockZ;
+            String locationKey = blockPlaced.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
 
             if (!file.hasKey(locationKey)) {
                 file.setObject(locationKey, new CookingData());
-                file.save();
+                Bukkit.getScheduler().runTaskAsynchronously(Homewardcooking.getInstance(), () -> {
+                    try {
+                        file.save();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
                 player.sendMessage("设置物品信息成功");
             }
 

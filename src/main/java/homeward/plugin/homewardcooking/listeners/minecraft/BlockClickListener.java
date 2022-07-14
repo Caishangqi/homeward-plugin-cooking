@@ -31,7 +31,7 @@ public class BlockClickListener implements Listener {
 
             NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
 
-            String locationKey = "" + blockX + "" + blockY + "" + blockZ;
+            String locationKey = clickedBlock.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
 
             //PlayerInteractEvent默认主手副手都触发 除非判断主手
             if (file.hasKey(locationKey) && event.getHand() == HAND) {
