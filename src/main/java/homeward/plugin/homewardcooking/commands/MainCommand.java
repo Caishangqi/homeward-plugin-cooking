@@ -4,6 +4,7 @@ package homeward.plugin.homewardcooking.commands;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
+import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -17,6 +18,7 @@ import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -112,6 +114,26 @@ public class MainCommand extends CommandBase {
         Set<String> strings = loadedDictionary.keySet();
         CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的词典: &7" + String.valueOf(strings));
     }
+
+    @SubCommand("onprocess")
+    public void showOnProcess(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+
+        HashMap<Location, CookingProcessObject> processPool = Homewardcooking.processPool;
+        try {
+            Set<Location> strings = processPool.keySet();
+            CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前正在进行的配方: &7");
+            for (Location l : strings) {
+                CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l: &7 世界 - " + l.getWorld().getName() + " &c输出 &7- "+processPool.get(l).getCookingRecipe().getMainOutPut().getMaterial());
+            }
+        }catch (Exception e) {
+            CommonUtils.getInstance().sendPluginMessageInServer(player, "&6&l当前没有正在进行的配方");
+        }
+
+
+
+    }
+
 
     @Default
     public void defaultCommand(final CommandSender commandSender) {

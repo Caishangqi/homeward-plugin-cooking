@@ -3,9 +3,7 @@ package homeward.plugin.homewardcooking.utils;
 import homeward.plugin.homewardcooking.Homewardcooking;
 import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -87,6 +85,15 @@ public class CommonUtils {
         ItemStack item = new ItemBuilder(material)
                 .setName(ChatColor.translateAlternateColorCodes('&', name));
         return item;
+    }
+
+    public String toStringBlockLocationKey(Location location) {
+        return location.getWorld() + " " + location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ();
+    }
+
+    public Location toBukkitBlockLocationKey (String location, World world) {
+        String[] locations = location.split(" ");
+        return new Location(world,Double.parseDouble(locations[1]),Double.parseDouble(locations[2]),Double.parseDouble(locations[3]));
     }
 
 

@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class CookingInitialListener implements Listener {
@@ -20,7 +21,11 @@ public class CookingInitialListener implements Listener {
     @EventHandler
     public void onCookingInitial(CookingInitialEvent event) {
         CookingRecipe recipe = isPresentRecipe(event.getContainedMaterial());
-        if (recipe != null) { //是否匹配配方
+
+        if (Homewardcooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(event.getLocationKey(),event.getPlayer().getWorld()))) {
+            event.getPlayer().playSound(event.getPlayer(), Sound.BLOCK_PISTON_CONTRACT, 1.0F, 2.0F);
+            CommonUtils.getInstance().sendPluginMessageInServer(event.getPlayer(), "&c当前已经有一个正在进行的配方了");
+        } else if (recipe != null) {
             //TODO 开始处理配方
             Bukkit.getServer().getPluginManager().callEvent(new CookingProcessEvent(event.getPlayer(), recipe, event.getLocationKey()));
             //特效罢了
@@ -29,6 +34,7 @@ public class CookingInitialListener implements Listener {
             event.getPlayer().playSound(event.getPlayer(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
             CommonUtils.getInstance().sendPluginMessageInServer(event.getPlayer(), "&c未找到对应配方!");
         }
+
     }
 
     public CookingRecipe isPresentRecipe(List<ItemStack> itemStacks) {
@@ -38,7 +44,7 @@ public class CookingInitialListener implements Listener {
 
         for (CookingRecipe recipe : cookingRecipes) {
             List<ItemStack> list = recipe.getObjectItems();
-            if (itemStacks.containsAll(recipe.getObjectItems())) {
+            if (new HashSet<>(itemStacks).containsAll(recipe.getObjectItems())) {
                 return recipe;
             }
         }

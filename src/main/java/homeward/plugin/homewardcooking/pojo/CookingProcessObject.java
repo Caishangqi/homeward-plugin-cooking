@@ -8,7 +8,7 @@ public class CookingProcessObject {
     private CookingRecipe cookingRecipe;
     private Player whoStart;
     private Integer remainTime;
-    private final Integer totalTime = cookingRecipe.getTotalRequiredTimes();
+    private Integer totalTime;
 
     public CookingRecipe getCookingRecipe() {
         return cookingRecipe;
@@ -36,5 +36,9 @@ public class CookingProcessObject {
 
     public Integer getTotalTime() {
         return totalTime;
+    }
+
+    public void setTotalTime(Integer totalTime) {
+        this.totalTime = totalTime;
     }
 }
