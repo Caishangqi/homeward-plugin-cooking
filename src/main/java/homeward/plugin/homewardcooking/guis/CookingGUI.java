@@ -4,9 +4,12 @@ import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.events.CookingInitialEvent;
 import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
+import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,9 +17,11 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import redempt.redlib.itemutils.ItemBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -144,17 +149,26 @@ public class CookingGUI extends GUI {
     @Override
     public void setMenuItems(Player player) {
 
-        inventory.setItem(startButton, Button.START_BUTTON.getButton());
-        inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
+        Bukkit.getScheduler().runTaskAsynchronously(HomewardCooking.getInstance(), () -> {
+            inventory.setItem(startButton, Button.START_BUTTON.getButton());
+            inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
 
-        if (!HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey,player.getWorld())))
-            inventory.setItem(Button.READY_BUTTON.getSlot(),Button.READY_BUTTON.getButton());
+            if (!HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()))) {
+                inventory.setItem(Button.READY_BUTTON.getSlot(), Button.READY_BUTTON.getButton());
+            } else {
+                HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
+                CookingProcessObject cookingProcessObject = processPool.get(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()));
 
+                ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())
+                        .setName(ChatColor.translateAlternateColorCodes('&', Button.PROCESS_BUTTON.getName() + cookingProcessObject.getCookingRecipe().getRecipeName())).setLore(ChatColor.translateAlternateColorCodes('&', "&6剩余时间: &7" + cookingProcessObject.getRemainTime()));
+                inventory.setItem(Button.PROCESS_BUTTON.getSlot(), processButton);
+            }
 
-        fillMenu();
+            fillMenu();
+        });
+
 
     }
-
 
 
     private void fillMenu() {

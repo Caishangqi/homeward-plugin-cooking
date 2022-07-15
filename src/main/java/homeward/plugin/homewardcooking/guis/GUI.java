@@ -1,5 +1,6 @@
 package homeward.plugin.homewardcooking.guis;
 
+import homeward.plugin.homewardcooking.HomewardCooking;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -46,6 +47,7 @@ public abstract class GUI implements InventoryHolder {
 
         if (whoOwnsInventory == null) {
             inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
+
             this.setMenuItems(player);
             whoOwnsInventory = player;
 
