@@ -48,12 +48,22 @@
 
 `/hwc dictionary` 查看当前成功加载的词典
 
+`/hwc onprocess` 查看当前正在烹饪的配方
+
+## 简单上手
+
+- 将插件丢入 `plugin` 文件夹下
+- 输入指令 `/hwc give <玩家> <数量>` 获取烹饪锅
+- 将烹饪锅放置到地面，打开它放入配方
+- 点击 `开始烹饪` !
+
 ## 未来计划 TODO
 - 支持多个插件的物品 ItemsAdder MMOItems Oraxen 等
 - 提供完成烹饪，开始烹饪，烹饪中的API
 - 新增燃料设置，可以在配置文件中取消
 - 烹饪锅的升级 和 玩家烹饪属性与mcmmo和mmocore专业等级兼容
 - 原版模式下拥有美观的物品悬浮效果
+
 
 ## 特别说明 Special Information
 
@@ -64,4 +74,4 @@ requirements. Your requirements may be delayed. Thank you for your understanding
 
 ## 特别鸣谢 Special Thanks
 
-[Baioretto](https://github.com/Ba1oretto) 的配方加载支持，在 [这里](https://github.com/Ba1oretto/Brewing) 可以查看与这个插件类型类似的出色作品。
+[Baioretto](https://github.com/Ba1oretto) 的各项高级JVM特性支持，在 [这里](https://github.com/Ba1oretto/Brewing) 可以查看与这个插件类型类似的出色作品。
