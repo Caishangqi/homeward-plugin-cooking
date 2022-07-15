@@ -1,6 +1,6 @@
 package homeward.plugin.homewardcooking.utils.loaders;
 
-import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -24,7 +24,7 @@ public class RecipesLoader {
     private HashMap<String, CookingRecipe> loadRecipes = new HashMap<>();
     private File accessRawYMLFile[];
     //
-    private File pluginFolder = new File(Homewardcooking.getInstance().getDataFolder(), "recipes");
+    private File pluginFolder = new File(HomewardCooking.getInstance().getDataFolder(), "recipes");
 
     public void importRecipes() {
         //开始从文件形式导入到YamlConfiguration， 3个文件就有3个YamlConfiguration
@@ -68,6 +68,8 @@ public class RecipesLoader {
     //将一个FileConfiguration文件里的所有配方加载
     private void loadSingleRecipe(String key, FileConfiguration configuration) {
         CookingRecipe cookingRecipe = new CookingRecipe(); //先创建一个配方对象
+        cookingRecipe.setRecipeKey(key);
+        System.out.println("cookingRecipe.getRecipeKey() "+cookingRecipe.getRecipeKey());
         Boolean validRecipe = true; //检查是否符合配方标准
 
         //从recipe-input截取getConfigurationSection获取他的部分
@@ -101,7 +103,7 @@ public class RecipesLoader {
                     case "time-required":
                         String timeRequired = inputsConfigurationSection.getString("time-required");
                         recipeContent.setTimeRequired(Integer.valueOf(timeRequired));
-                        cookingRecipe.setTotalRequiredTimes(cookingRecipe.getTotalRequiredTimes() + Integer.parseInt(timeRequired) );
+                        cookingRecipe.setTotalRequiredTimes(cookingRecipe.getTotalRequiredTimes() + Integer.parseInt(timeRequired));
                         break;
                     case "type":
                         String type = inputsConfigurationSection.getString("type");

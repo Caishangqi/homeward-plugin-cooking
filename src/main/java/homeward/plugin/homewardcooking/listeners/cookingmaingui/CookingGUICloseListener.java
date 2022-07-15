@@ -1,7 +1,7 @@
 package homeward.plugin.homewardcooking.listeners.cookingmaingui;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
-import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
@@ -70,8 +70,8 @@ public class CookingGUICloseListener implements Listener {
             file.save();
 
             //如果这个GUI没有任何人查看，就直接把他删除否则一直存放到 GUIPoll中
-            if (Homewardcooking.GUIPools.get(locationKey).getOpenedPlayers().size() == 0) {
-                Homewardcooking.GUIPools.remove(locationKey);
+            if (HomewardCooking.GUIPools.get(locationKey).getOpenedPlayers().size() == 0) {
+                HomewardCooking.GUIPools.remove(locationKey);
                 player.sendMessage("移除无人查看的GUI");
             }
 

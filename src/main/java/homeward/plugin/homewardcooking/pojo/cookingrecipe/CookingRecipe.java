@@ -2,15 +2,18 @@ package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CookingRecipe {
+public class CookingRecipe implements Serializable {
 
     private List<RecipeContent> contents = new ArrayList<>();
     private RecipeContent mainOutPut;
     private List<RecipeContent> additionalOutPut = new ArrayList<>();
     private String recipeName;
+    //一个配方应该对应这一个值 配置文件的顶部
+    private String recipeKey;
     private Integer totalRequiredTimes = 0;
 
     private List<ItemStack> objectItems = new ArrayList<>();
@@ -66,5 +69,13 @@ public class CookingRecipe {
 
     public void setObjectItems(List<ItemStack> objectItems) {
         this.objectItems = objectItems;
+    }
+
+    public String getRecipeKey() {
+        return recipeKey;
+    }
+
+    public void setRecipeKey(String recipeKey) {
+        this.recipeKey = recipeKey;
     }
 }

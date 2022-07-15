@@ -1,6 +1,6 @@
 package homeward.plugin.homewardcooking.utils.loaders;
 
-import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -19,7 +19,7 @@ public class DictionaryLoader {
 
     private HashMap<String, FileConfiguration> loadedDictionaryFiles = new HashMap<>();
 
-    private File dictionaryFolder = new File(Homewardcooking.getInstance().getDataFolder(), "dictionary");
+    private File dictionaryFolder = new File(HomewardCooking.getInstance().getDataFolder(), "dictionary");
 
     private HashMap<String, DictionaryLabel> loadedDictionary = new HashMap<>();
 

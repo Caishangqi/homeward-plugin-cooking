@@ -3,7 +3,9 @@ package homeward.plugin.homewardcooking.pojo;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import org.bukkit.entity.Player;
 
-public class CookingProcessObject {
+import java.io.Serializable;
+
+public class CookingProcessObject implements Serializable {
 
     private CookingRecipe cookingRecipe;
     private Player whoStart;

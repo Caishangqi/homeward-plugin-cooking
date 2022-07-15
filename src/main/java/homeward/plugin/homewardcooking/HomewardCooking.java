@@ -2,7 +2,6 @@ package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
-import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.scheduler.ProcessCookingScheduler;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -10,6 +9,7 @@ import homeward.plugin.homewardcooking.utils.Type;
 import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import me.mattstudios.mf.base.CommandManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,12 +17,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-public final class Homewardcooking extends JavaPlugin {
+public final class HomewardCooking extends JavaPlugin {
 
-    public final static String packageName = Homewardcooking.class.getPackageName();
+    public final static String packageName = HomewardCooking.class.getPackageName();
 
     //插件主类
-    public static Homewardcooking plugin;
+    public static HomewardCooking plugin;
     public static CommandManager commandManager;
 
     public static FileConfiguration config;
@@ -30,7 +30,7 @@ public final class Homewardcooking extends JavaPlugin {
     public static DictionaryLoader dictionaryLoader;
 
     //GUI 打开池
-    public static HashMap<String, CookingGUI> GUIPools = new HashMap<String, CookingGUI>();
+    public static HashMap<String, CookingGUI> GUIPools = new HashMap<>();
     //任务调度池
     public static HashMap<Location, CookingProcessObject> processPool = new HashMap<>();
 
@@ -44,8 +44,13 @@ public final class Homewardcooking extends JavaPlugin {
         registerListeners();
         loadingRecipes();
         loadingScheduler();
+        loadingCookingProcess();
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "插件加载成功 5/5");
 
+    }
+
+    private void loadingCookingProcess() {
+        CommonUtils.getInstance().startProcessCooking();
     }
 
     private void loadingScheduler() {
@@ -87,9 +92,19 @@ public final class Homewardcooking extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        unloadScheduler();
+        saveProcessCooking();
         unloadDependencies();
         disableTask();
         disableMessages();
+    }
+
+    private void unloadScheduler() {
+        Bukkit.getScheduler().cancelTasks(HomewardCooking.getInstance());
+    }
+
+    private void saveProcessCooking() {
+        CommonUtils.getInstance().saveProcessCooking();
     }
 
     private void disableMessages() {
@@ -102,7 +117,7 @@ public final class Homewardcooking extends JavaPlugin {
     private void unloadDependencies() {
     }
 
-    public static Homewardcooking getInstance() {
+    public static HomewardCooking getInstance() {
         return plugin;
     }
 

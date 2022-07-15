@@ -5,9 +5,10 @@ import homeward.plugin.homewardcooking.utils.Type;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 
-public class RecipeContent {
+public class RecipeContent implements Serializable {
 
     private Integer timeRequired;
     private String type;

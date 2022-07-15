@@ -1,7 +1,7 @@
 
 package homeward.plugin.homewardcooking.commands;
 
-import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
@@ -72,14 +72,14 @@ public class MainCommand extends CommandBase {
     @SubCommand("checkPool")
     public void checkPool(CommandSender commandSender) {
         Player player = (Player) commandSender;
-        player.sendMessage(String.valueOf("当前GUI池中缓存的GUI数量为 " + Homewardcooking.GUIPools.size() + " 个"));
+        player.sendMessage(String.valueOf("当前GUI池中缓存的GUI数量为 " + HomewardCooking.GUIPools.size() + " 个"));
 
     }
 
     @SubCommand("removePool")
     public void removePool(CommandSender commandSender) {
         Player player = (Player) commandSender;
-        Homewardcooking.GUIPools.clear();
+        HomewardCooking.GUIPools.clear();
         player.sendMessage("GUI池清除成功！");
 
     }
@@ -101,7 +101,7 @@ public class MainCommand extends CommandBase {
     public void showRecipes(CommandSender commandSender) {
         Player player = (Player) commandSender;
 
-        HashMap<String, CookingRecipe> loadRecipes = Homewardcooking.recipesLoader.getLoadRecipes();
+        HashMap<String, CookingRecipe> loadRecipes = HomewardCooking.recipesLoader.getLoadRecipes();
         Set<String> strings = loadRecipes.keySet();
         CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的配方: &7" + String.valueOf(strings));
     }
@@ -110,7 +110,7 @@ public class MainCommand extends CommandBase {
     public void showDictionary(CommandSender commandSender) {
         Player player = (Player) commandSender;
 
-        HashMap<String, DictionaryLabel> loadedDictionary = Homewardcooking.dictionaryLoader.getLoadedDictionary();
+        HashMap<String, DictionaryLabel> loadedDictionary = HomewardCooking.dictionaryLoader.getLoadedDictionary();
         Set<String> strings = loadedDictionary.keySet();
         CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的词典: &7" + String.valueOf(strings));
     }
@@ -119,7 +119,7 @@ public class MainCommand extends CommandBase {
     public void showOnProcess(CommandSender commandSender) {
         Player player = (Player) commandSender;
 
-        HashMap<Location, CookingProcessObject> processPool = Homewardcooking.processPool;
+        HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
         try {
             Set<Location> strings = processPool.keySet();
             CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前正在进行的配方: &7");

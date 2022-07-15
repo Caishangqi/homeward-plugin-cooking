@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class CookingData implements Serializable {
 
-    private String recipe;
+    private String recipeKey;
+    private String processObject;
 
     private String slotI;
     private String slotII;
@@ -17,12 +18,20 @@ public class CookingData implements Serializable {
     private Integer timeRemaining;
     private Integer timeTotal;
 
-    public String getRecipe() {
-        return recipe;
+    public String getProcessObject() {
+        return processObject;
     }
 
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
+    public void setProcessObject(String processObject) {
+        this.processObject = processObject;
+    }
+
+    public String getRecipeKey() {
+        return recipeKey;
+    }
+
+    public void setRecipeKey(String recipe) {
+        this.recipeKey = recipeKey;
     }
 
     public String getSlotI() {

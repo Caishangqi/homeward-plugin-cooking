@@ -1,6 +1,6 @@
 package homeward.plugin.homewardcooking.listeners.cookingprocess;
 
-import homeward.plugin.homewardcooking.Homewardcooking;
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.events.CookingInitialEvent;
 import homeward.plugin.homewardcooking.events.CookingProcessEvent;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
@@ -22,7 +22,7 @@ public class CookingInitialListener implements Listener {
     public void onCookingInitial(CookingInitialEvent event) {
         CookingRecipe recipe = isPresentRecipe(event.getContainedMaterial());
 
-        if (Homewardcooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(event.getLocationKey(),event.getPlayer().getWorld()))) {
+        if (HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(event.getLocationKey(),event.getPlayer().getWorld()))) {
             event.getPlayer().playSound(event.getPlayer(), Sound.BLOCK_PISTON_CONTRACT, 1.0F, 2.0F);
             CommonUtils.getInstance().sendPluginMessageInServer(event.getPlayer(), "&c当前已经有一个正在进行的配方了");
         } else if (recipe != null) {
@@ -39,7 +39,7 @@ public class CookingInitialListener implements Listener {
 
     public CookingRecipe isPresentRecipe(List<ItemStack> itemStacks) {
 
-        HashMap<String, CookingRecipe> loadRecipes = Homewardcooking.recipesLoader.getLoadRecipes();
+        HashMap<String, CookingRecipe> loadRecipes = HomewardCooking.recipesLoader.getLoadRecipes();
         Collection<CookingRecipe> cookingRecipes = loadRecipes.values();
 
         for (CookingRecipe recipe : cookingRecipes) {

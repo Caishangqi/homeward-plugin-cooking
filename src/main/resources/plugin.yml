@@ -1,6 +1,6 @@
 name: HomewardCooking
 version: '${version}'
-main: homeward.plugin.homewardcooking.Homewardcooking
+main: homeward.plugin.homewardcooking.HomewardCooking
 api-version: 1.18
 prefix: HWC
 authors: [ Caizii ]
