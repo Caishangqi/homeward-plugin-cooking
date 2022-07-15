@@ -1,8 +1,10 @@
 package homeward.plugin.homewardcooking.guis;
 
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.events.CookingInitialEvent;
 import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
+import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,7 +26,7 @@ public class CookingGUI extends GUI {
 
     private String guiName;
     private String locationKey;
-    private static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
+    public static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
     private static final int avaliableOuputSlots = 24;
     private static final int miscellaneousSlots = 42;
     private static final int startButton = 40;
@@ -140,15 +142,20 @@ public class CookingGUI extends GUI {
     }
 
     @Override
-    public void setMenuItems() {
+    public void setMenuItems(Player player) {
 
         inventory.setItem(startButton, Button.START_BUTTON.getButton());
         inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
-        inventory.setItem(Button.PROCESS_BUTTON.getSlot(),Button.PROCESS_BUTTON.getButton());
+
+        if (!HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey,player.getWorld())))
+            inventory.setItem(Button.READY_BUTTON.getSlot(),Button.READY_BUTTON.getButton());
+
 
         fillMenu();
 
     }
+
+
 
     private void fillMenu() {
         List<Integer> list = Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList());
@@ -170,4 +177,6 @@ public class CookingGUI extends GUI {
             }
         }
     }
+
+
 }

@@ -42,12 +42,13 @@ public class GUIOpenListener implements Listener {
             cookingGUI.setGuiName("厨艺锅");
 
             cookingGUI.test = consumersss(cookingData,cookingGUI);
+            cookingGUI.addPlayerToOpenPlayers(player);
+            cookingGUI.setLocationKey(locationKey);
             cookingGUI.open(player);
             //数据载入
             // GUIManipulation.dataInjectionToGUI(cookingData, cookingGUI);
             //数据载入结束
-            cookingGUI.addPlayerToOpenPlayers(player);
-            cookingGUI.setLocationKey(locationKey);
+
             player.swingMainHand();
             HomewardCooking.GUIPools.put(locationKey, cookingGUI);
 

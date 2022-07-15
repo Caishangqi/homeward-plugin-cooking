@@ -25,6 +25,7 @@ public class RecipeContent implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+        setMaterial(material,type);
     }
 
     public Object getObjectMaterial() {

@@ -40,13 +40,13 @@ public abstract class GUI implements InventoryHolder {
 
     public abstract void moveItem(InventoryMoveItemEvent e);
 
-    public abstract void setMenuItems();
+    public abstract void setMenuItems(Player player);
 
     public void open(Player player) {
 
         if (whoOwnsInventory == null) {
             inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
-            this.setMenuItems();
+            this.setMenuItems(player);
             whoOwnsInventory = player;
 
             test.accept(this);

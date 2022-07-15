@@ -35,3 +35,23 @@ gui-settings:
   start-button: 40
   recipes-button: 13
   miscellaneous-slots: 42
+  filled-item: GRAY_STAINED_GLASS_PANE
+gui-state-process-settings:
+  #是否开始以烹饪进度百分比来设置状态物品
+  enable-percent-state-item: false
+  percent-state-settings:
+    1:
+      scope: 0-5
+      Material: PAPER
+      custom-model-data: 1001
+    2:
+      scope: 6-10
+      Material: PAPER
+      custom-model-data: 1002
+  discontinuous-state-settings:
+    ready:
+      Material: GREEN_STAINED_GLASS_PANE
+      custom-model-data:
+    processing:
+      Material: ORANGE_STAINED_GLASS_PANE
+      custom-model-data:

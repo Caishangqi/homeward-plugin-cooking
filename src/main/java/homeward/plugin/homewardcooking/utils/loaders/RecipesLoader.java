@@ -69,8 +69,10 @@ public class RecipesLoader {
     private void loadSingleRecipe(String key, FileConfiguration configuration) {
         CookingRecipe cookingRecipe = new CookingRecipe(); //先创建一个配方对象
         cookingRecipe.setRecipeKey(key);
-        System.out.println("cookingRecipe.getRecipeKey() "+cookingRecipe.getRecipeKey());
         Boolean validRecipe = true; //检查是否符合配方标准
+
+        String recipeName = configuration.getString(key+ ".recipe-name");
+        cookingRecipe.setRecipeName(recipeName);
 
         //从recipe-input截取getConfigurationSection获取他的部分
         ConfigurationSection recipeInputs = configuration.getConfigurationSection(key + ".recipe-inputs");

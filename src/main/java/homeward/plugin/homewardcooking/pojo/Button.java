@@ -9,7 +9,9 @@ public enum Button {
 
     START_BUTTON(Material.OAK_BUTTON, "&6开始烹饪", 40),
     RECIPE_BUTTON(Material.KNOWLEDGE_BOOK, "&7游览已知配方"),
-    PROCESS_BUTTON(Material.CLOCK,"&6状态",42);
+    PROCESS_BUTTON(Material.ORANGE_STAINED_GLASS_PANE,"&7正在烹饪: ",42),
+
+    READY_BUTTON(Material.GREEN_STAINED_GLASS_PANE,"&7就绪中...",42);
     private ItemStack itemStack;
     private Integer customModelData;
     private Material material;

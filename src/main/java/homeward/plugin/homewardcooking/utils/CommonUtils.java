@@ -106,6 +106,7 @@ public class CommonUtils {
 
 
     public void stackItemWithCondition(CookingGUI gui, ItemStack itemStack) {
+
         if (gui.getInventory().getItem(24) != null && gui.getInventory().getItem(24).isSimilar(itemStack)) {
             ItemStack clone = itemStack.clone();
             int amount = gui.getInventory().getItem(24).getAmount(); //3
@@ -190,17 +191,18 @@ public class CommonUtils {
                         CookingProcessObject cookingProcessObject = null;
                         try {
                             cookingProcessObject = (CookingProcessObject) StreamItemsUtils.writeDecodedObject(cookingData.getProcessObject());
+                            processPool.put(location, cookingProcessObject);
+                            cookingData.setProcessObject(null);
+                            file.setObject(F, cookingData);
+                            file.save();
                         } catch (IOException | ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         }
-                        processPool.put(location, cookingProcessObject);
-                        cookingData.setProcessObject(null);
-                        file.setObject(F, cookingData);
 
                     }
                 });
 
-            } catch (IOException ignored) {
+            } catch (Exception ignored) {
 
             }
         });
