@@ -2,66 +2,33 @@ package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.Serializable;
 import java.util.logging.Level;
 
+@Getter
+@Setter
 public class RecipeContent implements Serializable {
 
     private Integer timeRequired;
     private String type;
+    @Setter(AccessLevel.NONE)
     private String material;
     private String command;
     //真正序列化完毕的物品在这里
     private Object objectMaterial;
 
+    @Setter(AccessLevel.NONE)
     private Integer quantity = 1;
-
-    public Integer getQuantity() {
-        return quantity;
-    }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-        setMaterial(material,type);
-    }
-
-    public Object getObjectMaterial() {
-        return objectMaterial;
-    }
-
-    public void setObjectMaterial(Object objectMaterial) {
-        this.objectMaterial = objectMaterial;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
-
-    public Integer getTimeRequired() {
-        return timeRequired;
-    }
-
-    public void setTimeRequired(Integer timeRequired) {
-        this.timeRequired = timeRequired;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getMaterial() {
-        return material;
+        setMaterial(material, type);
     }
 
     public boolean setMaterial(String material, String key) {

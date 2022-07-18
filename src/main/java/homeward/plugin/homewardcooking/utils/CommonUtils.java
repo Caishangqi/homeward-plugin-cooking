@@ -166,10 +166,14 @@ public class CommonUtils {
 
                 });
 
-            } catch (Exception ignored) {
 
+            } catch (Exception exception) {
+                log(Level.WARNING, Type.FATAL, "保存正在进行的任务失败");
+                exception.printStackTrace();
             }
         });
+
+        log(Level.INFO, Type.LOADED, "成功保存正在进行的任务");
 
 
     }
@@ -186,7 +190,7 @@ public class CommonUtils {
                 fileKeys.forEach(F -> {
                     CookingData cookingData = file.getObject(F, CookingData.class);
                     Location location = toBukkitBlockLocationKey(F, K);
-                    if (cookingData.getProcessObject()!=null) {
+                    if (cookingData.getProcessObject() != null) {
 
                         CookingProcessObject cookingProcessObject = null;
                         try {
@@ -202,10 +206,27 @@ public class CommonUtils {
                     }
                 });
 
-            } catch (Exception ignored) {
 
+            } catch (Exception exception) {
+                log(Level.WARNING, Type.FATAL, "加载保存的的任务失败");
+                exception.printStackTrace();
             }
         });
+        log(Level.INFO, Type.LOADED, "成功加载保存的任务");
+    }
+
+    public void reloadPlugin() {
+
+        reloadDictionary();
+        reloadRecipe();
+    }
+
+    public void reloadRecipe() {
+
+    }
+
+    public void reloadDictionary() {
+
     }
 
 

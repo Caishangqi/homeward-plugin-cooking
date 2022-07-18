@@ -1,11 +1,16 @@
 package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class CookingRecipe implements Serializable {
 
     private List<RecipeContent> contents = new ArrayList<>();
@@ -16,47 +21,8 @@ public class CookingRecipe implements Serializable {
     private String recipeKey;
     private Integer totalRequiredTimes = 0;
 
+    @Getter(AccessLevel.NONE)
     private List<ItemStack> objectItems = new ArrayList<>();
-
-    public List<RecipeContent> getContents() {
-        return contents;
-    }
-
-    public void setContents(List<RecipeContent> contents) {
-        this.contents = contents;
-    }
-
-    public String getRecipeName() {
-        return recipeName;
-    }
-
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
-
-    public RecipeContent getMainOutPut() {
-        return mainOutPut;
-    }
-
-    public void setMainOutPut(RecipeContent mainOutPut) {
-        this.mainOutPut = mainOutPut;
-    }
-
-    public List<RecipeContent> getAdditionalOutPut() {
-        return additionalOutPut;
-    }
-
-    public void setAdditionalOutPut(List<RecipeContent> additionalOutPut) {
-        this.additionalOutPut = additionalOutPut;
-    }
-
-    public Integer getTotalRequiredTimes() {
-        return totalRequiredTimes;
-    }
-
-    public void setTotalRequiredTimes(Integer totalRequiredTimes) {
-        this.totalRequiredTimes = totalRequiredTimes;
-    }
 
     public List<ItemStack> getObjectItems() {
 
@@ -67,15 +33,4 @@ public class CookingRecipe implements Serializable {
         return objectItems;
     }
 
-    public void setObjectItems(List<ItemStack> objectItems) {
-        this.objectItems = objectItems;
-    }
-
-    public String getRecipeKey() {
-        return recipeKey;
-    }
-
-    public void setRecipeKey(String recipeKey) {
-        this.recipeKey = recipeKey;
-    }
 }

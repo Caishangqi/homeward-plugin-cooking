@@ -106,6 +106,25 @@ public class MainCommand extends CommandBase {
         CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的配方: &7" + String.valueOf(strings));
     }
 
+    @SubCommand("reload")
+    public void reloadPlugin(CommandSender commandSender, final String args[]) {
+        Player player = (Player) commandSender;
+
+        if (args.length == 0) {
+            CommonUtils.getInstance().reloadPlugin();
+        }
+
+        if (args.length == 1) {
+            switch (args[0]) {
+                case "recipe":
+                    CommonUtils.getInstance().reloadRecipe();
+                case "dictionary":
+                    CommonUtils.getInstance().reloadDictionary();
+            }
+        }
+
+    }
+
     @SubCommand("dictionary")
     public void showDictionary(CommandSender commandSender) {
         Player player = (Player) commandSender;
@@ -124,12 +143,11 @@ public class MainCommand extends CommandBase {
             Set<Location> strings = processPool.keySet();
             CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前正在进行的配方: &7");
             for (Location l : strings) {
-                CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l: &7 世界 - " + l.getWorld().getName() + " &c输出 &7- "+processPool.get(l).getCookingRecipe().getMainOutPut().getMaterial());
+                CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l: &7 世界 - " + l.getWorld().getName() + " &c输出 &7- " + processPool.get(l).getCookingRecipe().getMainOutPut().getMaterial());
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             CommonUtils.getInstance().sendPluginMessageInServer(player, "&6&l当前没有正在进行的配方");
         }
-
 
 
     }

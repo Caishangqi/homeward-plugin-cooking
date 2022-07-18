@@ -1,10 +1,14 @@
 package homeward.plugin.homewardcooking.pojo;
 
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class CookingProcessObject implements Serializable {
 
     private CookingRecipe cookingRecipe;
@@ -12,35 +16,4 @@ public class CookingProcessObject implements Serializable {
     private Integer remainTime;
     private Integer totalTime;
 
-    public CookingRecipe getCookingRecipe() {
-        return cookingRecipe;
-    }
-
-    public void setCookingRecipe(CookingRecipe cookingRecipe) {
-        this.cookingRecipe = cookingRecipe;
-    }
-
-    public Player getWhoStart() {
-        return whoStart;
-    }
-
-    public void setWhoStart(Player whoStart) {
-        this.whoStart = whoStart;
-    }
-
-    public Integer getRemainTime() {
-        return remainTime;
-    }
-
-    public void setRemainTime(Integer remainTime) {
-        this.remainTime = remainTime;
-    }
-
-    public Integer getTotalTime() {
-        return totalTime;
-    }
-
-    public void setTotalTime(Integer totalTime) {
-        this.totalTime = totalTime;
-    }
 }
