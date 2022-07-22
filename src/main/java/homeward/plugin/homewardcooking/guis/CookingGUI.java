@@ -31,11 +31,11 @@ public class CookingGUI extends GUI {
 
     private String guiName;
     private String locationKey;
-    public static final int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
-    private static final int avaliableOuputSlots = 24;
-    private static final int miscellaneousSlots = 42;
-    private static final int startButton = 40;
-    private static final int recipesButton = 13;
+    public static final int[] avaliableInputSlots = HomewardCooking.configurationLoader.getGUIInputSlot();
+    private static final int outputSlot = HomewardCooking.configurationLoader.getGUIOutputSlot();
+    private static final int processSlot = Button.PROCESS_BUTTON.getSlot();
+    private static final int startButton = Button.START_BUTTON.getSlot();
+    private static final int recipesButton = Button.RECIPE_BUTTON.getSlot();
     //谁打开了这个GUI
     private List<Player> openedPlayers = new ArrayList<>();
 
@@ -86,7 +86,7 @@ public class CookingGUI extends GUI {
             e.setCancelled(true);
         }
 
-        if (e.getRawSlot() == 40) {
+        if (e.getRawSlot() == Button.START_BUTTON.getSlot()) {
             e.setCancelled(true);
         }
 
@@ -96,7 +96,7 @@ public class CookingGUI extends GUI {
             e.setCancelled(true);
         }
 
-        if (e.getRawSlot() == 24 && e.getCursor().getType() == Material.AIR) {
+        if (e.getRawSlot() == HomewardCooking.configurationLoader.getGUIOutputSlot() && e.getCursor().getType() == Material.AIR) {
             e.setCancelled(false);
         }
 
@@ -173,8 +173,8 @@ public class CookingGUI extends GUI {
 
     private void fillMenu() {
         List<Integer> list = Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList());
-        list.add(avaliableOuputSlots);
-        list.add(miscellaneousSlots);
+        list.add(outputSlot);
+        list.add(processSlot);
         list.add(startButton);
         list.add(recipesButton);
 

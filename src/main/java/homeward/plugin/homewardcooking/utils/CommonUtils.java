@@ -3,12 +3,15 @@ package homeward.plugin.homewardcooking.utils;
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
+import homeward.plugin.homewardcooking.utils.loaders.ConfigurationLoader;
 import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import org.bukkit.*;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -17,10 +20,13 @@ import redempt.redlib.itemutils.ItemBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
+
+import static homeward.plugin.homewardcooking.HomewardCooking.commandManager;
 
 public class CommonUtils {
 
@@ -107,18 +113,18 @@ public class CommonUtils {
 
     public void stackItemWithCondition(CookingGUI gui, ItemStack itemStack) {
 
-        if (gui.getInventory().getItem(24) != null && gui.getInventory().getItem(24).isSimilar(itemStack)) {
+        if (gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()) != null && gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()).isSimilar(itemStack)) {
             ItemStack clone = itemStack.clone();
-            int amount = gui.getInventory().getItem(24).getAmount(); //3
+            int amount = gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()).getAmount(); //3
 
             int targetItemsAmount = itemStack.getAmount(); //1
 
             if (targetItemsAmount + amount <= 64) {
                 clone.setAmount(targetItemsAmount + amount);
-                gui.getInventory().setItem(24, clone);
+                gui.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), clone);
             }
         } else {
-            gui.getInventory().setItem(24, itemStack);
+            gui.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), itemStack);
         }
     }
 
@@ -217,16 +223,57 @@ public class CommonUtils {
 
     public void reloadPlugin() {
 
-        reloadDictionary();
-        reloadRecipe();
+        try {
+            closeAllOpenedGUI();
+            reloadDictionary();
+            reloadRecipe();
+            HomewardCooking.configurationLoader = new ConfigurationLoader();
+            log(Level.INFO, Type.LOADED, "插件重载成功！");
+        } catch (Exception exception) {
+            log(Level.WARNING, Type.FATAL, "插件重载失败，问题: ");
+            exception.printStackTrace();
+        }
+
+
+    }
+
+    private void closeAllOpenedGUI() {
+        HashMap<String, CookingGUI> cachedGUI = new HashMap<>(HomewardCooking.GUIPools);
+        cachedGUI.forEach((K, V) -> {
+            List<Player> openedPlayers = new ArrayList<>(V.getOpenedPlayers());
+            openedPlayers.forEach(HumanEntity::closeInventory);
+        });
     }
 
     public void reloadRecipe() {
-
+        try {
+            loadRecipes();
+            log(Level.INFO, Type.LOADED, "菜谱配方重载成功");
+        } catch (Exception exception) {
+            log(Level.WARNING, Type.FATAL, "菜谱配方重载失败，问题: ");
+            exception.printStackTrace();
+        }
     }
 
     public void reloadDictionary() {
+        try {
+            loadDictionary();
+            log(Level.INFO, Type.LOADED, "菜谱字典重载成功");
+        } catch (Exception exception) {
+            log(Level.WARNING, Type.FATAL, "菜谱字典重载失败，问题: ");
+            exception.printStackTrace();
+        }
 
+
+    }
+
+    public void registryReloadTabCompletion() {
+        commandManager.getCompletionHandler().register("#reloadType", input -> {
+            ArrayList<String> list = new ArrayList<>();
+            list.add("recipe");
+            list.add("dictionary");
+            return list;
+        });
     }
 
 

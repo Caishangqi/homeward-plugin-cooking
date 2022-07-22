@@ -1,6 +1,8 @@
 package homeward.plugin.homewardcooking.utils;
 
+import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import org.bukkit.inventory.ItemStack;
@@ -38,36 +40,36 @@ public class GUIManipulation {
     public static void dataInjectionToGUI(CookingData cookingData, CookingGUI cookingGUI) throws IOException, ClassNotFoundException {
 
         if (cookingData.getSlotI() == null) {
-            cookingGUI.getInventory().setItem(11, CommonMaterial.AIR.getItemStack());
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[0], CommonMaterial.AIR.getItemStack());
         } else {
-            cookingGUI.getInventory().setItem(11, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotI()));
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[0], (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotI()));
         }
 
         if (cookingData.getSlotII() == null) {
-            cookingGUI.getInventory().setItem(20, CommonMaterial.AIR.getItemStack());
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[1], CommonMaterial.AIR.getItemStack());
         } else {
-            cookingGUI.getInventory().setItem(20, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotII()));
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[1], (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotII()));
 
         }
 
         if (cookingData.getSlotIII() == null) {
-            cookingGUI.getInventory().setItem(29, CommonMaterial.AIR.getItemStack());
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[2], CommonMaterial.AIR.getItemStack());
         } else {
-            cookingGUI.getInventory().setItem(29, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIII()));
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[2], (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIII()));
 
         }
 
         if (cookingData.getSlotIV() == null) {
-            cookingGUI.getInventory().setItem(38, CommonMaterial.AIR.getItemStack());
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[3], CommonMaterial.AIR.getItemStack());
         } else {
-            cookingGUI.getInventory().setItem(38, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIV()));
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIInputSlot()[3], (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getSlotIV()));
 
         }
 
         if (cookingData.getMainOutput() == null) {
-            cookingGUI.getInventory().setItem(24, CommonMaterial.AIR.getItemStack());
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), CommonMaterial.AIR.getItemStack());
         } else {
-            cookingGUI.getInventory().setItem(24, (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput()));
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput()));
 
         }
 

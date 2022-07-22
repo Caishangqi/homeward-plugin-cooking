@@ -56,6 +56,8 @@ public class ProcessCookingScheduler {
 
                 processPool.forEach((K, V) -> {
                     if (V.getRemainTime() <= 0) {
+
+
                         toDoRemove.add(K);
                     }
                 });
@@ -105,17 +107,16 @@ public class ProcessCookingScheduler {
         HashMap<String, CookingGUI> guiPools = HomewardCooking.GUIPools;
         HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
 
-        processPool.forEach((K,V) -> {
+        processPool.forEach((K, V) -> {
             String stringBlockLocationKey = CommonUtils.getInstance().toStringBlockLocationKey(K);
             CookingGUI cookingGUI = guiPools.get(stringBlockLocationKey);
             ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())
-                    .setName(ChatColor.translateAlternateColorCodes('&',Button.PROCESS_BUTTON.getName() + V.getCookingRecipe().getRecipeName())).setLore(ChatColor.translateAlternateColorCodes('&',"&6剩余时间: &7" + V.getRemainTime()));
+                    .setName(ChatColor.translateAlternateColorCodes('&', Button.PROCESS_BUTTON.getName() + V.getCookingRecipe().getRecipeName())).setLore(ChatColor.translateAlternateColorCodes('&', "&6剩余时间: &7" + V.getRemainTime()));
 
 
-            if (cookingGUI!=null)
-                 cookingGUI.getInventory().setItem(42, processButton);
+            if (cookingGUI != null)
+                cookingGUI.getInventory().setItem(Button.PROCESS_BUTTON.getSlot(), processButton);
         });
-
 
 
     }

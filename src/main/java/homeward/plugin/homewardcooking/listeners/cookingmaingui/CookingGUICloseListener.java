@@ -28,7 +28,7 @@ public class CookingGUICloseListener implements Listener {
             String locationKey = cookingGUI.getLocationKey();
             CookingData cookingData = file.getObject(locationKey, CookingData.class);
 
-            int[] avaliableInputSlots = new int[]{38, 29, 20, 11};
+            int[] avaliableInputSlots = HomewardCooking.configurationLoader.getGUIInputSlot();
 
             if (cookingGUI.getInventory().getItem(avaliableInputSlots[3]) != null) {
                 cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[3])));
@@ -56,8 +56,8 @@ public class CookingGUICloseListener implements Listener {
 
             //TODO 这里摆烂了
             try {
-                if (cookingGUI.getInventory().getItem(24) != null) {
-                    cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(24)));
+                if (cookingGUI.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()) != null) {
+                    cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot())));
                 } else {
                     cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
                 }

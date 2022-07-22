@@ -6,6 +6,7 @@ import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.scheduler.ProcessCookingScheduler;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
+import homeward.plugin.homewardcooking.utils.loaders.ConfigurationLoader;
 import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
 import me.mattstudios.mf.base.CommandManager;
@@ -28,6 +29,7 @@ public final class HomewardCooking extends JavaPlugin {
     public static FileConfiguration config;
     public static RecipesLoader recipesLoader;
     public static DictionaryLoader dictionaryLoader;
+    public static ConfigurationLoader configurationLoader;
 
     //GUI 打开池
     public static HashMap<String, CookingGUI> GUIPools = new HashMap<>();
@@ -38,11 +40,11 @@ public final class HomewardCooking extends JavaPlugin {
     public void onEnable() {
 
         // Plugin startup logic
-        loadConfigurations();
         loadDependencies();
         registerCommands();
         registerListeners();
         loadingRecipes();
+        loadConfigurations();
         loadingScheduler();
         loadingCookingProcess();
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "插件加载成功 5/5");
@@ -65,6 +67,11 @@ public final class HomewardCooking extends JavaPlugin {
         this.saveResource("dictionary/dictionary.yml", false); //type: dictionary
         this.saveResource("message.yml", false);
         this.saveResource("database.yml", false);
+
+        configurationLoader = new ConfigurationLoader();
+        configurationLoader.loadConfiguration();
+
+
     }
 
     private void loadingRecipes() {
@@ -79,6 +86,7 @@ public final class HomewardCooking extends JavaPlugin {
     }
 
     private void registerCommands() {
+        CommonUtils.getInstance().registryReloadTabCompletion();
         commandManager.register(new MainCommand());
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "指令加载成功 2/5");
     }

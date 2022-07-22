@@ -28,13 +28,14 @@ experimental-settings:
   match-recipes-asynchronous: false
 gui-settings:
   gui-name: "厨艺锅"
-  first-input-slot: 11
-  second-input-slot: 20
-  third-input-slot: 29
-  fourth-input-slot: 38
-  start-button: 40
-  recipes-button: 13
-  miscellaneous-slots: 42
+  first-input-slot: 10
+  second-input-slot: 19
+  third-input-slot: 28
+  fourth-input-slot: 37
+  output-slot: 22
+  start-button: 43
+  recipes-button: 25
+  process-slot: 40
   filled-item: GRAY_STAINED_GLASS_PANE
 gui-state-process-settings:
   #是否开始以烹饪进度百分比来设置状态物品

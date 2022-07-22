@@ -8,10 +8,7 @@ import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
-import me.mattstudios.mf.annotations.Command;
-import me.mattstudios.mf.annotations.Completion;
-import me.mattstudios.mf.annotations.Default;
-import me.mattstudios.mf.annotations.SubCommand;
+import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
@@ -107,22 +104,19 @@ public class MainCommand extends CommandBase {
     }
 
     @SubCommand("reload")
-    public void reloadPlugin(CommandSender commandSender, final String args[]) {
-        Player player = (Player) commandSender;
-
-        if (args.length == 0) {
-            CommonUtils.getInstance().reloadPlugin();
-        }
-
-        if (args.length == 1) {
-            switch (args[0]) {
+    public void reloadPlugin(CommandSender commandSender, @Completion("#reloadType") @Optional final String type) {
+        if (type != null) {
+            switch (type) {
                 case "recipe":
                     CommonUtils.getInstance().reloadRecipe();
+                    break;
                 case "dictionary":
                     CommonUtils.getInstance().reloadDictionary();
-            }
-        }
 
+            }
+        } else {
+            CommonUtils.getInstance().reloadPlugin();
+        }
     }
 
     @SubCommand("dictionary")
