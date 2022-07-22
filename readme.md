@@ -64,6 +64,11 @@
 - 烹饪锅的升级 和 玩家烹饪属性与mcmmo和mmocore专业等级兼容
 - 原版模式下拥有美观的物品悬浮效果
 
+## 协调系列 Homeward Species
+
+| [Homeward Cooking 协调烹饪](https://github.com/Caishangqi/homeward-plugin-cooking) | Caishangqi | 1.18.2 |
+|-----------------------|------------|--------|
+| **[Homeward Brewing 协调酿造](https://github.com/Ba1oretto/Brewing)** |  **Ba1oretto**          | **1.18.2** |
 
 ## 特别说明 Special Information
 
