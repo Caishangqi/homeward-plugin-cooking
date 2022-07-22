@@ -43,8 +43,8 @@ public final class HomewardCooking extends JavaPlugin {
         loadDependencies();
         registerCommands();
         registerListeners();
-        loadingRecipes();
         loadConfigurations();
+        loadingRecipes();
         loadingScheduler();
         loadingCookingProcess();
         CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "插件加载成功 5/5");

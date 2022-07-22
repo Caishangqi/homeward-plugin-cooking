@@ -57,15 +57,6 @@ public class MainCommand extends CommandBase {
 
     }
 
-    @SubCommand("open")
-    public void openCookingInterfaces(CommandSender commandSender) {
-        Player player = (Player) commandSender;
-        CookingGUI cookingGUI = new CookingGUI();
-        cookingGUI.setGuiName("厨艺锅");
-        cookingGUI.open(player);
-
-    }
-
     @SubCommand("checkPool")
     public void checkPool(CommandSender commandSender) {
         Player player = (Player) commandSender;

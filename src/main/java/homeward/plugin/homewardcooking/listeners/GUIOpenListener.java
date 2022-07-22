@@ -39,9 +39,9 @@ public class GUIOpenListener implements Listener {
         } else {
 
             CookingGUI cookingGUI = new CookingGUI();
-            cookingGUI.setGuiName("厨艺锅");
+            cookingGUI.setGuiName(HomewardCooking.configurationLoader.getGUITitle());
 
-            cookingGUI.test = consumersss(cookingData,cookingGUI);
+            cookingGUI.test = consumerists(cookingData,cookingGUI);
             cookingGUI.addPlayerToOpenPlayers(player);
             cookingGUI.setLocationKey(locationKey);
             cookingGUI.open(player);
@@ -56,7 +56,7 @@ public class GUIOpenListener implements Listener {
 
     }
 
-    public Consumer<GUI> consumersss (CookingData cookingData, CookingGUI cookingGUI) {
+    public Consumer<GUI> consumerists(CookingData cookingData, CookingGUI cookingGUI) {
         return gui -> {
             try {
                 GUIManipulation.dataInjectionToGUI(cookingData, cookingGUI);

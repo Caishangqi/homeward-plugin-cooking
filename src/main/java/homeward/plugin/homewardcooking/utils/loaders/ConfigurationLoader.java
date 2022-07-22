@@ -18,10 +18,10 @@ public class ConfigurationLoader {
 
     public ConfigurationLoader () {
         loadConfiguration();
-        setEnumInformation();
     }
 
     public void loadConfiguration() {
+
 
         mainConfiguration = HomewardCooking.getInstance().getConfig();
         databaseConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "database"));
@@ -31,12 +31,25 @@ public class ConfigurationLoader {
     }
 
     private void setEnumInformation() {
-        Button.RECIPE_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.recipes-button"));
-        Button.START_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.start-button"));
+
+        Button.RECIPE_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.recipes-button.slot"));
+        Button.RECIPE_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.recipes-button.Material","KNOWLEDGE_BOOK")));
+        Button.RECIPE_BUTTON.setCustomModelData(mainConfiguration.getInt("gui-settings.recipes-button.custom-model-data"));
+
+        Button.START_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.start-button.slot"));
+        Button.START_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.start-button.Material","OAK_BUTTON")));
+        Button.START_BUTTON.setCustomModelData(mainConfiguration.getInt("gui-settings.start-button.custom-model-data"));
+
         Button.PROCESS_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.process-slot"));
+        Button.PROCESS_BUTTON.setCustomModelData(mainConfiguration.getInt("gui-state-process-settings.discontinuous-state-settings.processing.custom-model-data"));
+        Button.PROCESS_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-state-process-settings.discontinuous-state-settings.processing.Material", "ORANGE_STAINED_GLASS_PANE")));
+
         Button.READY_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.process-slot"));
-        String filledItems = mainConfiguration.getString("gui-settings.filled-item", "GRAY_STAINED_GLASS_PANE");
-        Button.FILLED_BUTTON.setMaterial(Material.valueOf(filledItems));
+        Button.READY_BUTTON.setCustomModelData(mainConfiguration.getInt("gui-state-process-settings.discontinuous-state-settings.ready.custom-model-data"));
+        Button.READY_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-state-process-settings.discontinuous-state-settings.ready.Material", "GREEN_STAINED_GLASS_PANE")));
+
+        Button.FILLED_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.filled-item", "GRAY_STAINED_GLASS_PANE")));
+
     }
 
     public Integer getGUIInputSlot(Integer slot) {
@@ -61,5 +74,8 @@ public class ConfigurationLoader {
         return mainConfiguration.getInt("gui-settings.output-slot", 22);
     }
 
+    public String getGUITitle() {
+        return  mainConfiguration.getString("gui-settings.gui-name","Cooking Pot");
+    }
 
 }

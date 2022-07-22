@@ -33,8 +33,14 @@ gui-settings:
   third-input-slot: 28
   fourth-input-slot: 37
   output-slot: 22
-  start-button: 43
-  recipes-button: 25
+  start-button:
+    Material: OAK_BUTTON
+    slot: 43
+    custom-model-data: 1001
+  recipes-button:
+    Material: KNOWLEDGE_BOOK
+    slot: 25
+    custom-model-data: 1002
   process-slot: 40
   filled-item: GRAY_STAINED_GLASS_PANE
 gui-state-process-settings:
@@ -44,15 +50,15 @@ gui-state-process-settings:
     1:
       scope: 0-5
       Material: PAPER
-      custom-model-data: 1001
+      custom-model-data: 2000
     2:
       scope: 6-10
       Material: PAPER
-      custom-model-data: 1002
+      custom-model-data: 2001
   discontinuous-state-settings:
     ready:
       Material: GREEN_STAINED_GLASS_PANE
-      custom-model-data:
+      custom-model-data: 1003
     processing:
       Material: ORANGE_STAINED_GLASS_PANE
-      custom-model-data:
+      custom-model-data: 1004

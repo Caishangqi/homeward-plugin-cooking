@@ -61,6 +61,12 @@ public enum Button {
         return customModelData;
     }
 
+    public void setCustomModelData(Integer customModelData) {
+        if (customModelData != null) {
+            this.customModelData = customModelData;
+        }
+    }
+
     public Material getMaterial() {
         return material;
     }
