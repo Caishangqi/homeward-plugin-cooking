@@ -6,7 +6,7 @@ general-settings:
   #是否使用自定义方块作为载体
   use-custom-blocks: false
   #自定义方块名称
-  custom-blocks-namespace: "itemsAdders:cooking_port"
+  custom-blocks-namespace: "ItemsAdder:cooking-port"
   #是否使用原版方块作为载体
   use-vanilla-blocks: true
   #原版方块物品名称

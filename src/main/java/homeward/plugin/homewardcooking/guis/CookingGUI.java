@@ -159,6 +159,7 @@ public class CookingGUI extends GUI {
             HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
             CookingProcessObject cookingProcessObject = processPool.get(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()));
 
+
             ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())
                     .setName(ChatColor.translateAlternateColorCodes('&', Button.PROCESS_BUTTON.getName() + cookingProcessObject.getCookingRecipe().getRecipeName()))
                     .setLore(ChatColor.translateAlternateColorCodes('&', "&6剩余时间: &7" + cookingProcessObject.getRemainTime()));
@@ -171,6 +172,8 @@ public class CookingGUI extends GUI {
     }
 
     private void fillMenu() {
+
+        //TODO 这里数据重复生成list可以优化储存list
         List<Integer> list = Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList());
         list.add(outputSlot);
         list.add(processSlot);
