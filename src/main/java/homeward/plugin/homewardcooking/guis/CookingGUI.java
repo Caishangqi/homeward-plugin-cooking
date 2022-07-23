@@ -149,23 +149,24 @@ public class CookingGUI extends GUI {
     @Override
     public void setMenuItems(Player player) {
 
-        Bukkit.getScheduler().runTaskAsynchronously(HomewardCooking.getInstance(), () -> {
-            inventory.setItem(startButton, Button.START_BUTTON.getButton());
-            inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
+//        Bukkit.getScheduler().runTaskAsynchronously(HomewardCooking.getInstance(), () -> {
+        inventory.setItem(startButton, Button.START_BUTTON.getButton());
+        inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
 
-            if (!HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()))) {
-                inventory.setItem(Button.READY_BUTTON.getSlot(), Button.READY_BUTTON.getButton());
-            } else {
-                HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
-                CookingProcessObject cookingProcessObject = processPool.get(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()));
+        if (!HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()))) {
+            inventory.setItem(Button.READY_BUTTON.getSlot(), Button.READY_BUTTON.getButton());
+        } else {
+            HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
+            CookingProcessObject cookingProcessObject = processPool.get(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()));
 
-                ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())
-                        .setName(ChatColor.translateAlternateColorCodes('&', Button.PROCESS_BUTTON.getName() + cookingProcessObject.getCookingRecipe().getRecipeName())).setLore(ChatColor.translateAlternateColorCodes('&', "&6剩余时间: &7" + cookingProcessObject.getRemainTime()));
-                inventory.setItem(Button.PROCESS_BUTTON.getSlot(), processButton);
-            }
+            ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())
+                    .setName(ChatColor.translateAlternateColorCodes('&', Button.PROCESS_BUTTON.getName() + cookingProcessObject.getCookingRecipe().getRecipeName()))
+                    .setLore(ChatColor.translateAlternateColorCodes('&', "&6剩余时间: &7" + cookingProcessObject.getRemainTime()));
+            inventory.setItem(Button.PROCESS_BUTTON.getSlot(), processButton);
+        }
 
-            fillMenu();
-        });
+        fillMenu();
+//        });
 
     }
 
@@ -177,11 +178,10 @@ public class CookingGUI extends GUI {
         list.add(recipesButton);
 
         for (int i = 0; i <= getSlot() - 1; i++) {
-            if (list.contains(i)) {
-
-            } else {
+            if (!list.contains(i)) {
                 inventory.setItem(i, Button.FILLED_BUTTON.getButton());
             }
+
         }
     }
 
