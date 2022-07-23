@@ -26,6 +26,8 @@ recipes-settings:
 experimental-settings:
   #使用异步去核对配方
   match-recipes-asynchronous: false
+  #使用异步去加载GUI内部组件
+  load-gui-asynchronous: false
 gui-settings:
   gui-name: "厨艺锅"
   first-input-slot: 10
