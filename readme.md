@@ -41,13 +41,13 @@
 
 `/hwc removePool` 移除当前GUI池里的所有缓存GUI
 
-`/hwc open` 打开建设中的GUI菜单
-
 `/hwc recipes` 查看当前成功加载的配方
 
 `/hwc dictionary` 查看当前成功加载的词典
 
 `/hwc onprocess` 查看当前正在烹饪的配方
+
+`/hwc reload <dictionary | recipe>` 重载插件，重载插件词典或者重载插件配方
 
 ## 简单上手
 
