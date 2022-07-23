@@ -1,5 +1,6 @@
 package homeward.plugin.homewardcooking.utils;
 
+import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
@@ -40,6 +41,10 @@ public class StreamItemsUtils {
 
     //编译OBJ反序列化
     public static Object writeDecodedObject(String stringObject) throws IOException, ClassNotFoundException {
+
+        if (stringObject == null || stringObject.isEmpty()) {
+            return CommonMaterial.AIR.getItemStack();
+        }
 
         byte[] serialized = Base64.getDecoder().decode(stringObject);
 

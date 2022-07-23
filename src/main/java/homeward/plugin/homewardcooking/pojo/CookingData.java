@@ -25,4 +25,5 @@ public class CookingData implements Serializable {
     private Integer timeRemaining;
     private Integer timeTotal;
 
+
 }

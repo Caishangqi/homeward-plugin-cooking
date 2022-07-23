@@ -277,5 +277,34 @@ public class CommonUtils {
         });
     }
 
+    public List<ItemStack> getContainedItemsInData(CookingData data) {
+
+        ArrayList<ItemStack> itemStacks = new ArrayList<>();
+
+        try {
+
+            ItemStack stackOne = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotI());
+            ItemStack stackTwo = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotII());
+            ItemStack stackThree = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotIII());
+            ItemStack stackFour = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotIV());
+            ItemStack outPut = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getMainOutput());
+
+
+            itemStacks.add(stackOne);
+            itemStacks.add(stackTwo);
+            itemStacks.add(stackThree);
+            itemStacks.add(stackFour);
+            itemStacks.add(outPut);
+
+            return itemStacks;
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return itemStacks;
+
+    }
+
 
 }
