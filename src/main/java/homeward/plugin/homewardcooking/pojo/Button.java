@@ -12,7 +12,7 @@ public enum Button {
     PROCESS_BUTTON(Material.ORANGE_STAINED_GLASS_PANE, "&7正在烹饪: "),
     READY_BUTTON(Material.GREEN_STAINED_GLASS_PANE, "&7就绪中..."),
 
-    FILLED_BUTTON(Material.GRAY_STAINED_GLASS_PANE, "");
+    FILLED_BUTTON(Material.GRAY_STAINED_GLASS_PANE, " ");
 
     private ItemStack itemStack;
     private Integer customModelData;
@@ -77,6 +77,11 @@ public enum Button {
     }
 
     public ItemStack getButton() {
+        //如果配置文件或者按钮设置成空的Material那么就直接返回空气
+        if (material == Material.AIR) {
+            return CommonMaterial.AIR.getItemStack();
+        }
+
         return CommonUtils.getInstance().buildItems(this.getMaterial(), this.getName(), this.getCustomModelData());
 
 
