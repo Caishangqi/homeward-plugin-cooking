@@ -167,9 +167,7 @@ public class CookingGUI extends GUI {
             fillMenu();
         });
 
-
     }
-
 
     private void fillMenu() {
         List<Integer> list = Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList());

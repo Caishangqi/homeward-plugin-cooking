@@ -30,26 +30,26 @@ public class CookingGUICloseListener implements Listener {
 
             int[] avaliableInputSlots = HomewardCooking.configurationLoader.getGUIInputSlot();
 
-            if (cookingGUI.getInventory().getItem(avaliableInputSlots[3]) != null) {
-                cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[3])));
+            if (cookingGUI.getInventory().getItem(avaliableInputSlots[0]) != null) {
+                cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[0])));
             } else {
                 cookingData.setSlotI(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
-            if (cookingGUI.getInventory().getItem(avaliableInputSlots[2]) != null) {
-                cookingData.setSlotII(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[2])));
+            if (cookingGUI.getInventory().getItem(avaliableInputSlots[1]) != null) {
+                cookingData.setSlotII(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[1])));
             } else {
                 cookingData.setSlotII(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
-            if (cookingGUI.getInventory().getItem(avaliableInputSlots[1]) != null) {
-                cookingData.setSlotIII(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[1])));
+            if (cookingGUI.getInventory().getItem(avaliableInputSlots[2]) != null) {
+                cookingData.setSlotIII(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[2])));
             } else {
                 cookingData.setSlotIII(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }
 
-            if (cookingGUI.getInventory().getItem(avaliableInputSlots[0]) != null) {
-                cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[0])));
+            if (cookingGUI.getInventory().getItem(avaliableInputSlots[3]) != null) {
+                cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(avaliableInputSlots[3])));
             } else {
                 cookingData.setSlotIV(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
             }

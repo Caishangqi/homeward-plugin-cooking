@@ -11,6 +11,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 
@@ -47,6 +48,7 @@ public abstract class GUI implements InventoryHolder {
 
         if (whoOwnsInventory == null) {
             inventory = Bukkit.createInventory(this, getSlot(), getGuiName());
+
 
             this.setMenuItems(player);
             whoOwnsInventory = player;
