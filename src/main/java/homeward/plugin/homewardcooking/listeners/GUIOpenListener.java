@@ -7,6 +7,7 @@ import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.guis.GUI;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +40,7 @@ public class GUIOpenListener implements Listener {
         } else {
 
             CookingGUI cookingGUI = new CookingGUI();
-            cookingGUI.setGuiName(HomewardCooking.configurationLoader.getGUITitle());
+            cookingGUI.setGuiName(ChatColor.translateAlternateColorCodes('&',HomewardCooking.configurationLoader.getGUITitle()));
 
             cookingGUI.test = consumerists(cookingData,cookingGUI);
             cookingGUI.addPlayerToOpenPlayers(player);

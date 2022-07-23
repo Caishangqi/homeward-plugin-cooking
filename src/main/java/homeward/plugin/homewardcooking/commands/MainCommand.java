@@ -100,13 +100,17 @@ public class MainCommand extends CommandBase {
             switch (type) {
                 case "recipe":
                     CommonUtils.getInstance().reloadRecipe();
+                    CommonUtils.getInstance().sendPluginMessageInServer((Player) commandSender, "配方重载成功");
                     break;
                 case "dictionary":
                     CommonUtils.getInstance().reloadDictionary();
+                    CommonUtils.getInstance().sendPluginMessageInServer((Player) commandSender, "词典重载成功");
 
             }
         } else {
             CommonUtils.getInstance().reloadPlugin();
+            CommonUtils.getInstance().sendPluginMessageInServer((Player) commandSender, "插件重载成功");
+
         }
     }
 

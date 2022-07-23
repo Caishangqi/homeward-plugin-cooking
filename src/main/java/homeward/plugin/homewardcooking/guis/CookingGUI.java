@@ -178,16 +178,11 @@ public class CookingGUI extends GUI {
         list.add(startButton);
         list.add(recipesButton);
 
-        ItemStack fillBlock = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-        ItemMeta fillBlockItemMeta = fillBlock.getItemMeta();
-        fillBlockItemMeta.setDisplayName(" ");
-        fillBlock.setItemMeta(fillBlockItemMeta);
-
         for (int i = 0; i <= getSlot() - 1; i++) {
             if (list.contains(i)) {
 
             } else {
-                inventory.setItem(i, fillBlock);
+                inventory.setItem(i, Button.FILLED_BUTTON.getButton());
             }
         }
     }

@@ -16,16 +16,16 @@ public class ConfigurationLoader {
     private FileConfiguration databaseConfiguration;
     private FileConfiguration messageConfiguration;
 
-    public ConfigurationLoader () {
+    public ConfigurationLoader() {
         loadConfiguration();
     }
 
     public void loadConfiguration() {
 
 
-        mainConfiguration = HomewardCooking.getInstance().getConfig();
-        databaseConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "database"));
-        messageConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "message"));
+        mainConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "config.yml"));
+        databaseConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "database.yml"));
+        messageConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "message.yml"));
 
         setEnumInformation();
     }
@@ -33,11 +33,11 @@ public class ConfigurationLoader {
     private void setEnumInformation() {
 
         Button.RECIPE_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.recipes-button.slot"));
-        Button.RECIPE_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.recipes-button.Material","KNOWLEDGE_BOOK")));
+        Button.RECIPE_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.recipes-button.Material", "KNOWLEDGE_BOOK")));
         Button.RECIPE_BUTTON.setCustomModelData(mainConfiguration.getInt("gui-settings.recipes-button.custom-model-data"));
 
         Button.START_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.start-button.slot"));
-        Button.START_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.start-button.Material","OAK_BUTTON")));
+        Button.START_BUTTON.setMaterial(Material.valueOf(mainConfiguration.getString("gui-settings.start-button.Material", "OAK_BUTTON")));
         Button.START_BUTTON.setCustomModelData(mainConfiguration.getInt("gui-settings.start-button.custom-model-data"));
 
         Button.PROCESS_BUTTON.setSlot(mainConfiguration.getInt("gui-settings.process-slot"));
@@ -75,7 +75,7 @@ public class ConfigurationLoader {
     }
 
     public String getGUITitle() {
-        return  mainConfiguration.getString("gui-settings.gui-name","Cooking Pot");
+        return mainConfiguration.getString("gui-settings.gui-name", "Cooking Pot");
     }
 
 }

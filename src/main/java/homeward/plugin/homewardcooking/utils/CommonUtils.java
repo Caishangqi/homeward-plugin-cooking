@@ -95,9 +95,10 @@ public class CommonUtils {
         return item;
     }
 
-    public ItemStack buildItems(Material material, String name) {
+    public ItemStack buildItems(Material material, String name, Integer customModelData) {
         ItemStack item = new ItemBuilder(material)
-                .setName(ChatColor.translateAlternateColorCodes('&', name));
+                .setName(ChatColor.translateAlternateColorCodes('&', name))
+                .setCustomModelData(customModelData);
         return item;
     }
 

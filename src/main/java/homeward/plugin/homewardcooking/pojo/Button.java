@@ -58,7 +58,8 @@ public enum Button {
     }
 
     public Integer getCustomModelData() {
-        return customModelData;
+
+        return customModelData == null ? 0 : customModelData;
     }
 
     public void setCustomModelData(Integer customModelData) {
@@ -76,7 +77,7 @@ public enum Button {
     }
 
     public ItemStack getButton() {
-        return CommonUtils.getInstance().buildItems(this.getMaterial(), this.getName());
+        return CommonUtils.getInstance().buildItems(this.getMaterial(), this.getName(), this.getCustomModelData());
 
 
         /**
