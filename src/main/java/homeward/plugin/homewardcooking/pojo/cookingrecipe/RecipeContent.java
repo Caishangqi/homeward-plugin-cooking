@@ -5,6 +5,7 @@ import homeward.plugin.homewardcooking.utils.Type;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.world.item.Items;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,6 +29,15 @@ public class RecipeContent implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+
+        //如果顺序是先建立object物品那么在这里检查，如果以及有object直接把这个object
+        //转换成ItemStack然后赐予数量
+        if (objectMaterial != null) {
+            ItemStack itemStack = (ItemStack) objectMaterial;
+            itemStack.setAmount(quantity);
+            this.objectMaterial = itemStack;
+        }
+
         setMaterial(material, type);
     }
 

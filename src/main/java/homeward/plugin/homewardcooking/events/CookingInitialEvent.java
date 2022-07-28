@@ -14,6 +14,7 @@ public class CookingInitialEvent extends Event implements Cancellable {
     private Player player;
     private List<ItemStack> containedMaterial;
     private String locationKey;
+    private ItemStack remainedOutPutStack;
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelledFlag = false;
@@ -29,6 +30,15 @@ public class CookingInitialEvent extends Event implements Cancellable {
         this.cancelledFlag = cancel;
     }
 
+    public ItemStack getRemainedOutPutStack() {
+
+        return remainedOutPutStack;
+
+    }
+
+    public void setRemainedOutPutStack(ItemStack remainedOutPutStack) {
+        this.remainedOutPutStack = remainedOutPutStack;
+    }
 
     @Override
     public boolean isCancelled() {

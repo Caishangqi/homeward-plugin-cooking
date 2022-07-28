@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.utils.loaders;
 
 import homeward.plugin.homewardcooking.HomewardCooking;
+import homeward.plugin.homewardcooking.compatibilities.provided.mmoitems.WrappedMMOItem;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -71,7 +73,7 @@ public class RecipesLoader {
         cookingRecipe.setRecipeKey(key);
         Boolean validRecipe = true; //检查是否符合配方标准
 
-        String recipeName = configuration.getString(key+ ".recipe-name");
+        String recipeName = configuration.getString(key + ".recipe-name");
         cookingRecipe.setRecipeName(recipeName);
 
         //从recipe-input截取getConfigurationSection获取他的部分
@@ -131,8 +133,13 @@ public class RecipesLoader {
 
             String input = itOfRecipeMainOutputKeys.next();
             switch (input) {
+                case "mmoitem":
+                    WrappedMMOItem mmoItem = new WrappedMMOItem(Objects.requireNonNull(recipeMainOutput.getConfigurationSection("mmoitem")));
+                    ItemStack mmoitemStack = mmoItem.build();
+                    recipeOutputContent.setObjectMaterial(mmoitemStack);
+                    break;
                 case "type":
-                    String type = recipeMainOutput.get("type").toString();
+                    String type = Objects.requireNonNull(recipeMainOutput.get("type")).toString();
                     recipeOutputContent.setType(type);
                     //这里确认可以赋值
                     break;
@@ -146,7 +153,6 @@ public class RecipesLoader {
                     if (!recipeOutputContent.setMaterial(material, key)) {
                         validRecipe = false;
                     }
-                    ItemStack objectMaterial = (ItemStack) recipeOutputContent.getObjectMaterial();
                     break;
                 default:
                     break;

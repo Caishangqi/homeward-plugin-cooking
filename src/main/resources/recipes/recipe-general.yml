@@ -64,3 +64,37 @@ example-cooking-2:
       1:
         type: command
         command: "say hello"
+example-cooking-mmoitems:
+  recipe-name: "炼金术"
+  recipe-namespace: dining
+  recipe-inputs:
+    first-input:
+      time-required: 2
+      type: minecraft
+      material: APPLE
+      quantity: 1
+    second-input:
+      time-required: 2
+      type: minecraft
+      material: BREAD
+      quantity: 1
+    third-input:
+      time-required: 2
+      type: minecraft
+      material: POTATO
+      quantity: 1
+    fourth-input:
+      time-required: 2
+      type: minecraft
+      material: REDSTONE
+      quantity: 1
+  recipe-outputs:
+    main-output:
+      mmoitem:
+        type: CONSUMABLE
+        id: SANDWITCH
+      quantity: 15
+    additional-output:
+      1:
+        type: command
+        command: "say hello"
