@@ -2,6 +2,7 @@ package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
+import io.lumine.mythic.lib.api.item.NBTItem;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,8 +51,9 @@ public class RecipeContent implements Serializable {
 
     public boolean setMaterial(String material, String key) {
 
-        this.material = material;
+        ItemStack obj = (ItemStack) this.objectMaterial;
 
+        this.material = material;
 
         if (this.type != null) {
             switch (getType()) {
@@ -69,7 +71,9 @@ public class RecipeContent implements Serializable {
                     CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "暂不支持的物品类型，尽情期待");
             }
         } else {
-            CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "配方 " + key + "中没有找到相应的 type 元素(type应当写在前)");
+            if (NBTItem.get(obj).getType() == null) {
+                CommonUtils.getInstance().log(Level.WARNING, Type.UNLOADED, "配方 " + key + "中没有找到相应的 type 元素(type应当写在前)");
+            }
             return true;
         }
         return true;
