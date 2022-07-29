@@ -2,12 +2,12 @@
 package homeward.plugin.homewardcooking.commands;
 
 import homeward.plugin.homewardcooking.HomewardCooking;
-import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import io.lumine.mythic.lib.api.item.NBTItem;
 import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
 import net.minecraft.network.chat.Component;
@@ -137,6 +137,17 @@ public class MainCommand extends CommandBase {
         } catch (Exception e) {
             CommonUtils.getInstance().sendPluginMessageInServer(player, "&6&l当前没有正在进行的配方");
         }
+
+
+    }
+
+
+    @SubCommand("shownbt")
+    public void showItemNBTs(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+        NBTItem nbtItem = NBTItem.get(itemInMainHand);
+        CommonUtils.getInstance().sendPluginMessageInServer(player, nbtItem.getType() + " " + nbtItem.getString("MMOITEMS_ITEM_ID"));
 
 
     }

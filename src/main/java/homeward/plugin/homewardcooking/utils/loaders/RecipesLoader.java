@@ -109,10 +109,14 @@ public class RecipesLoader {
                         recipeContent.setTimeRequired(Integer.valueOf(timeRequired));
                         cookingRecipe.setTotalRequiredTimes(cookingRecipe.getTotalRequiredTimes() + Integer.parseInt(timeRequired));
                         break;
+                    case "mmoitem":
+                        WrappedMMOItem mmoItem = new WrappedMMOItem(Objects.requireNonNull(inputsConfigurationSection.getConfigurationSection("mmoitem")));
+                        ItemStack mmoitemStack = mmoItem.build();
+                        recipeContent.setObjectMaterial(mmoitemStack);
+                        break;
                     case "type":
                         String type = inputsConfigurationSection.getString("type");
                         recipeContent.setType(type);
-
                         break;
                     case "quantity":
                         int quantity = inputsConfigurationSection.getInt("quantity", 1);

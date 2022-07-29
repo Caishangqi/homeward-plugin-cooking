@@ -6,7 +6,6 @@ import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -19,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.bukkit.Material.AIR;
 import static org.bukkit.Material.CAULDRON;
 
 public class BlockBreakListener implements Listener {

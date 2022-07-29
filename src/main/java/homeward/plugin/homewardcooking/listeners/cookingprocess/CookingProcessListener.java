@@ -6,15 +6,14 @@ import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
+import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class CookingProcessListener implements Listener {
 
@@ -28,12 +27,11 @@ public class CookingProcessListener implements Listener {
         if (event.getWhoCalled().getOpenInventory().getTopInventory().getHolder() instanceof CookingGUI) {
 
 
-
             HashMap<String, CookingGUI> guiPools = HomewardCooking.GUIPools;
             CookingGUI gui = guiPools.get(event.getLocationKey());
 
             //Deduct the quantity
-            deductQuantity(event.getTargetRecipe(),gui);
+            deductQuantity(event.getTargetRecipe(), gui);
 
             //如果配方时间等于0则直接产出配方
             if (targetRecipe.getTotalRequiredTimes() == 0) {
@@ -50,7 +48,6 @@ public class CookingProcessListener implements Listener {
                 processObject.setRemainTime(event.getTargetRecipe().getTotalRequiredTimes());
 
                 HomewardCooking.processPool.put(exactPotLocation, processObject); //放入池子中
-                System.out.println();
 
             }
 
@@ -58,6 +55,15 @@ public class CookingProcessListener implements Listener {
 
     }
 
+    /**
+     * 这是复合方法，配方匹配到并且在InitialListener处理完数量匹配后
+     * 需要在这里进行减少，后续可以把这个方法在初始就判断完毕，更加符合
+     * 逻辑
+     *
+     * @param cookingRecipe 按照匹配到的配方进行删减物品数量操作
+     * @param cookingGUI    玩家当前操作的GUI
+     * @implSpec
+     */
     private void deductQuantity(CookingRecipe cookingRecipe, CookingGUI cookingGUI) {
         for (int avaliableInputSlot : CookingGUI.avaliableInputSlots) {
             cookingRecipe.getContents().forEach(content -> {
@@ -67,18 +73,34 @@ public class CookingProcessListener implements Listener {
                 if (itemStack == null)
                     itemStack = CommonMaterial.AIR.getItemStack();
 
-                if (itemStack.isSimilar(objectMaterial)) {
-                    ItemStack item = cookingGUI.getInventory().getItem(avaliableInputSlot);
-                    if (item.getAmount() - content.getQuantity() == 0) {
-                        cookingGUI.getInventory().setItem(avaliableInputSlot,CommonMaterial.AIR.getItemStack());
-                    } else {
-                        item.setAmount(item.getAmount() - content.getQuantity());
-                        cookingGUI.getInventory().setItem(avaliableInputSlot,item);
-                    }
 
+                /**
+                 * 这种写法后续需要优化，我不认为继续这么写能把矿物词典写出来
+                 * 需要为矿物词典配方单独一个完整的工具类等工程。
+                 */
+
+                //如果匹配到了mmoitem的物品则进找到recipeContent内部存储的数量进行删减
+                if (CommonUtils.getInstance().isMMOITEM(itemStack) && CommonUtils.getInstance().isSimilarMMOITEM(itemStack, objectMaterial)) {
+                    doDeductAction(cookingGUI, content, avaliableInputSlot);
+                    //如果匹配到了minecraft的物品则进找到recipeContent内部存储的数量进行删减
+                } else if (itemStack.isSimilar(objectMaterial)) {
+                    doDeductAction(cookingGUI, content, avaliableInputSlot);
                 }
+
             });
         }
 
+    }
+
+    private void doDeductAction(CookingGUI cookingGUI, RecipeContent content, Integer avaliableInputSlot) {
+        ItemStack item = cookingGUI.getInventory().getItem(avaliableInputSlot);
+        //如果直接减少完了，那么就直接设置输入栏其中一格为空气
+        if (item.getAmount() - content.getQuantity() == 0) {
+            cookingGUI.getInventory().setItem(avaliableInputSlot, CommonMaterial.AIR.getItemStack());
+        } else {
+            //进行减少
+            item.setAmount(item.getAmount() - content.getQuantity());
+            cookingGUI.getInventory().setItem(avaliableInputSlot, item);
+        }
     }
 }

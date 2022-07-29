@@ -3,13 +3,13 @@ package homeward.plugin.homewardcooking.utils;
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
-import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.utils.loaders.ConfigurationLoader;
 import homeward.plugin.homewardcooking.utils.loaders.DictionaryLoader;
 import homeward.plugin.homewardcooking.utils.loaders.RecipesLoader;
+import io.lumine.mythic.lib.api.item.NBTItem;
 import org.bukkit.*;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -20,10 +20,7 @@ import redempt.redlib.itemutils.ItemBuilder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 import static homeward.plugin.homewardcooking.HomewardCooking.commandManager;
@@ -304,6 +301,24 @@ public class CommonUtils {
 
         return itemStacks;
 
+    }
+
+    public boolean isSimilarMMOITEM(ItemStack itemStack1, ItemStack itemStack2) {
+        NBTItem nbtItemOfItem1 = NBTItem.get(itemStack1);
+        NBTItem nbtItemOfItem2 = NBTItem.get(itemStack2);
+
+        if (nbtItemOfItem1.getType() == null && nbtItemOfItem2.getType() == null) {
+            return false;
+        } else if (Objects.equals(nbtItemOfItem1.getType(), nbtItemOfItem2.getType())) {
+            return Objects.equals(nbtItemOfItem1.getString("MMOITEMS_ITEM_ID"), nbtItemOfItem2.getString("MMOITEMS_ITEM_ID"));
+        }
+
+        return false;
+
+    }
+
+    public boolean isMMOITEM(ItemStack itemStack) {
+        return NBTItem.get(itemStack).getType() != null;
     }
 
 

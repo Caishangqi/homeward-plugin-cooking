@@ -5,7 +5,6 @@ import homeward.plugin.homewardcooking.utils.Type;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.world.item.Items;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -25,6 +24,7 @@ public class RecipeContent implements Serializable {
     private Object objectMaterial;
 
     @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     private Integer quantity = 1;
 
     public void setQuantity(Integer quantity) {
@@ -39,6 +39,13 @@ public class RecipeContent implements Serializable {
         }
 
         setMaterial(material, type);
+    }
+
+    //Unstable
+
+    public Integer getQuantity() {
+        ItemStack obj = (ItemStack) objectMaterial;
+        return obj.getAmount();
     }
 
     public boolean setMaterial(String material, String key) {

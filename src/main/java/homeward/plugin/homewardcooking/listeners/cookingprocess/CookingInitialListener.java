@@ -4,7 +4,6 @@ import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.events.CookingInitialEvent;
 import homeward.plugin.homewardcooking.events.CookingProcessEvent;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
-import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
@@ -17,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class CookingInitialListener implements Listener {
 
@@ -78,7 +76,11 @@ public class CookingInitialListener implements Listener {
                 //TODO
                 itemStacks.forEach(preparedItem -> {
                     //System.out.println("(!)" + preparedItem.getType() + "-" + preparedItem.getAmount() + "<>" + recipeContent.getMaterial() + "-" + recipeContent.getQuantity());
-                    if (recipeItemStack.isSimilar(preparedItem) && preparedItem.getAmount() >= recipeContent.getQuantity()) {
+
+                    if (CommonUtils.getInstance().isMMOITEM(preparedItem) && CommonUtils.getInstance().isSimilarMMOITEM(preparedItem, recipeItemStack)
+                            && preparedItem.getAmount() >= recipeContent.getQuantity()) {
+                        totalMatch.set(totalMatch.get() + 1);
+                    } else if (recipeItemStack.isSimilar(preparedItem) && preparedItem.getAmount() >= recipeContent.getQuantity()) {
                         //System.out.println("preparedItem: " + preparedItem.getAmount() + preparedItem.getType());
                         totalMatch.set(totalMatch.get() + 1);
                     }
@@ -86,7 +88,8 @@ public class CookingInitialListener implements Listener {
             });
         }
 
-        //System.out.println(totalMatch.get());
+
+        //System.out.println("isNumberValid(): " + totalMatch.get());
         return totalMatch.get() == 4;
     }
 
@@ -99,14 +102,20 @@ public class CookingInitialListener implements Listener {
             COOKINGRECIPE.getContents().forEach(recipeContent -> {
                 ItemStack objectMaterial = (ItemStack) recipeContent.getObjectMaterial();
                 itemStacks.forEach(itemStack -> {
-                    if (objectMaterial.isSimilar(itemStack))
+
+                    if (CommonUtils.getInstance().isMMOITEM(itemStack) && CommonUtils.getInstance().isSimilarMMOITEM(objectMaterial, itemStack)) {
+                        //System.out.println("匹配到了一个捏");
                         totalMatch.set(totalMatch.get() + 1);
+                    } else if (objectMaterial.isSimilar(itemStack)) {
+                        totalMatch.set(totalMatch.get() + 1);
+                    }
+
                 });
             });
+            //System.out.println("isPresentRecipe(): " + totalMatch.get());
             if (totalMatch.get() == 4)
                 cookingRecipe[0] = COOKINGRECIPE;
         });
-
 
         return cookingRecipe[0];
     }
