@@ -36,25 +36,25 @@ example-cooking-2:
   recipe-namespace: dining
   recipe-inputs:
     first-input:
-      time-required: 10
+      time-required: 1
       type: minecraft
       material: APPLE
       quantity: 1
     second-input:
-      time-required: 10
+      time-required: 1
       type: minecraft
       material: BREAD
       quantity: 1
     third-input:
-      time-required: 10
+      time-required: 1
       type: minecraft
       material: POTATO
       quantity: 1
     fourth-input:
-      time-required: 10
+      time-required: 1
       type: minecraft
       material: DIRT
-      quantity: 1
+      quantity: 4
   recipe-outputs:
     main-output:
       type: minecraft
@@ -85,9 +85,10 @@ example-cooking-mmoitems:
       quantity: 1
     fourth-input:
       time-required: 2
-      type: minecraft
-      material: REDSTONE
-      quantity: 1
+      mmoitem:
+        type: CONSUMABLE
+        id: ROCK
+      quantity: 4
   recipe-outputs:
     main-output:
       mmoitem:
