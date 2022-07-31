@@ -23,7 +23,7 @@ import java.util.List;
 public class ProcessCookingScheduler {
 
     private static volatile ProcessCookingScheduler instance;
-    private static List<Location> toDoRemove = new ArrayList<>();
+    private static final List<Location> toDoRemove = new ArrayList<>();
 
     public static ProcessCookingScheduler getInstance() {
 
@@ -64,12 +64,12 @@ public class ProcessCookingScheduler {
 
                 toDoRemove.forEach(key -> {
                     CookingProcessObject cookingProcessObject = processPool.get(key);
-                    String locationKey = CommonUtils.getInstance().toStringBlockLocationKey(key);
+                    String locationKey = CommonUtils.toStringBlockLocationKey(key);
                     if (HomewardCooking.GUIPools.containsKey(locationKey)) {
                         CookingGUI gui = HomewardCooking.GUIPools.get(locationKey);
                         gui.getInventory().setItem(Button.READY_BUTTON.getSlot(), Button.READY_BUTTON.getButton());
                         ItemStack objectMaterial = (ItemStack) cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
-                        CommonUtils.getInstance().stackItemWithCondition(gui, objectMaterial);
+                        CommonUtils.stackItemWithCondition(gui, objectMaterial);
                         key.getWorld().playSound(key, Sound.BLOCK_DISPENSER_DISPENSE, 2.0F, 0.5F);
 
                     } else {
@@ -78,7 +78,7 @@ public class ProcessCookingScheduler {
                             NBTFile file = new NBTFile(new File(key.getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
                             ItemStack objectMaterial = (ItemStack) cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
                             CookingData cookingdata = file.getObject(locationKey, CookingData.class);
-                            CommonUtils.getInstance().stackItemWithCondition(objectMaterial, cookingdata);
+                            CommonUtils.stackItemWithCondition(objectMaterial, cookingdata);
                             file.setObject(locationKey, cookingdata);
                             file.save();
 
@@ -108,7 +108,7 @@ public class ProcessCookingScheduler {
         HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
 
         processPool.forEach((K, V) -> {
-            String stringBlockLocationKey = CommonUtils.getInstance().toStringBlockLocationKey(K);
+            String stringBlockLocationKey = CommonUtils.toStringBlockLocationKey(K);
             CookingGUI cookingGUI = guiPools.get(stringBlockLocationKey);
             ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())
                     .setName(ChatColor.translateAlternateColorCodes('&', Button.PROCESS_BUTTON.getName() + V.getCookingRecipe().getRecipeName())).setLore(ChatColor.translateAlternateColorCodes('&', "&6剩余时间: &7" + V.getRemainTime()));

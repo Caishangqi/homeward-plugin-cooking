@@ -17,13 +17,13 @@ public class CookingPotThing {
 
         ItemStack cauldron = new ItemStack(Material.CAULDRON);
         NBTItem nbtCauldron = new NBTItem(new ItemStack(cauldron));
-        nbtCauldron.setInteger("CookingPot",1);
+        nbtCauldron.setInteger("CookingPot", 1);
         nbtCauldron.applyNBT(cauldron);
 
         ItemMeta cauldronItemMeta = cauldron.getItemMeta();
         cauldronItemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&f厨艺锅"));
         List<String> lore = new ArrayList<String>();
-        lore.add(ChatColor.translateAlternateColorCodes('&',"&7崭新的厨艺锅，放置在地上打开"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7崭新的厨艺锅，放置在地上打开"));
         cauldronItemMeta.setLore(lore);
         cauldron.setItemMeta(cauldronItemMeta);
         vanillaItemStack = cauldron;

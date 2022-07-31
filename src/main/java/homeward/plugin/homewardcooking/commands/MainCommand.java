@@ -1,4 +1,3 @@
-
 package homeward.plugin.homewardcooking.commands;
 
 import homeward.plugin.homewardcooking.HomewardCooking;
@@ -60,7 +59,7 @@ public class MainCommand extends CommandBase {
     @SubCommand("checkPool")
     public void checkPool(CommandSender commandSender) {
         Player player = (Player) commandSender;
-        player.sendMessage(String.valueOf("当前GUI池中缓存的GUI数量为 " + HomewardCooking.GUIPools.size() + " 个"));
+        player.sendMessage("当前GUI池中缓存的GUI数量为 " + HomewardCooking.GUIPools.size() + " 个");
 
     }
 
@@ -91,7 +90,7 @@ public class MainCommand extends CommandBase {
 
         HashMap<String, CookingRecipe> loadRecipes = HomewardCooking.recipesLoader.getLoadRecipes();
         Set<String> strings = loadRecipes.keySet();
-        CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的配方: &7" + String.valueOf(strings));
+        CommonUtils.sendPluginMessageInServer(player, "&r&l当前加载的配方: &7" + strings);
     }
 
     @SubCommand("reload")
@@ -99,17 +98,17 @@ public class MainCommand extends CommandBase {
         if (type != null) {
             switch (type) {
                 case "recipe":
-                    CommonUtils.getInstance().reloadRecipe();
-                    CommonUtils.getInstance().sendPluginMessageInServer((Player) commandSender, "配方重载成功");
+                    CommonUtils.reloadRecipe();
+                    CommonUtils.sendPluginMessageInServer((Player) commandSender, "配方重载成功");
                     break;
                 case "dictionary":
-                    CommonUtils.getInstance().reloadDictionary();
-                    CommonUtils.getInstance().sendPluginMessageInServer((Player) commandSender, "词典重载成功");
+                    CommonUtils.reloadDictionary();
+                    CommonUtils.sendPluginMessageInServer((Player) commandSender, "词典重载成功");
 
             }
         } else {
-            CommonUtils.getInstance().reloadPlugin();
-            CommonUtils.getInstance().sendPluginMessageInServer((Player) commandSender, "插件重载成功");
+            CommonUtils.reloadPlugin();
+            CommonUtils.sendPluginMessageInServer((Player) commandSender, "插件重载成功");
 
         }
     }
@@ -120,7 +119,7 @@ public class MainCommand extends CommandBase {
 
         HashMap<String, DictionaryLabel> loadedDictionary = HomewardCooking.dictionaryLoader.getLoadedDictionary();
         Set<String> strings = loadedDictionary.keySet();
-        CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前加载的词典: &7" + String.valueOf(strings));
+        CommonUtils.sendPluginMessageInServer(player, "&r&l当前加载的词典: &7" + strings);
     }
 
     @SubCommand("onprocess")
@@ -130,12 +129,12 @@ public class MainCommand extends CommandBase {
         HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
         try {
             Set<Location> strings = processPool.keySet();
-            CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l当前正在进行的配方: &7");
+            CommonUtils.sendPluginMessageInServer(player, "&r&l当前正在进行的配方: &7");
             for (Location l : strings) {
-                CommonUtils.getInstance().sendPluginMessageInServer(player, "&r&l: &7 世界 - " + l.getWorld().getName() + " &c输出 &7- " + processPool.get(l).getCookingRecipe().getMainOutPut().getMaterial());
+                CommonUtils.sendPluginMessageInServer(player, "&r&l: &7 世界 - " + l.getWorld().getName() + " &c输出 &7- " + processPool.get(l).getCookingRecipe().getMainOutPut().getMaterial());
             }
         } catch (Exception e) {
-            CommonUtils.getInstance().sendPluginMessageInServer(player, "&6&l当前没有正在进行的配方");
+            CommonUtils.sendPluginMessageInServer(player, "&6&l当前没有正在进行的配方");
         }
 
 
@@ -147,7 +146,7 @@ public class MainCommand extends CommandBase {
         Player player = (Player) commandSender;
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         NBTItem nbtItem = NBTItem.get(itemInMainHand);
-        CommonUtils.getInstance().sendPluginMessageInServer(player, nbtItem.getType() + " " + nbtItem.getString("MMOITEMS_ITEM_ID"));
+        CommonUtils.sendPluginMessageInServer(player, nbtItem.getType() + " " + nbtItem.getString("MMOITEMS_ITEM_ID"));
 
 
     }

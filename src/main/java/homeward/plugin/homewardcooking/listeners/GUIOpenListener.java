@@ -40,9 +40,9 @@ public class GUIOpenListener implements Listener {
         } else {
 
             CookingGUI cookingGUI = new CookingGUI();
-            cookingGUI.setGuiName(ChatColor.translateAlternateColorCodes('&',HomewardCooking.configurationLoader.getGUITitle()));
+            cookingGUI.setGuiName(ChatColor.translateAlternateColorCodes('&', HomewardCooking.configurationLoader.getGUITitle()));
 
-            cookingGUI.test = consumerists(cookingData,cookingGUI);
+            cookingGUI.test = consumerists(cookingData, cookingGUI);
             cookingGUI.addPlayerToOpenPlayers(player);
             cookingGUI.setLocationKey(locationKey);
             cookingGUI.open(player);

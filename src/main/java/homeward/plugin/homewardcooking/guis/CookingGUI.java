@@ -89,11 +89,7 @@ public class CookingGUI extends GUI {
             e.setCancelled(true);
         }
 
-        if (Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList()).contains(e.getRawSlot())) {
-            e.setCancelled(false);
-        } else {
-            e.setCancelled(true);
-        }
+        e.setCancelled(!Arrays.stream(avaliableInputSlots).boxed().collect(Collectors.toList()).contains(e.getRawSlot()));
 
         if (e.getRawSlot() == HomewardCooking.configurationLoader.getGUIOutputSlot() && e.getCursor().getType() == Material.AIR) {
             e.setCancelled(false);
@@ -152,11 +148,11 @@ public class CookingGUI extends GUI {
         inventory.setItem(startButton, Button.START_BUTTON.getButton());
         inventory.setItem(recipesButton, Button.RECIPE_BUTTON.getButton());
 
-        if (!HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()))) {
+        if (!HomewardCooking.processPool.containsKey(CommonUtils.toBukkitBlockLocationKey(locationKey, player.getWorld()))) {
             inventory.setItem(Button.READY_BUTTON.getSlot(), Button.READY_BUTTON.getButton());
         } else {
             HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
-            CookingProcessObject cookingProcessObject = processPool.get(CommonUtils.getInstance().toBukkitBlockLocationKey(locationKey, player.getWorld()));
+            CookingProcessObject cookingProcessObject = processPool.get(CommonUtils.toBukkitBlockLocationKey(locationKey, player.getWorld()));
 
 
             ItemStack processButton = new ItemBuilder(Button.PROCESS_BUTTON.getButton())

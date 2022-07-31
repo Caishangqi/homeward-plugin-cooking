@@ -9,6 +9,7 @@ package homeward.plugin.homewardcooking.compatibilities;
 //import io.th0rgal.oraxen.compatibilities.provided.worldedit.WrappedWorldEdit;
 //import io.th0rgal.oraxen.config.Message;
 //import net.kyori.adventure.text.minimessage.Template;
+
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.Type;
 import org.bukkit.Bukkit;
@@ -19,7 +20,8 @@ import java.util.logging.Level;
 
 public class CompatibilitiesManager {
 
-    private CompatibilitiesManager() {}
+    private CompatibilitiesManager() {
+    }
 
     private static final ConcurrentHashMap<String, Class<? extends CompatibilityProvider<?>>> COMPATIBILITY_PROVIDERS = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<String, CompatibilityProvider<?>> ACTIVE_COMPATIBILITY_PROVIDERS = new ConcurrentHashMap<>();
@@ -47,10 +49,11 @@ public class CompatibilitiesManager {
                 compatibilityProvider.enable(pluginName);
                 ACTIVE_COMPATIBILITY_PROVIDERS.put(pluginName, compatibilityProvider);
                 //Message.PLUGIN_HOOKS.log(Template.template("plugin", pluginName));
-                CommonUtils.getInstance().log(Level.INFO, Type.LOADED,"加载兼容插件" + pluginName + "成功");
+                CommonUtils.log(Level.INFO, Type.LOADED, "加载兼容插件" + pluginName + "成功");
                 return true;
             }
-        } catch (final InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (final InstantiationException | IllegalAccessException | NoSuchMethodException |
+                       InvocationTargetException e) {
             e.printStackTrace();
             return false;
         }
@@ -65,7 +68,7 @@ public class CompatibilitiesManager {
                 ACTIVE_COMPATIBILITY_PROVIDERS.get(pluginName).disable();
             ACTIVE_COMPATIBILITY_PROVIDERS.remove(pluginName);
             //Message.PLUGIN_UNHOOKS.log(Template.template("plugin", pluginName));
-            CommonUtils.getInstance().log(Level.INFO, Type.UNLOADED,"卸载兼容插件" + pluginName + "成功");
+            CommonUtils.log(Level.INFO, Type.UNLOADED, "卸载兼容插件" + pluginName + "成功");
             return true;
         } catch (final Exception e) {
             e.printStackTrace();

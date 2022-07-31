@@ -30,8 +30,12 @@ public class CommonUtils {
     private static final String LISTENER_PACKAGE_NAME = "listeners";
     private static final String EVENTS_PACKAGE_NAME = "events";
 
+    private CommonUtils() {
+        throw new java.lang.UnsupportedOperationException("这是一个工具类，不能被实例化");
+    }
+
     //我疯狂的抄@Barroit代码
-    public void register() {
+    public static void register() {
         String listenerPath = getPath(HomewardCooking.packageName, LISTENER_PACKAGE_NAME);
         Set<Class<? extends Listener>> classes = new Reflections(listenerPath).getSubTypesOf(Listener.class);
         classes.forEach(var -> {
@@ -47,35 +51,31 @@ public class CommonUtils {
         });
     }
 
-    public void loadRecipes() {
+    public static void loadRecipes() {
         HomewardCooking.recipesLoader = new RecipesLoader();
         HomewardCooking.recipesLoader.importRecipes();
     }
 
-    public void loadDictionary() {
+    public static void loadDictionary() {
         HomewardCooking.dictionaryLoader = new DictionaryLoader();
         HomewardCooking.dictionaryLoader.importDictionary();
     }
 
-    public static CommonUtils getInstance() {
-        return new CommonUtils();
-    }
-
-    public String getPath(String path, String append) {
+    public static String getPath(String path, String append) {
         return path + '.' + append;
     }
 
-    public void log(Level level, Type type, String message) {
+    public static void log(Level level, Type type, String message) {
         //Bukkit.getLogger().log(level, ChatColor.translateAlternateColorCodes('&', "[HWC] " + type.getName() + " " + message));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "[HWC] " + type.getName() + " " + message));
 
     }
 
-    public void sendPluginMessageInServer(Player player, String message) {
+    public static void sendPluginMessageInServer(Player player, String message) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&6协调料理锅&7] " + message));
     }
 
-    public ItemStack buildItems(Material material, String name, List<String> lore) {
+    public static ItemStack buildItems(Material material, String name, List<String> lore) {
         ItemStack item = new ItemBuilder(material)
                 .setName(ChatColor.translateAlternateColorCodes('&', name));
         //.setLore("Cool lore");
@@ -85,31 +85,31 @@ public class CommonUtils {
         return item;
     }
 
-    public ItemStack buildItems(Material material, String name, String lore) {
+    public static ItemStack buildItems(Material material, String name, String lore) {
         ItemStack item = new ItemBuilder(material)
                 .setName(ChatColor.translateAlternateColorCodes('&', name))
                 .setLore(ChatColor.translateAlternateColorCodes('&', lore));
         return item;
     }
 
-    public ItemStack buildItems(Material material, String name, Integer customModelData) {
+    public static ItemStack buildItems(Material material, String name, Integer customModelData) {
         ItemStack item = new ItemBuilder(material)
                 .setName(ChatColor.translateAlternateColorCodes('&', name))
                 .setCustomModelData(customModelData);
         return item;
     }
 
-    public String toStringBlockLocationKey(Location location) {
+    public static String toStringBlockLocationKey(Location location) {
         return location.getWorld() + " " + location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ();
     }
 
-    public Location toBukkitBlockLocationKey(String location, World world) {
+    public static Location toBukkitBlockLocationKey(String location, World world) {
         String[] locations = location.split(" ");
         return new Location(world, Double.parseDouble(locations[1]), Double.parseDouble(locations[2]), Double.parseDouble(locations[3]));
     }
 
 
-    public void stackItemWithCondition(CookingGUI gui, ItemStack itemStack) {
+    public static void stackItemWithCondition(CookingGUI gui, ItemStack itemStack) {
 
         if (gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()) != null && gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()).isSimilar(itemStack)) {
             ItemStack clone = itemStack.clone();
@@ -126,7 +126,7 @@ public class CommonUtils {
         }
     }
 
-    public void stackItemWithCondition(ItemStack itemStack, CookingData cookingdata) throws IOException, ClassNotFoundException {
+    public static void stackItemWithCondition(ItemStack itemStack, CookingData cookingdata) throws IOException, ClassNotFoundException {
 
         ItemStack itemStackInFile = (ItemStack) StreamItemsUtils.writeDecodedObject(cookingdata.getMainOutput());
 
@@ -146,7 +146,7 @@ public class CommonUtils {
 
     }
 
-    public void saveProcessCooking() {
+    public static void saveProcessCooking() {
 
         HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
         List<World> worlds = Bukkit.getServer().getWorlds();
@@ -182,7 +182,7 @@ public class CommonUtils {
 
     }
 
-    public void startProcessCooking() {
+    public static void startProcessCooking() {
         HashMap<Location, CookingProcessObject> processPool = HomewardCooking.processPool;
         List<World> worlds = Bukkit.getServer().getWorlds();
         HashMap<String, CookingRecipe> loadRecipes = HomewardCooking.recipesLoader.getLoadRecipes();
@@ -219,7 +219,7 @@ public class CommonUtils {
         log(Level.INFO, Type.LOADED, "成功加载保存的任务");
     }
 
-    public void reloadPlugin() {
+    public static void reloadPlugin() {
 
         try {
             closeAllOpenedGUI();
@@ -235,7 +235,7 @@ public class CommonUtils {
 
     }
 
-    private void closeAllOpenedGUI() {
+    private static void closeAllOpenedGUI() {
         HashMap<String, CookingGUI> cachedGUI = new HashMap<>(HomewardCooking.GUIPools);
         cachedGUI.forEach((K, V) -> {
             List<Player> openedPlayers = new ArrayList<>(V.getOpenedPlayers());
@@ -243,7 +243,7 @@ public class CommonUtils {
         });
     }
 
-    public void reloadRecipe() {
+    public static void reloadRecipe() {
         try {
             loadRecipes();
             log(Level.INFO, Type.LOADED, "菜谱配方重载成功");
@@ -253,7 +253,7 @@ public class CommonUtils {
         }
     }
 
-    public void reloadDictionary() {
+    public static void reloadDictionary() {
         try {
             loadDictionary();
             log(Level.INFO, Type.LOADED, "菜谱字典重载成功");
@@ -265,7 +265,7 @@ public class CommonUtils {
 
     }
 
-    public void registryReloadTabCompletion() {
+    public static void registryReloadTabCompletion() {
         commandManager.getCompletionHandler().register("#reloadType", input -> {
             ArrayList<String> list = new ArrayList<>();
             list.add("recipe");
@@ -274,7 +274,7 @@ public class CommonUtils {
         });
     }
 
-    public List<ItemStack> getContainedItemsInData(CookingData data) {
+    public static List<ItemStack> getContainedItemsInData(CookingData data) {
 
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
 
@@ -303,7 +303,7 @@ public class CommonUtils {
 
     }
 
-    public boolean isSimilarMMOITEM(ItemStack itemStack1, ItemStack itemStack2) {
+    public static boolean isSimilarMMOITEM(ItemStack itemStack1, ItemStack itemStack2) {
         NBTItem nbtItemOfItem1 = NBTItem.get(itemStack1);
         NBTItem nbtItemOfItem2 = NBTItem.get(itemStack2);
 
@@ -317,7 +317,7 @@ public class CommonUtils {
 
     }
 
-    public boolean isMMOITEM(ItemStack itemStack) {
+    public static boolean isMMOITEM(ItemStack itemStack) {
         return NBTItem.get(itemStack).getType() != null;
     }
 

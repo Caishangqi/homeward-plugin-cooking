@@ -47,7 +47,7 @@ public class BlockBreakListener implements Listener {
 
                 //爆物品
                 CookingData cookingData = file.getObject(locationKey, CookingData.class);
-                List<ItemStack> containedItemsInData = CommonUtils.getInstance().getContainedItemsInData(cookingData);
+                List<ItemStack> containedItemsInData = CommonUtils.getContainedItemsInData(cookingData);
 
                 event.setDropItems(false);
                 file.removeKey(locationKey);

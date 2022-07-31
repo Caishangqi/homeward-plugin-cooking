@@ -6,4 +6,4 @@ prefix: HWC
 authors: [ Caizii ]
 description: A Cooking System that focus on explore recipe
 website: fantang.cc
-softdepend: [ ProtocolLib,  MMOItems,  NBTAPI ]
+softdepend: [ ProtocolLib,  MMOItems,  NBTAPI , ItemsAdder]

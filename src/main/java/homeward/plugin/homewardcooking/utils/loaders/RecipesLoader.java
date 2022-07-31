@@ -21,12 +21,12 @@ import java.util.logging.Level;
 public class RecipesLoader {
 
     //储存读取到了yml配方文件并以文件名储存
-    private HashMap<String, FileConfiguration> loadedRecipesFiles = new HashMap<>();
+    private final HashMap<String, FileConfiguration> loadedRecipesFiles = new HashMap<>();
     //储存转换FileConfiguration的配方到CookingRecipes里
     private HashMap<String, CookingRecipe> loadRecipes = new HashMap<>();
-    private File accessRawYMLFile[];
+    private File[] accessRawYMLFile;
     //
-    private File pluginFolder = new File(HomewardCooking.getInstance().getDataFolder(), "recipes");
+    private final File pluginFolder = new File(HomewardCooking.getInstance().getDataFolder(), "recipes");
 
     public void importRecipes() {
         //开始从文件形式导入到YamlConfiguration， 3个文件就有3个YamlConfiguration
@@ -59,7 +59,7 @@ public class RecipesLoader {
                 try {
                     loadSingleRecipe(key, configuration);
                 } catch (Exception exception) {
-                    CommonUtils.getInstance().log(Level.WARNING, Type.FATAL, "配方 " + key + " 加载失败");
+                    CommonUtils.log(Level.WARNING, Type.FATAL, "配方 " + key + " 加载失败");
                     exception.printStackTrace();
                 }
 
@@ -196,13 +196,13 @@ public class RecipesLoader {
         }
 
         if (loadRecipes.containsKey(key)) {
-            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 是重复的");
+            CommonUtils.log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 是重复的");
 
         } else if (!validRecipe) {
-            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 加载失败");
+            CommonUtils.log(Level.INFO, Type.FATAL, "你的配方" + " " + key + " 加载失败");
         } else {
             loadRecipes.put(key, cookingRecipe);
-            CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "配方" + key + "加载成功");
+            CommonUtils.log(Level.INFO, Type.LOADED, "配方" + key + "加载成功");
         }
 
 

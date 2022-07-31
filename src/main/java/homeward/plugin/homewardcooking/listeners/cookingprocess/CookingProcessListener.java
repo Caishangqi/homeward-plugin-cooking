@@ -36,7 +36,7 @@ public class CookingProcessListener implements Listener {
             //如果配方时间等于0则直接产出配方
             if (targetRecipe.getTotalRequiredTimes() == 0) {
 
-                CommonUtils.getInstance().stackItemWithCondition(gui, targetItems);
+                CommonUtils.stackItemWithCondition(gui, targetItems);
 
             } else {
                 //开始建立烹饪时间任务并使用调度器每秒减少所需时间
@@ -80,7 +80,7 @@ public class CookingProcessListener implements Listener {
                  */
 
                 //如果匹配到了mmoitem的物品则进找到recipeContent内部存储的数量进行删减
-                if (CommonUtils.getInstance().isMMOITEM(itemStack) && CommonUtils.getInstance().isSimilarMMOITEM(itemStack, objectMaterial)) {
+                if (CommonUtils.isMMOITEM(itemStack) && CommonUtils.isSimilarMMOITEM(itemStack, objectMaterial)) {
                     doDeductAction(cookingGUI, content, avaliableInputSlot);
                     //如果匹配到了minecraft的物品则进找到recipeContent内部存储的数量进行删减
                 } else if (itemStack.isSimilar(objectMaterial)) {

@@ -18,9 +18,8 @@ public class CookingGUICloseListener implements Listener {
     @EventHandler
     public void onCookingGUIClose(InventoryCloseEvent event) throws IOException {
         //TODO GUI关闭逻辑
-        if (event.getView().getTopInventory().getHolder() instanceof CookingGUI) {
+        if (event.getView().getTopInventory().getHolder() instanceof CookingGUI cookingGUI) {
             Player player = (Player) event.getPlayer();
-            CookingGUI cookingGUI = (CookingGUI) event.getView().getTopInventory().getHolder();
             cookingGUI.removePlayerFromOpenPlayers(player);
 
             NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));

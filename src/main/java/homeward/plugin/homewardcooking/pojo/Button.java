@@ -82,15 +82,15 @@ public enum Button {
             return CommonMaterial.AIR.getItemStack();
         }
 
-        return CommonUtils.getInstance().buildItems(this.getMaterial(), this.getName(), this.getCustomModelData());
+        return CommonUtils.buildItems(this.getMaterial(), this.getName(), this.getCustomModelData());
 
 
         /**
          switch(this) {
          case START_BUTTON:
-         return CommonUtils.getInstance().buildItems(START_BUTTON.getMaterial(), START_BUTTON.getName());
+         return CommonUtils.buildItems(START_BUTTON.getMaterial(), START_BUTTON.getName());
          case RECIPE_BUTTON:
-         return CommonUtils.getInstance().buildItems(RECIPE_BUTTON.getMaterial(),RECIPE_BUTTON.getName());
+         return CommonUtils.buildItems(RECIPE_BUTTON.getMaterial(),RECIPE_BUTTON.getName());
          }
          */
 

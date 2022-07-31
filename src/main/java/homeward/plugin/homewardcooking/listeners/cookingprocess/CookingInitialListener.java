@@ -30,9 +30,9 @@ public class CookingInitialListener implements Listener {
             }
         });
 
-        if (HomewardCooking.processPool.containsKey(CommonUtils.getInstance().toBukkitBlockLocationKey(event.getLocationKey(), event.getPlayer().getWorld()))) {
+        if (HomewardCooking.processPool.containsKey(CommonUtils.toBukkitBlockLocationKey(event.getLocationKey(), event.getPlayer().getWorld()))) {
             event.getPlayer().playSound(event.getPlayer(), Sound.BLOCK_PISTON_CONTRACT, 1.0F, 2.0F);
-            CommonUtils.getInstance().sendPluginMessageInServer(event.getPlayer(), "&c当前已经有一个正在进行的配方了");
+            CommonUtils.sendPluginMessageInServer(event.getPlayer(), "&c当前已经有一个正在进行的配方了");
         } else if (recipe != null && isNumberValid(recipe, event.getContainedMaterial(), HomewardCooking.GUIPools.get(event.getLocationKey()))) {
 
             ItemStack objectMaterial = (ItemStack) recipe.getMainOutPut().getObjectMaterial();
@@ -52,13 +52,13 @@ public class CookingInitialListener implements Listener {
             } else {
                 //被占用了，直接报错
                 event.getPlayer().playSound(event.getPlayer(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
-                CommonUtils.getInstance().sendPluginMessageInServer(event.getPlayer(), "&c物品堆叠满层!");
+                CommonUtils.sendPluginMessageInServer(event.getPlayer(), "&c物品堆叠满层!");
             }
 
 
         } else {
             event.getPlayer().playSound(event.getPlayer(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
-            CommonUtils.getInstance().sendPluginMessageInServer(event.getPlayer(), "&c未找到对应配方!");
+            CommonUtils.sendPluginMessageInServer(event.getPlayer(), "&c未找到对应配方!");
         }
 
     }
@@ -77,7 +77,7 @@ public class CookingInitialListener implements Listener {
                 itemStacks.forEach(preparedItem -> {
                     //System.out.println("(!)" + preparedItem.getType() + "-" + preparedItem.getAmount() + "<>" + recipeContent.getMaterial() + "-" + recipeContent.getQuantity());
 
-                    if (CommonUtils.getInstance().isMMOITEM(preparedItem) && CommonUtils.getInstance().isSimilarMMOITEM(preparedItem, recipeItemStack)
+                    if (CommonUtils.isMMOITEM(preparedItem) && CommonUtils.isSimilarMMOITEM(preparedItem, recipeItemStack)
                             && preparedItem.getAmount() >= recipeContent.getQuantity()) {
                         totalMatch.set(totalMatch.get() + 1);
                     } else if (recipeItemStack.isSimilar(preparedItem) && preparedItem.getAmount() >= recipeContent.getQuantity()) {
@@ -103,7 +103,7 @@ public class CookingInitialListener implements Listener {
                 ItemStack objectMaterial = (ItemStack) recipeContent.getObjectMaterial();
                 itemStacks.forEach(itemStack -> {
 
-                    if (CommonUtils.getInstance().isMMOITEM(itemStack) && CommonUtils.getInstance().isSimilarMMOITEM(objectMaterial, itemStack)) {
+                    if (CommonUtils.isMMOITEM(itemStack) && CommonUtils.isSimilarMMOITEM(objectMaterial, itemStack)) {
                         //System.out.println("匹配到了一个捏");
                         totalMatch.set(totalMatch.get() + 1);
                     } else if (objectMaterial.isSimilar(itemStack)) {

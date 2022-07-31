@@ -17,13 +17,13 @@ import java.util.logging.Level;
 
 public class DictionaryLoader {
 
-    private HashMap<String, FileConfiguration> loadedDictionaryFiles = new HashMap<>();
+    private final HashMap<String, FileConfiguration> loadedDictionaryFiles = new HashMap<>();
 
-    private File dictionaryFolder = new File(HomewardCooking.getInstance().getDataFolder(), "dictionary");
+    private final File dictionaryFolder = new File(HomewardCooking.getInstance().getDataFolder(), "dictionary");
 
     private HashMap<String, DictionaryLabel> loadedDictionary = new HashMap<>();
 
-    private File accessRawYMLFile[];
+    private File[] accessRawYMLFile;
 
     public void importDictionary() {
         accessRawYMLFile = dictionaryFolder.listFiles();
@@ -54,7 +54,7 @@ public class DictionaryLoader {
                 try {
                     loadSingleDictionary(key, configuration);
                 } catch (Exception exception) {
-                    CommonUtils.getInstance().log(Level.WARNING, Type.FATAL, "字典 " + key + " 加载失败");
+                    CommonUtils.log(Level.WARNING, Type.FATAL, "字典 " + key + " 加载失败");
                     exception.printStackTrace();
                 }
 
@@ -98,13 +98,13 @@ public class DictionaryLoader {
 
 
         if (loadedDictionary.containsKey(key)) {
-            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的词典 " + " " + key + " 是重复的");
+            CommonUtils.log(Level.INFO, Type.FATAL, "你的词典 " + " " + key + " 是重复的");
 
         } else if (!validDictionary) {
-            CommonUtils.getInstance().log(Level.INFO, Type.FATAL, "你的词典" + " " + key + " 加载失败");
+            CommonUtils.log(Level.INFO, Type.FATAL, "你的词典" + " " + key + " 加载失败");
         } else {
             loadedDictionary.put(key, dictionaryLabel);
-            CommonUtils.getInstance().log(Level.INFO, Type.LOADED, "词典 " + key + " 加载成功");
+            CommonUtils.log(Level.INFO, Type.LOADED, "词典 " + key + " 加载成功");
         }
 
 
