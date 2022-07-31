@@ -305,28 +305,11 @@ public class CommonUtils {
 
     }
 
-    public static boolean isSimilarMMOITEM(ItemStack itemStack1, ItemStack itemStack2) {
-        NBTItem nbtItemOfItem1 = NBTItem.get(itemStack1);
-        NBTItem nbtItemOfItem2 = NBTItem.get(itemStack2);
-
-        if (nbtItemOfItem1.getType() == null && nbtItemOfItem2.getType() == null) {
-            return false;
-        } else if (Objects.equals(nbtItemOfItem1.getType(), nbtItemOfItem2.getType())) {
-            return Objects.equals(nbtItemOfItem1.getString("MMOITEMS_ITEM_ID"), nbtItemOfItem2.getString("MMOITEMS_ITEM_ID"));
-        }
-
-        return false;
-
-    }
-
-    public static boolean isMMOITEM(ItemStack itemStack) {
-        return NBTItem.get(itemStack).getType() != null;
-    }
-
     /**
      * 判断两个物品是否为同一个物品，在兼容的情况下需要判断所有兼容物品
      * 例如 mmoItems 以及 itemsAdder 还有原版物品。
-     * @param firstItems 第一个输入的物品
+     *
+     * @param firstItems  第一个输入的物品
      * @param secondItems 第二个输入的物品
      * @return {@code true} 如果这两个物品是一样的
      */
@@ -334,18 +317,18 @@ public class CommonUtils {
 
         AtomicReference<Boolean> result = new AtomicReference<>(false);
 
-        HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.forEach((K,V)-> {
-                //如果加载了ItemsAdder在这里进入ItemsAdderCompatibility.class用这个
-                //类里面的判断方法，根据不同加载的类使用不同的判断。
-                    try {
-                        Method isSimilar = HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.get(K).getMethod("isSimilar", ItemStack.class, ItemStack.class);
-                        Object methodResult = isSimilar.invoke(null, firstItems, secondItems);
-                        if ((Boolean) methodResult){
-                            result.set(true);
-                        }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+        HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.forEach((K, V) -> {
+            //如果加载了ItemsAdder在这里进入ItemsAdderCompatibility.class用这个
+            //类里面的判断方法，根据不同加载的类使用不同的判断。
+            try {
+                Method isSimilar = HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.get(K).getMethod("isSimilar", ItemStack.class, ItemStack.class);
+                Object methodResult = isSimilar.invoke(null, firstItems, secondItems);
+                if ((Boolean) methodResult) {
+                    result.set(true);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
 
         return result.get();

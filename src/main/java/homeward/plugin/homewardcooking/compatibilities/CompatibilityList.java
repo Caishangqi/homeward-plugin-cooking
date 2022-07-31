@@ -1,12 +1,13 @@
 package homeward.plugin.homewardcooking.compatibilities;
 
 import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.ItemsAdderCompatibility;
+import homeward.plugin.homewardcooking.compatibilities.provided.mmoitems.MMOItemsCompatibility;
 import org.bukkit.event.Listener;
 
 public enum CompatibilityList {
 
-    MMOITEMS("MMOItems",false),
-    ITEMSADDER("ItemsAdder",true, ItemsAdderCompatibility.class);
+    MMOITEMS("MMOItems", true, MMOItemsCompatibility.class),
+    ITEMSADDER("ItemsAdder", true, ItemsAdderCompatibility.class);
 
     private String pluginName;
     private Class<? extends Listener> compatibilityPlugin;
@@ -15,6 +16,7 @@ public enum CompatibilityList {
     /**
      * 兼容列表枚举类的信息，如果兼容插件有自己的事件或者
      * 该插件使用的他的API，则需要把 {@link #isNative} 设置成 true
+     *
      * @param pluginName
      * @param isNative
      * @param compatibilityPlugin
@@ -25,7 +27,7 @@ public enum CompatibilityList {
         this.compatibilityPlugin = compatibilityPlugin;
     }
 
-    CompatibilityList(String pluginName,Boolean isNative) {
+    CompatibilityList(String pluginName, Boolean isNative) {
         this.pluginName = pluginName;
         this.isNative = isNative;
     }

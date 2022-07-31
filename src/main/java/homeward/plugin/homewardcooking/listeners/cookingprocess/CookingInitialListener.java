@@ -77,13 +77,10 @@ public class CookingInitialListener implements Listener {
                 itemStacks.forEach(preparedItem -> {
                     //System.out.println("(!)" + preparedItem.getType() + "-" + preparedItem.getAmount() + "<>" + recipeContent.getMaterial() + "-" + recipeContent.getQuantity());
 
-                    if (CommonUtils.isMMOITEM(preparedItem) && CommonUtils.isSimilarMMOITEM(preparedItem, recipeItemStack)
-                            && preparedItem.getAmount() >= recipeContent.getQuantity()) {
-                        totalMatch.set(totalMatch.get() + 1);
-                    } else if (recipeItemStack.isSimilar(preparedItem) && preparedItem.getAmount() >= recipeContent.getQuantity()) {
-                        //System.out.println("preparedItem: " + preparedItem.getAmount() + preparedItem.getType());
+                    if (CommonUtils.isSimilar(recipeItemStack, preparedItem) && preparedItem.getAmount() >= recipeContent.getQuantity()) {
                         totalMatch.set(totalMatch.get() + 1);
                     }
+
                 });
             });
         }
@@ -103,10 +100,8 @@ public class CookingInitialListener implements Listener {
                 ItemStack objectMaterial = (ItemStack) recipeContent.getObjectMaterial();
                 itemStacks.forEach(itemStack -> {
 
-                    if (CommonUtils.isMMOITEM(itemStack) && CommonUtils.isSimilarMMOITEM(objectMaterial, itemStack)) {
+                    if (CommonUtils.isSimilar(objectMaterial, itemStack)) {
                         //System.out.println("匹配到了一个捏");
-                        totalMatch.set(totalMatch.get() + 1);
-                    } else if (objectMaterial.isSimilar(itemStack)) {
                         totalMatch.set(totalMatch.get() + 1);
                     }
 

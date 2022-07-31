@@ -80,10 +80,7 @@ public class CookingProcessListener implements Listener {
                  */
 
                 //如果匹配到了mmoitem的物品则进找到recipeContent内部存储的数量进行删减
-                if (CommonUtils.isMMOITEM(itemStack) && CommonUtils.isSimilarMMOITEM(itemStack, objectMaterial)) {
-                    doDeductAction(cookingGUI, content, avaliableInputSlot);
-                    //如果匹配到了minecraft的物品则进找到recipeContent内部存储的数量进行删减
-                } else if (itemStack.isSimilar(objectMaterial)) {
+                if (CommonUtils.isSimilar(itemStack, objectMaterial)) {
                     doDeductAction(cookingGUI, content, avaliableInputSlot);
                 }
 

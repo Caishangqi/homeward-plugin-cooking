@@ -3,7 +3,7 @@ package homeward.plugin.homewardcooking.compatibilities;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-public class CompatibilityPlugin<Plugin> implements Listener {
+public class CompatibilityPlugin<T> implements Listener {
 
 
 
