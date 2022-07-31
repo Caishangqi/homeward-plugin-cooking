@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
+import homeward.plugin.homewardcooking.compatibilities.CompatibilityManager;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.scheduler.ProcessCookingScheduler;
@@ -30,6 +31,7 @@ public final class HomewardCooking extends JavaPlugin {
     public static RecipesLoader recipesLoader;
     public static DictionaryLoader dictionaryLoader;
     public static ConfigurationLoader configurationLoader;
+    public static CompatibilityManager compatibilityManager;
 
     //GUI 打开池
     public static HashMap<String, CookingGUI> GUIPools = new HashMap<>();
@@ -41,6 +43,7 @@ public final class HomewardCooking extends JavaPlugin {
 
         // Plugin startup logic
         loadDependencies();
+        loadCompatibility();
         registerCommands();
         registerListeners();
         loadConfigurations();
@@ -49,6 +52,10 @@ public final class HomewardCooking extends JavaPlugin {
         loadingCookingProcess();
         CommonUtils.log(Level.INFO, Type.LOADED, "插件加载成功 5/5");
 
+    }
+
+    private void loadCompatibility() {
+        compatibilityManager = new CompatibilityManager();
     }
 
     private void loadingCookingProcess() {
