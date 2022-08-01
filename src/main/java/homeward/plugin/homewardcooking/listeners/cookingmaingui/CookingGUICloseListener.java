@@ -6,13 +6,16 @@ import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 public class CookingGUICloseListener implements Listener {
     @EventHandler
@@ -55,8 +58,11 @@ public class CookingGUICloseListener implements Listener {
 
             //TODO 这里摆烂了
             try {
-                if (cookingGUI.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()) != null) {
-                    cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(cookingGUI.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot())));
+                ItemStack itemStack = cookingGUI.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot());
+                if (itemStack != null) {
+
+                    //cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack))));
+                    cookingData.setMakabaka(StreamItemsUtils.serializeAsBytes(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack))));
                 } else {
                     cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
                 }

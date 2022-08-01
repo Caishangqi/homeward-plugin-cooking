@@ -22,7 +22,9 @@ import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Command("hwc")
@@ -155,11 +157,14 @@ public class MainCommand extends CommandBase {
     }
 
     @SubCommand("serialize")
-    public void serializeCustomStack(CommandSender commandSender) {
+    public void serializeCustomStack(CommandSender commandSender) throws IOException, ClassNotFoundException {
         Player player = (Player) commandSender;
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         String s = StreamItemsUtils.writeEncodedObject(itemInMainHand);
-        System.out.println(s);
+        System.out.println("序列化 " + s);
+        ItemStack object = StreamItemsUtils.writeDecodedObject(s, ItemStack.class);
+        System.out.println("反序列化 " + object);
+        player.getInventory().addItem(object);
 
 
     }

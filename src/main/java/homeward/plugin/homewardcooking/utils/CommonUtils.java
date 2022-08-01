@@ -150,7 +150,7 @@ public class CommonUtils {
 
     public static void stackItemWithCondition(ItemStack itemStack, CookingData cookingdata) throws IOException, ClassNotFoundException {
 
-        ItemStack itemStackInFile = (ItemStack) StreamItemsUtils.writeDecodedObject(cookingdata.getMainOutput());
+        ItemStack itemStackInFile = StreamItemsUtils.writeDecodedObject(cookingdata.getMainOutput(), ItemStack.class);
 
         if (cookingdata.getMainOutput() != null && isSimilar(itemStackInFile, itemStack)) {
             ItemStack clone = itemStack.clone();
@@ -223,7 +223,7 @@ public class CommonUtils {
                     if (cookingData.getProcessObject() != null) {
 
                         try {
-                            CookingProcessObject cookingProcessObject = (CookingProcessObject) StreamItemsUtils.writeDecodedObject((cookingData.getProcessObject()));
+                            CookingProcessObject cookingProcessObject = StreamItemsUtils.writeDecodedObject((cookingData.getProcessObject()), CookingProcessObject.class);
                             processPool.put(location, cookingProcessObject);
                             cookingData.setProcessObject(null);
                             file.setObject(F, cookingData);
@@ -305,11 +305,11 @@ public class CommonUtils {
 
         try {
 
-            ItemStack stackOne = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotI());
-            ItemStack stackTwo = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotII());
-            ItemStack stackThree = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotIII());
-            ItemStack stackFour = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getSlotIV());
-            ItemStack outPut = (ItemStack) StreamItemsUtils.writeDecodedObject(data.getMainOutput());
+            ItemStack stackOne = StreamItemsUtils.writeDecodedObject(data.getSlotI(), ItemStack.class);
+            ItemStack stackTwo = StreamItemsUtils.writeDecodedObject(data.getSlotII(), ItemStack.class);
+            ItemStack stackThree = StreamItemsUtils.writeDecodedObject(data.getSlotIII(), ItemStack.class);
+            ItemStack stackFour = StreamItemsUtils.writeDecodedObject(data.getSlotIV(), ItemStack.class);
+            ItemStack outPut = StreamItemsUtils.writeDecodedObject(data.getMainOutput(), ItemStack.class);
 
 
             itemStacks.add(stackOne);
@@ -356,6 +356,8 @@ public class CommonUtils {
 
         return result.get();
     }
+
+
 
 
 }

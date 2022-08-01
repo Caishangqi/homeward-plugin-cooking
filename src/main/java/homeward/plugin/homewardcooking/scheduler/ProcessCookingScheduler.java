@@ -78,7 +78,7 @@ public class ProcessCookingScheduler {
 
                             NBTFile file = new NBTFile(new File(key.getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
                             ItemStack objectMaterial = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
-                            System.out.println("ProcessCookingScheduler "+objectMaterial + ItemsAdder.isCustomItem(objectMaterial));
+                            System.out.println("ProcessCookingScheduler " + objectMaterial + ItemsAdder.isCustomItem(objectMaterial));
                             CookingData cookingdata = file.getObject(locationKey, CookingData.class);
 
                             CommonUtils.stackItemWithCondition(objectMaterial, cookingdata);
