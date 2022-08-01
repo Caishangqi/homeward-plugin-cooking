@@ -35,7 +35,7 @@ public class CookingInitialListener implements Listener {
             CommonUtils.sendPluginMessageInServer(event.getPlayer(), "&c当前已经有一个正在进行的配方了");
         } else if (recipe != null && isNumberValid(recipe, event.getContainedMaterial(), HomewardCooking.GUIPools.get(event.getLocationKey()))) {
 
-            ItemStack objectMaterial = (ItemStack) recipe.getMainOutPut().getObjectMaterial();
+            ItemStack objectMaterial = recipe.getMainOutPut().getObjectMaterial();
 
 
             //如果GUI输出直接是空的并且配方匹配，直接开始工作
@@ -72,7 +72,7 @@ public class CookingInitialListener implements Listener {
         if (cookingRecipe != null) {
             List<RecipeContent> recipeContents = cookingRecipe.getContents();
             recipeContents.forEach(recipeContent -> {
-                ItemStack recipeItemStack = (ItemStack) recipeContent.getObjectMaterial();
+                ItemStack recipeItemStack = recipeContent.getObjectMaterial();
                 //TODO
                 itemStacks.forEach(preparedItem -> {
                     //System.out.println("(!)" + preparedItem.getType() + "-" + preparedItem.getAmount() + "<>" + recipeContent.getMaterial() + "-" + recipeContent.getQuantity());
@@ -97,7 +97,7 @@ public class CookingInitialListener implements Listener {
         loadRecipes.forEach((KEY, COOKINGRECIPE) -> {
             AtomicInteger totalMatch = new AtomicInteger();
             COOKINGRECIPE.getContents().forEach(recipeContent -> {
-                ItemStack objectMaterial = (ItemStack) recipeContent.getObjectMaterial();
+                ItemStack objectMaterial = recipeContent.getObjectMaterial();
                 itemStacks.forEach(itemStack -> {
 
                     if (CommonUtils.isSimilar(objectMaterial, itemStack)) {

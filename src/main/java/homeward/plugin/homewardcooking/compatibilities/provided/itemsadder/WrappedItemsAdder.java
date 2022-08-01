@@ -1,7 +1,6 @@
 package homeward.plugin.homewardcooking.compatibilities.provided.itemsadder;
 
 import dev.lone.itemsadder.api.CustomStack;
-import net.Indyuce.mmoitems.MMOItems;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 

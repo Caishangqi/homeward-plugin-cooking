@@ -68,6 +68,7 @@ public class GUIManipulation {
         if (cookingData.getMainOutput() == null) {
             cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), CommonMaterial.AIR.getItemStack());
         } else {
+            System.out.println("GUIManipulation " + StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput()));
             cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), (ItemStack) StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput()));
 
         }

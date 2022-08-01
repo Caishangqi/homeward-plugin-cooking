@@ -22,7 +22,9 @@ public class RecipeContent implements Serializable {
     private String material;
     private String command;
     //真正序列化完毕的物品在这里
-    private Object objectMaterial;
+
+    @Getter(AccessLevel.NONE)
+    private ItemStack objectMaterial;
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
@@ -34,7 +36,7 @@ public class RecipeContent implements Serializable {
         //如果顺序是先建立object物品那么在这里检查，如果以及有object直接把这个object
         //转换成ItemStack然后赐予数量
         if (objectMaterial != null) {
-            ItemStack itemStack = (ItemStack) objectMaterial;
+            ItemStack itemStack = objectMaterial;
             itemStack.setAmount(quantity);
             this.objectMaterial = itemStack;
         }
@@ -42,16 +44,20 @@ public class RecipeContent implements Serializable {
         setMaterial(material, type);
     }
 
+    public ItemStack getObjectMaterial() {
+        return objectMaterial;
+    }
+
     //Unstable
 
     public Integer getQuantity() {
-        ItemStack obj = (ItemStack) objectMaterial;
+        ItemStack obj = objectMaterial;
         return obj.getAmount();
     }
 
     public boolean setMaterial(String material, String key) {
 
-        ItemStack obj = (ItemStack) this.objectMaterial;
+        ItemStack obj = this.objectMaterial;
 
         this.material = material;
 

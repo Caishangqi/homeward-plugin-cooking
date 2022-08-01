@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.scheduler;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
+import dev.lone.itemsadder.api.ItemsAdder;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.Button;
@@ -68,7 +69,7 @@ public class ProcessCookingScheduler {
                     if (HomewardCooking.GUIPools.containsKey(locationKey)) {
                         CookingGUI gui = HomewardCooking.GUIPools.get(locationKey);
                         gui.getInventory().setItem(Button.READY_BUTTON.getSlot(), Button.READY_BUTTON.getButton());
-                        ItemStack objectMaterial = (ItemStack) cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
+                        ItemStack objectMaterial = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
                         CommonUtils.stackItemWithCondition(gui, objectMaterial);
                         key.getWorld().playSound(key, Sound.BLOCK_DISPENSER_DISPENSE, 2.0F, 0.5F);
 
@@ -76,8 +77,10 @@ public class ProcessCookingScheduler {
                         try {
 
                             NBTFile file = new NBTFile(new File(key.getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
-                            ItemStack objectMaterial = (ItemStack) cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
+                            ItemStack objectMaterial = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
+                            System.out.println("ProcessCookingScheduler "+objectMaterial + ItemsAdder.isCustomItem(objectMaterial));
                             CookingData cookingdata = file.getObject(locationKey, CookingData.class);
+
                             CommonUtils.stackItemWithCondition(objectMaterial, cookingdata);
                             file.setObject(locationKey, cookingdata);
                             file.save();

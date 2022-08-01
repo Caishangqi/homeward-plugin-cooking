@@ -22,7 +22,7 @@ public class CookingProcessListener implements Listener {
         //TODO 开始处理配方
         CookingRecipe targetRecipe = event.getTargetRecipe();
 
-        ItemStack targetItems = (ItemStack) targetRecipe.getMainOutPut().getObjectMaterial();
+        ItemStack targetItems = targetRecipe.getMainOutPut().getObjectMaterial();
 
         if (event.getWhoCalled().getOpenInventory().getTopInventory().getHolder() instanceof CookingGUI) {
 
@@ -67,7 +67,7 @@ public class CookingProcessListener implements Listener {
     private void deductQuantity(CookingRecipe cookingRecipe, CookingGUI cookingGUI) {
         for (int avaliableInputSlot : CookingGUI.avaliableInputSlots) {
             cookingRecipe.getContents().forEach(content -> {
-                ItemStack objectMaterial = (ItemStack) content.getObjectMaterial();
+                ItemStack objectMaterial = content.getObjectMaterial();
                 //获取GUI内部物品如果是空的把它换成空气
                 ItemStack itemStack = cookingGUI.getInventory().getItem(avaliableInputSlot);
                 if (itemStack == null)

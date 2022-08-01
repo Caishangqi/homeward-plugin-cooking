@@ -8,6 +8,7 @@ import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
 import net.minecraft.network.chat.Component;
@@ -149,6 +150,16 @@ public class MainCommand extends CommandBase {
         NBTItem nbtItem = new NBTItem(itemInMainHand);
         NBTCompound itemsadder = nbtItem.getCompound("itemsadder");
         System.out.println(itemsadder);
+
+
+    }
+
+    @SubCommand("serialize")
+    public void serializeCustomStack(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+        String s = StreamItemsUtils.writeEncodedObject(itemInMainHand);
+        System.out.println(s);
 
 
     }

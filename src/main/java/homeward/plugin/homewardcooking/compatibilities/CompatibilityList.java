@@ -13,7 +13,7 @@ public enum CompatibilityList {
 
     private String pluginName;
     private Class<? extends Listener> compatibilityPlugin;
-    private Boolean isNative;
+    private final Boolean isNative;
 
     /**
      * 兼容列表枚举类的信息，如果兼容插件有自己的事件或者

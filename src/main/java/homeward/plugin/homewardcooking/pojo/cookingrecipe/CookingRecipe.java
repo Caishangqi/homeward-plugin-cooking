@@ -27,7 +27,7 @@ public class CookingRecipe implements Serializable {
     public List<ItemStack> getObjectItems() {
 
         for (RecipeContent recipes : contents) {
-            ItemStack objectMaterial = (ItemStack) recipes.getObjectMaterial();
+            ItemStack objectMaterial = recipes.getObjectMaterial();
             objectItems.add(objectMaterial);
         }
         return objectItems;

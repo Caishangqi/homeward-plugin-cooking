@@ -3,7 +3,6 @@ package homeward.plugin.homewardcooking.compatibilities.provided.itemsadder;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.lone.itemsadder.api.CustomStack;
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent;
-import dev.lone.itemsadder.api.ItemsAdder;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityPlugin;
 import homeward.plugin.homewardcooking.utils.CommonUtils;

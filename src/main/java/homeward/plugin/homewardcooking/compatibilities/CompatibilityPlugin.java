@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack;
 public class CompatibilityPlugin<T> implements Listener {
 
 
-
     public static boolean isSimilar(ItemStack firstItems, ItemStack secondItems) {
         return false;
     }

@@ -15,13 +15,13 @@ import java.util.logging.Level;
 public class CompatibilityListener implements Listener {
 
     public CompatibilityListener() {
-        CommonUtils.log(Level.ALL, Type.LOADED,"加载尝试加载兼容性");
+        CommonUtils.log(Level.ALL, Type.LOADED, "加载尝试加载兼容性");
         Bukkit.getPluginManager().registerEvents(this, HomewardCooking.getInstance());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPluginEnable(PluginEnableEvent event) {
-        CommonUtils.log(Level.ALL,Type.LOADED,"插件 " + event.getPlugin().getName() + " 已加载");
+        CommonUtils.log(Level.ALL, Type.LOADED, "插件 " + event.getPlugin().getName() + " 已加载");
         //CompatibilitiesManager.enableCompatibility(event.getPlugin().getName());
     }
 
