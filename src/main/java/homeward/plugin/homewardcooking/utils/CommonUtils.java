@@ -150,7 +150,7 @@ public class CommonUtils {
 
     public static void stackItemWithCondition(ItemStack itemStack, CookingData cookingdata) throws IOException, ClassNotFoundException {
 
-        ItemStack itemStackInFile = StreamItemsUtils.writeDecodedObject(cookingdata.getMainOutput(), ItemStack.class);
+        ItemStack itemStackInFile = cookingdata.getMainOutput();
 
         if (cookingdata.getMainOutput() != null && isSimilar(itemStackInFile, itemStack)) {
             ItemStack clone = itemStack.clone();
@@ -160,10 +160,10 @@ public class CommonUtils {
 
             if (targetItemsAmount + amount <= 64) {
                 clone.setAmount(targetItemsAmount + amount);
-                cookingdata.setMainOutput(StreamItemsUtils.writeEncodedObject(clone));
+                cookingdata.setMainOutput(clone);
             }
         } else {
-            cookingdata.setMainOutput(StreamItemsUtils.writeEncodedObject(itemStack));
+            cookingdata.setMainOutput(itemStack);
         }
 
     }
@@ -182,10 +182,10 @@ public class CommonUtils {
 
                     String stringBlockLocationKey = toStringBlockLocationKey(L);
                     if (file.hasKey(stringBlockLocationKey)) {
-                        CookingData cookingData = file.getObject(stringBlockLocationKey, CookingData.class);
+                        CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(stringBlockLocationKey, byte[].class));
                         System.out.println("保存的data是" + cookingData);
-                        cookingData.setProcessObject(StreamItemsUtils.writeEncodedObject(cookingProcessObject));
-                        file.setObject(stringBlockLocationKey, cookingData);
+                        cookingData.setProcessObject(cookingProcessObject);
+                        file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
                         try {
                             file.save();
                         } catch (IOException e) {
@@ -218,17 +218,18 @@ public class CommonUtils {
                 NBTFile file = new NBTFile(new File(K.getWorldFolder().getName(), "cooking-data.nbt"));
                 Set<String> fileKeys = file.getKeys();
                 fileKeys.forEach(F -> {
-                    CookingData cookingData = file.getObject(F, CookingData.class);
+                    CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(F, byte[].class));
                     Location location = toBukkitBlockLocationKey(F, K);
                     if (cookingData.getProcessObject() != null) {
 
                         try {
-                            CookingProcessObject cookingProcessObject = StreamItemsUtils.writeDecodedObject((cookingData.getProcessObject()), CookingProcessObject.class);
+                            CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
                             processPool.put(location, cookingProcessObject);
                             cookingData.setProcessObject(null);
-                            file.setObject(F, cookingData);
+
+                            file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
                             file.save();
-                        } catch (IOException | ClassNotFoundException e) {
+                        } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
 
@@ -305,11 +306,11 @@ public class CommonUtils {
 
         try {
 
-            ItemStack stackOne = StreamItemsUtils.writeDecodedObject(data.getSlotI(), ItemStack.class);
-            ItemStack stackTwo = StreamItemsUtils.writeDecodedObject(data.getSlotII(), ItemStack.class);
-            ItemStack stackThree = StreamItemsUtils.writeDecodedObject(data.getSlotIII(), ItemStack.class);
-            ItemStack stackFour = StreamItemsUtils.writeDecodedObject(data.getSlotIV(), ItemStack.class);
-            ItemStack outPut = StreamItemsUtils.writeDecodedObject(data.getMainOutput(), ItemStack.class);
+            ItemStack stackOne = data.getSlotI();
+            ItemStack stackTwo = data.getSlotII();
+            ItemStack stackThree = data.getSlotIII();
+            ItemStack stackFour = data.getSlotIV();
+            ItemStack outPut = data.getMainOutput();
 
 
             itemStacks.add(stackOne);

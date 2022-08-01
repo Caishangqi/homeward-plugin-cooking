@@ -7,6 +7,7 @@ import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.guis.GUI;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +25,7 @@ public class GUIOpenListener implements Listener {
         String locationKey = event.getLocationKey();
         Player player = event.getPlayer();
         NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
-        CookingData cookingData = file.getObject(locationKey, CookingData.class);
+        CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(locationKey, byte[].class));
 
         if (HomewardCooking.GUIPools.containsKey(locationKey)) {
             System.out.println("上方");

@@ -4,6 +4,7 @@ import de.tr7zw.changeme.nbtapi.NBTFile;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.CookingData;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -35,7 +36,7 @@ public class BlockPlaceListener implements Listener {
             String locationKey = blockPlaced.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
 
             if (!file.hasKey(locationKey)) {
-                file.setObject(locationKey, new CookingData());
+                file.setObject(locationKey, StreamItemsUtils.serializeAsBytes(new CookingData()));
                 Bukkit.getScheduler().runTaskAsynchronously(HomewardCooking.getInstance(), () -> {
                     try {
                         file.save();

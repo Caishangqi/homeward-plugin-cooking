@@ -8,6 +8,7 @@ import homeward.plugin.homewardcooking.pojo.Button;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -79,10 +80,11 @@ public class ProcessCookingScheduler {
                             NBTFile file = new NBTFile(new File(key.getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
                             ItemStack objectMaterial = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
                             System.out.println("ProcessCookingScheduler " + objectMaterial + ItemsAdder.isCustomItem(objectMaterial));
-                            CookingData cookingdata = file.getObject(locationKey, CookingData.class);
+                            CookingData cookingdata = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(locationKey, byte[].class));
 
                             CommonUtils.stackItemWithCondition(objectMaterial, cookingdata);
-                            file.setObject(locationKey, cookingdata);
+
+                            file.setObject(locationKey, StreamItemsUtils.serializeAsBytes(cookingdata));
                             file.save();
 
                         } catch (IOException | ClassNotFoundException e) {

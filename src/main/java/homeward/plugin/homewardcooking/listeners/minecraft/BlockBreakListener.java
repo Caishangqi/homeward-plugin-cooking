@@ -5,6 +5,7 @@ import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.HumanEntity;
@@ -46,7 +47,7 @@ public class BlockBreakListener implements Listener {
                 }
 
                 //爆物品
-                CookingData cookingData = file.getObject(locationKey, CookingData.class);
+                CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(locationKey, byte[].class));
                 List<ItemStack> containedItemsInData = CommonUtils.getContainedItemsInData(cookingData);
 
                 event.setDropItems(false);
@@ -56,7 +57,7 @@ public class BlockBreakListener implements Listener {
                 //聪明代码
                 Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(breakBlock.getLocation(), CookingPotThing.getVanillaItemStack());
                 containedItemsInData.forEach(K -> {
-                    if (!K.getType().isAir())
+                    if (K != null)
                         Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(breakBlock.getLocation(), K);
                 });
 

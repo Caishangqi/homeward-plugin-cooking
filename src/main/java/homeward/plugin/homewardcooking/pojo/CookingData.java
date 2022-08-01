@@ -5,31 +5,117 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-@Getter
-@Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CookingData implements Serializable {
 
 
     private String recipeKey;
-    private String processObject;
+    private CookingProcessObject processObject;
 
-    private String slotI;
-    private String slotII;
-    private String slotIII;
-    private String slotIV;
+    private LinkedHashMap<Integer, ItemStack> inputSlot = new LinkedHashMap<>();
+    private ItemStack slotI;
+    private ItemStack slotII;
+    private ItemStack slotIII;
+    private ItemStack slotIV;
 
-    private String mainOutput;
+    private ItemStack mainOutput;
     private String additionalOutput;
 
     private Integer timeRemaining;
     private Integer timeTotal;
 
+    public String getRecipeKey() {
+        return recipeKey;
+    }
 
+    public LinkedHashMap<Integer, ItemStack> getInputSlot() {
+        return inputSlot;
+    }
+
+    public void setInputSlot(LinkedHashMap<Integer, ItemStack> inputSlot) {
+        this.inputSlot = inputSlot;
+    }
+
+    public void setRecipeKey(String recipeKey) {
+        this.recipeKey = recipeKey;
+    }
+
+    public CookingProcessObject getProcessObject() {
+        return processObject;
+    }
+
+    public void setProcessObject(CookingProcessObject processObject) {
+        this.processObject = processObject;
+    }
+
+    public ItemStack getSlotI() {
+        return slotI;
+    }
+
+    public void setSlotI(ItemStack slotI) {
+        this.slotI = slotI;
+    }
+
+    public ItemStack getSlotII() {
+        return slotII;
+    }
+
+    public void setSlotII(ItemStack slotII) {
+        this.slotII = slotII;
+    }
+
+    public ItemStack getSlotIII() {
+        return slotIII;
+    }
+
+    public void setSlotIII(ItemStack slotIII) {
+        this.slotIII = slotIII;
+    }
+
+    public ItemStack getSlotIV() {
+        return slotIV;
+    }
+
+    public void setSlotIV(ItemStack slotIV) {
+        this.slotIV = slotIV;
+    }
+
+    public ItemStack getMainOutput() {
+        return mainOutput;
+    }
+
+    public void setMainOutput(ItemStack mainOutput) {
+        this.mainOutput = mainOutput;
+    }
+
+    public String getAdditionalOutput() {
+        return additionalOutput;
+    }
+
+    public void setAdditionalOutput(String additionalOutput) {
+        this.additionalOutput = additionalOutput;
+    }
+
+    public Integer getTimeRemaining() {
+        return timeRemaining;
+    }
+
+    public void setTimeRemaining(Integer timeRemaining) {
+        this.timeRemaining = timeRemaining;
+    }
+
+    public Integer getTimeTotal() {
+        return timeTotal;
+    }
+
+    public void setTimeTotal(Integer timeTotal) {
+        this.timeTotal = timeTotal;
+    }
 }
