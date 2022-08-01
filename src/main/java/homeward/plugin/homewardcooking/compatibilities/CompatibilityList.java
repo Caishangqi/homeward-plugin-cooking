@@ -1,13 +1,15 @@
 package homeward.plugin.homewardcooking.compatibilities;
 
 import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.ItemsAdderCompatibility;
+import homeward.plugin.homewardcooking.compatibilities.provided.minecraft.MinecraftCompatibility;
 import homeward.plugin.homewardcooking.compatibilities.provided.mmoitems.MMOItemsCompatibility;
 import org.bukkit.event.Listener;
 
 public enum CompatibilityList {
 
     MMOITEMS("MMOItems", true, MMOItemsCompatibility.class),
-    ITEMSADDER("ItemsAdder", true, ItemsAdderCompatibility.class);
+    ITEMSADDER("ItemsAdder", true, ItemsAdderCompatibility.class),
+    MINECRAFT("Minecraft", true, MinecraftCompatibility.class);
 
     private String pluginName;
     private Class<? extends Listener> compatibilityPlugin;

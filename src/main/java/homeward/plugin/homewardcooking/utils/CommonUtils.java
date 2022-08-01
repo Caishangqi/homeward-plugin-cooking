@@ -2,6 +2,7 @@ package homeward.plugin.homewardcooking.utils;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import homeward.plugin.homewardcooking.HomewardCooking;
+import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.ItemsAdderCompatibility;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
@@ -53,9 +54,26 @@ public class CommonUtils {
         });
     }
 
-    public static void loadRecipes() {
+    /**
+     * 如果是第一次加载配方，插件初始化 则需要判断兼容列表有无ItemsAdder
+     * 如果有的话需要把这个加载配方方法让IA的LoadData事件处理
+     *
+     * @param init 是否是初始化加载
+     */
+    public static void loadRecipes(Boolean init) {
         HomewardCooking.recipesLoader = new RecipesLoader();
-        HomewardCooking.recipesLoader.importRecipes();
+
+        if (init) {
+            if (!HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.containsValue(ItemsAdderCompatibility.class)) {
+                HomewardCooking.recipesLoader.importRecipes();
+                CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功");
+            }
+        } else {
+            HomewardCooking.recipesLoader.importRecipes();
+            CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功");
+        }
+
+
     }
 
     public static void loadDictionary() {
@@ -113,7 +131,7 @@ public class CommonUtils {
 
     public static void stackItemWithCondition(CookingGUI gui, ItemStack itemStack) {
 
-        if (gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()) != null && gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()).isSimilar(itemStack)) {
+        if (gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()) != null && isSimilar(gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()), itemStack)) {
             ItemStack clone = itemStack.clone();
             int amount = gui.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot()).getAmount(); //3
 
@@ -132,7 +150,7 @@ public class CommonUtils {
 
         ItemStack itemStackInFile = (ItemStack) StreamItemsUtils.writeDecodedObject(cookingdata.getMainOutput());
 
-        if (cookingdata.getMainOutput() != null && itemStackInFile.isSimilar(itemStack)) {
+        if (cookingdata.getMainOutput() != null && isSimilar(itemStackInFile, itemStack)) {
             ItemStack clone = itemStack.clone();
             int amount = itemStackInFile.getAmount(); //3
             //配方的
@@ -161,14 +179,18 @@ public class CommonUtils {
                     CookingProcessObject cookingProcessObject = processPool.get(L);
 
                     String stringBlockLocationKey = toStringBlockLocationKey(L);
-                    CookingData cookingData = file.getObject(stringBlockLocationKey, CookingData.class);
-                    cookingData.setProcessObject(StreamItemsUtils.writeEncodedObject(cookingProcessObject));
-                    file.setObject(stringBlockLocationKey, cookingData);
-                    try {
-                        file.save();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    if (file.hasKey(stringBlockLocationKey)) {
+                        CookingData cookingData = file.getObject(stringBlockLocationKey, CookingData.class);
+                        System.out.println("保存的data是" + cookingData);
+                        cookingData.setProcessObject(StreamItemsUtils.writeEncodedObject(cookingProcessObject));
+                        file.setObject(stringBlockLocationKey, cookingData);
+                        try {
+                            file.save();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+
 
                 });
 
@@ -198,9 +220,8 @@ public class CommonUtils {
                     Location location = toBukkitBlockLocationKey(F, K);
                     if (cookingData.getProcessObject() != null) {
 
-                        CookingProcessObject cookingProcessObject = null;
                         try {
-                            cookingProcessObject = (CookingProcessObject) StreamItemsUtils.writeDecodedObject(cookingData.getProcessObject());
+                            CookingProcessObject cookingProcessObject = (CookingProcessObject) StreamItemsUtils.writeDecodedObject((cookingData.getProcessObject()));
                             processPool.put(location, cookingProcessObject);
                             cookingData.setProcessObject(null);
                             file.setObject(F, cookingData);
@@ -247,7 +268,7 @@ public class CommonUtils {
 
     public static void reloadRecipe() {
         try {
-            loadRecipes();
+            loadRecipes(false);
             log(Level.INFO, Type.LOADED, "菜谱配方重载成功");
         } catch (Exception exception) {
             log(Level.WARNING, Type.FATAL, "菜谱配方重载失败，问题: ");

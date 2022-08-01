@@ -1,12 +1,13 @@
 package homeward.plugin.homewardcooking.commands;
 
+import de.tr7zw.changeme.nbtapi.NBTCompound;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
-import io.lumine.mythic.lib.api.item.NBTItem;
 import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
 import net.minecraft.network.chat.Component;
@@ -145,8 +146,9 @@ public class MainCommand extends CommandBase {
     public void showItemNBTs(CommandSender commandSender) {
         Player player = (Player) commandSender;
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        NBTItem nbtItem = NBTItem.get(itemInMainHand);
-        CommonUtils.sendPluginMessageInServer(player, nbtItem.getType() + " " + nbtItem.getString("MMOITEMS_ITEM_ID"));
+        NBTItem nbtItem = new NBTItem(itemInMainHand);
+        NBTCompound itemsadder = nbtItem.getCompound("itemsadder");
+        System.out.println(itemsadder);
 
 
     }

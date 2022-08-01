@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.utils.loaders;
 
 import homeward.plugin.homewardcooking.HomewardCooking;
+import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.WrappedItemsAdder;
 import homeward.plugin.homewardcooking.compatibilities.provided.mmoitems.WrappedMMOItem;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
@@ -114,6 +115,11 @@ public class RecipesLoader {
                         ItemStack mmoitemStack = mmoItem.build();
                         recipeContent.setObjectMaterial(mmoitemStack);
                         break;
+                    case "itemsadder":
+                        WrappedItemsAdder itemsadder = new WrappedItemsAdder(inputsConfigurationSection.getConfigurationSection("itemsadder"));
+                        ItemStack itemsAdderItemStack = itemsadder.build();
+                        recipeContent.setObjectMaterial(itemsAdderItemStack);
+                        break;
                     case "type":
                         String type = inputsConfigurationSection.getString("type");
                         recipeContent.setType(type);
@@ -141,6 +147,11 @@ public class RecipesLoader {
                     WrappedMMOItem mmoItem = new WrappedMMOItem(Objects.requireNonNull(recipeMainOutput.getConfigurationSection("mmoitem")));
                     ItemStack mmoitemStack = mmoItem.build();
                     recipeOutputContent.setObjectMaterial(mmoitemStack);
+                    break;
+                case "itemsadder":
+                    WrappedItemsAdder itemsadder = new WrappedItemsAdder(Objects.requireNonNull(recipeMainOutput.getConfigurationSection("itemsadder")));
+                    ItemStack itemsAdderItemStack = itemsadder.build();
+                    recipeOutputContent.setObjectMaterial(itemsAdderItemStack);
                     break;
                 case "type":
                     String type = Objects.requireNonNull(recipeMainOutput.get("type")).toString();

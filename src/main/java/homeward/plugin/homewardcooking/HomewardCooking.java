@@ -82,26 +82,25 @@ public final class HomewardCooking extends JavaPlugin {
     }
 
     private void loadingRecipes() {
-        CommonUtils.loadRecipes();
+        CommonUtils.loadRecipes(true);
         CommonUtils.loadDictionary();
-        CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功 4/5");
     }
 
     private void registerListeners() {
         CommonUtils.register();
-        CommonUtils.log(Level.INFO, Type.LOADED, "事件加载成功 3/5");
+        CommonUtils.log(Level.INFO, Type.LOADED, "事件加载成功");
     }
 
     private void registerCommands() {
         CommonUtils.registryReloadTabCompletion();
         commandManager.register(new MainCommand());
-        CommonUtils.log(Level.INFO, Type.LOADED, "指令加载成功 2/5");
+        CommonUtils.log(Level.INFO, Type.LOADED, "指令加载成功");
     }
 
     private void loadDependencies() {
         plugin = this;
         commandManager = new CommandManager(this);
-        CommonUtils.log(Level.INFO, Type.LOADED, "依赖加载成功 1/5");
+        CommonUtils.log(Level.INFO, Type.LOADED, "依赖加载成功");
     }
 
     @Override
@@ -119,6 +118,7 @@ public final class HomewardCooking extends JavaPlugin {
     }
 
     private void saveProcessCooking() {
+        System.out.println("保存");
         CommonUtils.saveProcessCooking();
     }
 
