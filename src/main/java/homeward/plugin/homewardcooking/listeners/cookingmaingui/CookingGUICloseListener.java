@@ -61,8 +61,8 @@ public class CookingGUICloseListener implements Listener {
                 ItemStack itemStack = cookingGUI.getInventory().getItem(HomewardCooking.configurationLoader.getGUIOutputSlot());
                 if (itemStack != null) {
 
-                    //cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack))));
-                    cookingData.setMakabaka(StreamItemsUtils.serializeAsBytes(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack))));
+                    cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack))));
+                    //cookingData.setMakabaka(StreamItemsUtils.serializeAsBytes(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack))));
                 } else {
                     cookingData.setMainOutput(StreamItemsUtils.writeEncodedObject(CommonMaterial.AIR.getItemStack()));
                 }

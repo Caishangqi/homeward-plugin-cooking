@@ -25,8 +25,6 @@ public class CookingData implements Serializable {
     private String slotIII;
     private String slotIV;
 
-    private byte[] makabaka;
-
     private String mainOutput;
     private String additionalOutput;
 

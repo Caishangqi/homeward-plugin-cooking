@@ -71,9 +71,8 @@ public class GUIManipulation {
 
         } else {
             System.out.println("==============================================================================================================");
-            System.out.println((ItemStack) StreamItemsUtils.deserializeBytes(cookingData.getMakabaka()));
             //cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput(), ItemStack.class));
-            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), (ItemStack) StreamItemsUtils.deserializeBytes(cookingData.getMakabaka()));
+            cookingGUI.getInventory().setItem(HomewardCooking.configurationLoader.getGUIOutputSlot(), StreamItemsUtils.writeDecodedObject(cookingData.getMainOutput(), ItemStack.class));
         }
 
 
