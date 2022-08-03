@@ -24,7 +24,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 @Command("hwc")

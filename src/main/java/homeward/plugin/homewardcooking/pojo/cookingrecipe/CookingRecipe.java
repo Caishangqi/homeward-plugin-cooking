@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @Setter
 public class CookingRecipe implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 2291254551739175683L;
     private List<RecipeContent> contents = new ArrayList<>();
     private RecipeContent mainOutPut;
     private List<RecipeContent> additionalOutPut = new ArrayList<>();

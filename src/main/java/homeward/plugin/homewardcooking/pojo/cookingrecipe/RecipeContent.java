@@ -1,6 +1,8 @@
 package homeward.plugin.homewardcooking.pojo.cookingrecipe;
 
+import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import homeward.plugin.homewardcooking.utils.Type;
 import io.lumine.mythic.lib.api.item.NBTItem;
 import lombok.AccessLevel;
@@ -9,12 +11,16 @@ import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.logging.Level;
 
 @Getter
 @Setter
 public class RecipeContent implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 2291254551739175684L;
 
     private Integer timeRequired;
     private String type;
@@ -24,7 +30,7 @@ public class RecipeContent implements Serializable {
     //真正序列化完毕的物品在这里
 
     @Getter(AccessLevel.NONE)
-    private ItemStack objectMaterial;
+    private ItemStack objectMaterial = CommonMaterial.AIR.getItemStack();
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
@@ -45,7 +51,11 @@ public class RecipeContent implements Serializable {
     }
 
     public ItemStack getObjectMaterial() {
-        return objectMaterial;
+        if (!objectMaterial.getType().isAir())
+            return StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(objectMaterial));
+        else return objectMaterial;
+
+        //return objectMaterial;
     }
 
     //Unstable

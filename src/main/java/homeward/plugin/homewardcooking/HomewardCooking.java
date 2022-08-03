@@ -2,6 +2,7 @@ package homeward.plugin.homewardcooking;
 
 import homeward.plugin.homewardcooking.commands.MainCommand;
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityManager;
+import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.ItemsAdderCompatibility;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.scheduler.ProcessCookingScheduler;
@@ -59,7 +60,11 @@ public final class HomewardCooking extends JavaPlugin {
     }
 
     private void loadingCookingProcess() {
-        CommonUtils.startProcessCooking();
+        //如果加载IA则等待IA物品加载完成后执行
+        if (!HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.containsValue(ItemsAdderCompatibility.class)) {
+            CommonUtils.startProcessCooking();
+        }
+
     }
 
     private void loadingScheduler() {
@@ -118,7 +123,6 @@ public final class HomewardCooking extends JavaPlugin {
     }
 
     private void saveProcessCooking() {
-        System.out.println("保存");
         CommonUtils.saveProcessCooking();
     }
 

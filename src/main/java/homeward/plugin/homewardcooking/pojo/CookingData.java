@@ -1,31 +1,23 @@
 package homeward.plugin.homewardcooking.pojo;
 
-import jline.internal.Nullable;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
+import dev.lone.itemsadder.api.CustomStack;
+import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 public class CookingData implements Serializable {
 
-
+    @Serial
+    private static final long serialVersionUID = 2291254551739175681L;
     private String recipeKey;
     private CookingProcessObject processObject;
-
     private LinkedHashMap<Integer, ItemStack> inputSlot = new LinkedHashMap<>();
-    private ItemStack slotI;
-    private ItemStack slotII;
-    private ItemStack slotIII;
-    private ItemStack slotIV;
-
-    private ItemStack mainOutput;
+    private ItemStack mainOutput = CommonMaterial.AIR.getItemStack();
     private String additionalOutput;
 
     private Integer timeRemaining;
@@ -55,40 +47,11 @@ public class CookingData implements Serializable {
         this.processObject = processObject;
     }
 
-    public ItemStack getSlotI() {
-        return slotI;
-    }
-
-    public void setSlotI(ItemStack slotI) {
-        this.slotI = slotI;
-    }
-
-    public ItemStack getSlotII() {
-        return slotII;
-    }
-
-    public void setSlotII(ItemStack slotII) {
-        this.slotII = slotII;
-    }
-
-    public ItemStack getSlotIII() {
-        return slotIII;
-    }
-
-    public void setSlotIII(ItemStack slotIII) {
-        this.slotIII = slotIII;
-    }
-
-    public ItemStack getSlotIV() {
-        return slotIV;
-    }
-
-    public void setSlotIV(ItemStack slotIV) {
-        this.slotIV = slotIV;
-    }
 
     public ItemStack getMainOutput() {
-        return mainOutput;
+        if (!mainOutput.getType().isAir())
+            return StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(mainOutput));
+        else return mainOutput;
     }
 
     public void setMainOutput(ItemStack mainOutput) {

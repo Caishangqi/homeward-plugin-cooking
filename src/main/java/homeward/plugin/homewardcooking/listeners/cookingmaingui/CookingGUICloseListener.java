@@ -6,7 +6,6 @@ import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +14,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class CookingGUICloseListener implements Listener {
     @EventHandler

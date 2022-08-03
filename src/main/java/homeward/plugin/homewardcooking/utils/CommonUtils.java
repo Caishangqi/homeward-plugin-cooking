@@ -1,9 +1,12 @@
 package homeward.plugin.homewardcooking.utils;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
+import de.tr7zw.changeme.nbtapi.NBTItem;
+import dev.lone.itemsadder.api.CustomStack;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.ItemsAdderCompatibility;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
+import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
@@ -21,10 +24,7 @@ import redempt.redlib.itemutils.ItemBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
@@ -160,10 +160,12 @@ public class CommonUtils {
 
             if (targetItemsAmount + amount <= 64) {
                 clone.setAmount(targetItemsAmount + amount);
-                cookingdata.setMainOutput(clone);
+                ItemStack deserializeItem = StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(clone));
+                cookingdata.setMainOutput(deserializeItem);
             }
         } else {
-            cookingdata.setMainOutput(itemStack);
+            ItemStack deserializeItemItems = StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStack));
+            cookingdata.setMainOutput(deserializeItemItems);
         }
 
     }
@@ -182,10 +184,29 @@ public class CommonUtils {
 
                     String stringBlockLocationKey = toStringBlockLocationKey(L);
                     if (file.hasKey(stringBlockLocationKey)) {
+                        //StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem());
+
                         CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(stringBlockLocationKey, byte[].class));
-                        System.out.println("保存的data是" + cookingData);
-                        cookingData.setProcessObject(cookingProcessObject);
-                        file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
+                        //For ItemsAdder
+                        if (HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.containsValue(ItemsAdderCompatibility.class)) {
+                            ItemsAdderCompatibility.saveItemAdderCompatibility(cookingData.getInputSlot());
+                        }
+                        ItemStack deserializeItem = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
+                        //如果是IA的保存输出物品 Process 物品
+//                        if (new NBTItem(deserializeItem).getCompound("itemsadder") != null) {
+//                            String namespace = CustomStack.byItemStack(deserializeItem).getNamespace();//获取到IA物品的nameSpaceId
+//                            int amount = deserializeItem.getAmount(); ///获取到IA物品的数量
+//                            cookingData.getItemsAdderCompatibilitySaver().put(namespace, amount);
+//                            cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(CommonMaterial.AIR.getItemStack());
+//                            cookingData.setProcessObject(cookingProcessObject);
+//                            file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
+//                        } else { //其他插件兼容
+                            cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
+                            //
+                            cookingData.setProcessObject(cookingProcessObject);
+                            file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
+//                        }
+
                         try {
                             file.save();
                         } catch (IOException e) {
@@ -205,7 +226,6 @@ public class CommonUtils {
 
         log(Level.INFO, Type.LOADED, "成功保存正在进行的任务");
 
-
     }
 
     public static void startProcessCooking() {
@@ -218,19 +238,28 @@ public class CommonUtils {
                 NBTFile file = new NBTFile(new File(K.getWorldFolder().getName(), "cooking-data.nbt"));
                 Set<String> fileKeys = file.getKeys();
                 fileKeys.forEach(F -> {
+
                     CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(F, byte[].class));
                     Location location = toBukkitBlockLocationKey(F, K);
-                    if (cookingData.getProcessObject() != null) {
+
+                    if (cookingData != null) {
 
                         try {
-                            CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
-                            processPool.put(location, cookingProcessObject);
-                            cookingData.setProcessObject(null);
+                                CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
+                                ItemStack deserializeItem = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
+                                cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
 
-                            file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
-                            file.save();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                                processPool.put(location, cookingProcessObject);
+                                cookingData.setProcessObject(null);
+
+                                file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
+
+                        } finally {
+                            try {
+                                file.save();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
 
                     }
@@ -306,18 +335,10 @@ public class CommonUtils {
 
         try {
 
-            ItemStack stackOne = data.getSlotI();
-            ItemStack stackTwo = data.getSlotII();
-            ItemStack stackThree = data.getSlotIII();
-            ItemStack stackFour = data.getSlotIV();
-            ItemStack outPut = data.getMainOutput();
-
-
-            itemStacks.add(stackOne);
-            itemStacks.add(stackTwo);
-            itemStacks.add(stackThree);
-            itemStacks.add(stackFour);
-            itemStacks.add(outPut);
+            data.getInputSlot().forEach((K, V) -> {
+                if (!V.getType().isAir())
+                    itemStacks.add(V);
+            });
 
             return itemStacks;
 
