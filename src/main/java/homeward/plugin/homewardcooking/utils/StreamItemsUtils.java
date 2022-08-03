@@ -25,6 +25,10 @@ import java.util.Base64;
 
 public class StreamItemsUtils {
 
+    private StreamItemsUtils() {
+        throw new java.lang.UnsupportedOperationException("这是一个工具类，不能被实例化");
+    }
+
     //编译OBJ序列化
     public static String writeEncodedObject(Object object) {
 

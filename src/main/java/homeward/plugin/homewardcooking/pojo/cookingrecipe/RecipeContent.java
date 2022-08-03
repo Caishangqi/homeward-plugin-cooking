@@ -87,7 +87,7 @@ public class RecipeContent implements Serializable {
                     CommonUtils.log(Level.WARNING, Type.UNLOADED, "暂不支持的物品类型，尽情期待");
             }
         } else {
-            if (NBTItem.get(obj).getType() == null) {
+            if (NBTItem.get(obj).getType() == null && objectMaterial == null) {
                 CommonUtils.log(Level.WARNING, Type.UNLOADED, "配方 " + key + "中没有找到相应的 type 元素(type应当写在前)");
             }
             return true;

@@ -228,7 +228,7 @@ public class CommonUtils {
                     CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(F, byte[].class));
                     Location location = toBukkitBlockLocationKey(F, K);
 
-                    if (cookingData != null) {
+                    if (cookingData != null && cookingData.getProcessObject() !=null) {
 
                         try {
                             CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
@@ -240,7 +240,10 @@ public class CommonUtils {
 
                             file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
 
-                        } finally {
+                        } catch (Exception exception) {
+                            CommonUtils.log(Level.ALL,Type.UNLOADED,"一个保存的任务 " + cookingData.getRecipeKey() + " 未能加载 原因是: " );
+                            exception.printStackTrace();
+                        }finally {
                             try {
                                 file.save();
                             } catch (IOException e) {

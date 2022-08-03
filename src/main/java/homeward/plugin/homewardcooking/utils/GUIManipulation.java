@@ -10,6 +10,10 @@ import java.util.Set;
 
 public class GUIManipulation {
 
+    private GUIManipulation() {
+        throw new java.lang.UnsupportedOperationException("这是一个工具类，不能被实例化");
+    }
+
     /**
      * drag行为是否在上方GUI内
      *
