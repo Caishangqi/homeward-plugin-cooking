@@ -11,12 +11,11 @@ import java.util.List;
 
 public class CookingInitialEvent extends Event implements Cancellable {
 
+    private static final HandlerList handlers = new HandlerList();
     private Player player;
     private List<ItemStack> containedMaterial;
     private String locationKey;
     private ItemStack remainedOutPutStack;
-
-    private static final HandlerList handlers = new HandlerList();
     private boolean cancelledFlag = false;
 
     public CookingInitialEvent(Player player, List<ItemStack> containedMaterial, String locationKey) {
@@ -25,9 +24,8 @@ public class CookingInitialEvent extends Event implements Cancellable {
         this.locationKey = locationKey;
     }
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelledFlag = cancel;
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     public ItemStack getRemainedOutPutStack() {
@@ -43,6 +41,11 @@ public class CookingInitialEvent extends Event implements Cancellable {
     @Override
     public boolean isCancelled() {
         return cancelledFlag;
+    }
+
+    @Override
+    public void setCancelled(boolean cancel) {
+        this.cancelledFlag = cancel;
     }
 
     public Player getPlayer() {
@@ -71,10 +74,6 @@ public class CookingInitialEvent extends Event implements Cancellable {
 
     public void setLocationKey(String locationKey) {
         this.locationKey = locationKey;
-    }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
     }
 
     @NotNull

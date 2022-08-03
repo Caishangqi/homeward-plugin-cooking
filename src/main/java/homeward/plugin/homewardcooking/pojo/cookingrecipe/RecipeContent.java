@@ -36,6 +36,21 @@ public class RecipeContent implements Serializable {
     @Getter(AccessLevel.NONE)
     private Integer quantity = 1;
 
+    public ItemStack getObjectMaterial() {
+        if (!objectMaterial.getType().isAir())
+            return StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(objectMaterial));
+        else return objectMaterial;
+
+        //return objectMaterial;
+    }
+
+    public Integer getQuantity() {
+        ItemStack obj = objectMaterial;
+        return obj.getAmount();
+    }
+
+    //Unstable
+
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
 
@@ -48,21 +63,6 @@ public class RecipeContent implements Serializable {
         }
 
         setMaterial(material, type);
-    }
-
-    public ItemStack getObjectMaterial() {
-        if (!objectMaterial.getType().isAir())
-            return StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(objectMaterial));
-        else return objectMaterial;
-
-        //return objectMaterial;
-    }
-
-    //Unstable
-
-    public Integer getQuantity() {
-        ItemStack obj = objectMaterial;
-        return obj.getAmount();
     }
 
     public boolean setMaterial(String material, String key) {

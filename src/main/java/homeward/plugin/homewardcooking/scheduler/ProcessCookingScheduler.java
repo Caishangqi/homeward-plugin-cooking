@@ -24,8 +24,11 @@ import java.util.List;
 
 public class ProcessCookingScheduler {
 
-    private static volatile ProcessCookingScheduler instance;
     private static final List<Location> toDoRemove = new ArrayList<>();
+    private static volatile ProcessCookingScheduler instance;
+
+    private ProcessCookingScheduler() {
+    }
 
     public static ProcessCookingScheduler getInstance() {
 
@@ -38,9 +41,6 @@ public class ProcessCookingScheduler {
         }
         return instance;
 
-    }
-
-    private ProcessCookingScheduler() {
     }
 
     public void runProcessCooking() {

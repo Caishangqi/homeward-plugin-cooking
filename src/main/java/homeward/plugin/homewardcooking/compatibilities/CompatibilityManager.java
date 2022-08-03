@@ -14,9 +14,8 @@ import java.util.logging.Level;
 
 public class CompatibilityManager {
 
-    private final CompatibilityListener compatibilityListener = new CompatibilityListener();
-
     public final HashMap<Plugin, Class<? extends Listener>> ACTIVATED_COMPATIBILITY = new HashMap<>();
+    private final CompatibilityListener compatibilityListener = new CompatibilityListener();
     private final HashMap<String, Class<? extends Listener>> UNLOADED_COMPATIBILITY = new HashMap<>();
     private final String COMPATIBILITY_PACKAGE_NAME = "compatibilities.provided";
 

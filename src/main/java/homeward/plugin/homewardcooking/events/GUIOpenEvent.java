@@ -8,10 +8,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class GUIOpenEvent extends Event implements Cancellable {
 
+    private static final HandlerList handlers = new HandlerList();
     private Player player;
     private String locationKey;
-    private static final HandlerList handlers = new HandlerList();
     private boolean cancelledFlag = false;
+
+    public GUIOpenEvent(Player player, String locationKey) {
+        this.player = player;
+        this.locationKey = locationKey;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 
     public Player getPlayer() {
         return player;
@@ -19,11 +28,6 @@ public class GUIOpenEvent extends Event implements Cancellable {
 
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    public GUIOpenEvent(Player player, String locationKey) {
-        this.player = player;
-        this.locationKey = locationKey;
     }
 
     public String getLocationKey() {
@@ -46,10 +50,6 @@ public class GUIOpenEvent extends Event implements Cancellable {
 
     @NotNull
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

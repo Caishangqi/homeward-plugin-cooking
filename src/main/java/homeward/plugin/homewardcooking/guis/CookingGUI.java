@@ -28,13 +28,13 @@ import static org.bukkit.event.inventory.InventoryAction.MOVE_TO_OTHER_INVENTORY
 
 public class CookingGUI extends GUI {
 
-    private String guiName;
-    private String locationKey;
     public static final int[] avaliableInputSlots = HomewardCooking.configurationLoader.getGUIInputSlot();
     public static final int outputSlot = HomewardCooking.configurationLoader.getGUIOutputSlot();
     private static final int processSlot = Button.PROCESS_BUTTON.getSlot();
     private static final int startButton = Button.START_BUTTON.getSlot();
     private static final int recipesButton = Button.RECIPE_BUTTON.getSlot();
+    private String guiName;
+    private String locationKey;
     //谁打开了这个GUI
     private List<Player> openedPlayers = new ArrayList<>();
 

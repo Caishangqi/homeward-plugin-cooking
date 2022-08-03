@@ -36,6 +36,10 @@ public enum Button {
         this.slot = slot;
     }
 
+    Button(ItemStack itemStack) {
+        this.itemStack = itemStack;
+    }
+
     public Integer getSlot() {
         return slot;
     }
@@ -43,14 +47,6 @@ public enum Button {
     public void setSlot(Integer slot) {
         this.slot = slot;
 
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    Button(ItemStack itemStack) {
-        this.itemStack = itemStack;
     }
 
     public ItemStack getItemStack() {
@@ -70,6 +66,10 @@ public enum Button {
 
     public Material getMaterial() {
         return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     public String getName() {

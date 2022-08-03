@@ -9,17 +9,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class CookingProcessEvent extends Event implements Cancellable {
 
+    private static final HandlerList handlers = new HandlerList();
     private Player whoCalled;
     private CookingRecipe targetRecipe;
     private String locationKey;
-
-    private static final HandlerList handlers = new HandlerList();
     private boolean cancelledFlag = false;
 
     public CookingProcessEvent(Player player, CookingRecipe cookingRecipe, String locationKey) {
         this.whoCalled = player;
         this.targetRecipe = cookingRecipe;
         this.locationKey = locationKey;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     public Player getWhoCalled() {
@@ -55,11 +58,6 @@ public class CookingProcessEvent extends Event implements Cancellable {
     public void setCancelled(boolean cancel) {
         this.cancelledFlag = cancel;
     }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
 
     @NotNull
     @Override

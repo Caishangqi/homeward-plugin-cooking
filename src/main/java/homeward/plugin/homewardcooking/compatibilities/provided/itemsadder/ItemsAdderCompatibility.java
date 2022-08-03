@@ -5,6 +5,7 @@ import dev.lone.itemsadder.api.CustomStack;
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityPlugin;
+import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import homeward.plugin.homewardcooking.utils.Type;
@@ -17,15 +18,6 @@ import java.util.Objects;
 import java.util.logging.Level;
 
 public class ItemsAdderCompatibility extends CompatibilityPlugin {
-
-    @EventHandler(ignoreCancelled = true)
-    public void onItemsAdderLoadData(ItemsAdderLoadDataEvent event) {
-        HomewardCooking.recipesLoader.importRecipes();
-        CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功 (顺序改变因为 &6ItemsAdder&7)");
-        CommonUtils.startProcessCooking();
-        CommonUtils.log(Level.INFO, Type.LOADED, "尝试加载保存的正在进行配方 (顺序改变因为 &6ItemsAdder&7)");
-
-    }
 
     public static boolean isSimilar(ItemStack firstItems, ItemStack secondItems) {
 
@@ -54,13 +46,28 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin {
 
     }
 
-    public static void saveItemAdderCompatibility(LinkedHashMap<Integer,ItemStack> itemStackList) {
+    public static void saveItemAdderCompatibility(LinkedHashMap<Integer, ItemStack> itemStackList) {
 
-        itemStackList.forEach( (K,V) -> {
+        itemStackList.forEach((K, V) -> {
             if (!itemStackList.get(K).getType().isAir())
-                itemStackList.put(K,StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStackList.get(K))));
+                itemStackList.put(K, StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(itemStackList.get(K))));
 
         });
 
+    }
+
+    public static void saveItemAdderCompatibility(List<RecipeContent> recipeContentList) {
+        recipeContentList.forEach(K -> {
+            if (!K.getObjectMaterial().getType().isAir()) {
+                K.setObjectMaterial(StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem(K.getObjectMaterial())));
+            }
+
+        });
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onItemsAdderLoadData(ItemsAdderLoadDataEvent event) {
+        HomewardCooking.recipesLoader.importRecipes();
+        CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功 (顺序改变因为 &6ItemsAdder&7)");
     }
 }

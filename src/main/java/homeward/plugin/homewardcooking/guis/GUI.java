@@ -15,16 +15,12 @@ import java.util.function.Consumer;
 
 public abstract class GUI implements InventoryHolder {
 
+    public Consumer<GUI> test;
     protected String value;
-
     protected String guiName;
-
     protected List<Integer> doWorkSlot;
-
     protected Inventory inventory;
-
     protected Player whoOwnsInventory;
-
     //如果初始化加载这个GUI的基础布局后再次打开无需加载
     protected Boolean isInitialized;
 
@@ -59,9 +55,6 @@ public abstract class GUI implements InventoryHolder {
         }
 
     }
-
-    public Consumer<GUI> test;
-
 
     @Override
     public @NotNull Inventory getInventory() {

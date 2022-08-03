@@ -11,9 +11,9 @@ public enum CompatibilityList {
     ITEMSADDER("ItemsAdder", true, ItemsAdderCompatibility.class),
     MINECRAFT("Minecraft", true, MinecraftCompatibility.class);
 
+    private final Boolean isNative;
     private String pluginName;
     private Class<? extends Listener> compatibilityPlugin;
-    private final Boolean isNative;
 
     /**
      * 兼容列表枚举类的信息，如果兼容插件有自己的事件或者

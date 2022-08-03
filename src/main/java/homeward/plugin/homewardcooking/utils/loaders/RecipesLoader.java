@@ -23,11 +23,11 @@ public class RecipesLoader {
 
     //储存读取到了yml配方文件并以文件名储存
     private final HashMap<String, FileConfiguration> loadedRecipesFiles = new HashMap<>();
+    //
+    private final File pluginFolder = new File(HomewardCooking.getInstance().getDataFolder(), "recipes");
     //储存转换FileConfiguration的配方到CookingRecipes里
     private HashMap<String, CookingRecipe> loadRecipes = new HashMap<>();
     private File[] accessRawYMLFile;
-    //
-    private final File pluginFolder = new File(HomewardCooking.getInstance().getDataFolder(), "recipes");
 
     public void importRecipes() {
         //开始从文件形式导入到YamlConfiguration， 3个文件就有3个YamlConfiguration

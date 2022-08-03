@@ -1,12 +1,9 @@
 package homeward.plugin.homewardcooking.utils;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import dev.lone.itemsadder.api.CustomStack;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.provided.itemsadder.ItemsAdderCompatibility;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
-import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
@@ -24,7 +21,10 @@ import redempt.redlib.itemutils.ItemBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
@@ -181,32 +181,18 @@ public class CommonUtils {
                 NBTFile file = new NBTFile(new File(K.getWorldFolder().getName(), "cooking-data.nbt"));
                 locations.forEach(L -> {
                     CookingProcessObject cookingProcessObject = processPool.get(L);
-
                     String stringBlockLocationKey = toStringBlockLocationKey(L);
                     if (file.hasKey(stringBlockLocationKey)) {
-                        //StreamItemsUtils.deserializeItem(StreamItemsUtils.serializeItem());
-
                         CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(stringBlockLocationKey, byte[].class));
                         //For ItemsAdder
                         if (HomewardCooking.compatibilityManager.ACTIVATED_COMPATIBILITY.containsValue(ItemsAdderCompatibility.class)) {
                             ItemsAdderCompatibility.saveItemAdderCompatibility(cookingData.getInputSlot());
+                            ItemsAdderCompatibility.saveItemAdderCompatibility(cookingProcessObject.getCookingRecipe().getContents());
                         }
                         ItemStack deserializeItem = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
-                        //如果是IA的保存输出物品 Process 物品
-//                        if (new NBTItem(deserializeItem).getCompound("itemsadder") != null) {
-//                            String namespace = CustomStack.byItemStack(deserializeItem).getNamespace();//获取到IA物品的nameSpaceId
-//                            int amount = deserializeItem.getAmount(); ///获取到IA物品的数量
-//                            cookingData.getItemsAdderCompatibilitySaver().put(namespace, amount);
-//                            cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(CommonMaterial.AIR.getItemStack());
-//                            cookingData.setProcessObject(cookingProcessObject);
-//                            file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
-//                        } else { //其他插件兼容
-                            cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
-                            //
-                            cookingData.setProcessObject(cookingProcessObject);
-                            file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
-//                        }
-
+                        cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
+                        cookingData.setProcessObject(cookingProcessObject);
+                        file.setObject(stringBlockLocationKey, StreamItemsUtils.serializeAsBytes(cookingData));
                         try {
                             file.save();
                         } catch (IOException e) {
@@ -245,14 +231,14 @@ public class CommonUtils {
                     if (cookingData != null) {
 
                         try {
-                                CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
-                                ItemStack deserializeItem = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
-                                cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
+                            CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
+                            ItemStack deserializeItem = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
+                            cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
 
-                                processPool.put(location, cookingProcessObject);
-                                cookingData.setProcessObject(null);
+                            processPool.put(location, cookingProcessObject);
+                            cookingData.setProcessObject(null);
 
-                                file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
+                            file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
 
                         } finally {
                             try {

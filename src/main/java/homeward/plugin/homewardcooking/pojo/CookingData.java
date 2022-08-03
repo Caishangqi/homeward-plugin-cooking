@@ -1,12 +1,10 @@
 package homeward.plugin.homewardcooking.pojo;
 
-import dev.lone.itemsadder.api.CustomStack;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
@@ -27,16 +25,16 @@ public class CookingData implements Serializable {
         return recipeKey;
     }
 
+    public void setRecipeKey(String recipeKey) {
+        this.recipeKey = recipeKey;
+    }
+
     public LinkedHashMap<Integer, ItemStack> getInputSlot() {
         return inputSlot;
     }
 
     public void setInputSlot(LinkedHashMap<Integer, ItemStack> inputSlot) {
         this.inputSlot = inputSlot;
-    }
-
-    public void setRecipeKey(String recipeKey) {
-        this.recipeKey = recipeKey;
     }
 
     public CookingProcessObject getProcessObject() {
