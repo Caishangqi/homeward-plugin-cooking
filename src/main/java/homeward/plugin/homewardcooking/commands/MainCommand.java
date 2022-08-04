@@ -144,31 +144,6 @@ public class MainCommand extends CommandBase {
     }
 
 
-    @SubCommand("shownbt")
-    public void showItemNBTs(CommandSender commandSender) {
-        Player player = (Player) commandSender;
-        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        NBTItem nbtItem = new NBTItem(itemInMainHand);
-        NBTCompound itemsadder = nbtItem.getCompound("itemsadder");
-        System.out.println(itemsadder);
-
-
-    }
-
-    @SubCommand("serialize")
-    public void serializeCustomStack(CommandSender commandSender) throws IOException, ClassNotFoundException {
-        Player player = (Player) commandSender;
-        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        String s = StreamItemsUtils.writeEncodedObject(itemInMainHand);
-        System.out.println("序列化 " + s);
-        ItemStack object = StreamItemsUtils.writeDecodedObject(s, ItemStack.class);
-        System.out.println("反序列化 " + object);
-        player.getInventory().addItem(object);
-
-
-    }
-
-
     @Default
     public void defaultCommand(final CommandSender commandSender) {
 

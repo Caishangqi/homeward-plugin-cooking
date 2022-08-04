@@ -74,10 +74,17 @@ public final class HomewardCooking extends JavaPlugin {
         //注册默认Config,没有的话创建一个
         saveDefaultConfig();
         config = getConfig();
-        this.saveResource("recipes/recipe-general.yml", false);
-        this.saveResource("dictionary/dictionary.yml", false); //type: dictionary
-        this.saveResource("message.yml", false);
-        this.saveResource("database.yml", false);
+
+        try {
+            this.saveResource("recipes/recipe-general.yml", false);
+            this.saveResource("dictionary/dictionary.yml", false); //type: dictionary
+            this.saveResource("message.yml", false);
+            this.saveResource("database.yml", false);
+        } catch (Exception exception) {
+            CommonUtils.log(Level.ALL, Type.FATAL, "初始化插件配置文件失败! 原因: ");
+            exception.printStackTrace();
+        }
+
 
         configurationLoader = new ConfigurationLoader();
         configurationLoader.loadConfiguration();

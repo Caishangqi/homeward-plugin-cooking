@@ -2,6 +2,9 @@ package homeward.plugin.homewardcooking.compatibilities.provided.itemsadder;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.lone.itemsadder.api.CustomStack;
+import dev.lone.itemsadder.api.Events.CustomBlockBreakEvent;
+import dev.lone.itemsadder.api.Events.CustomBlockInteractEvent;
+import dev.lone.itemsadder.api.Events.CustomBlockPlaceEvent;
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityPlugin;
@@ -42,8 +45,6 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin {
 
 
         }
-
-
     }
 
     public static void saveItemAdderCompatibility(LinkedHashMap<Integer, ItemStack> itemStackList) {
@@ -65,9 +66,33 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin {
         });
     }
 
+    private boolean doUseCustomBlock() {
+        //这个默认是False
+        return HomewardCooking.configurationLoader.getGeneralSettings().getBoolean("use-custom-blocks", false);
+    }
+
     @EventHandler(ignoreCancelled = true)
     public void onItemsAdderLoadData(ItemsAdderLoadDataEvent event) {
         HomewardCooking.recipesLoader.importRecipes();
         CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功 (顺序改变因为 &6ItemsAdder&7)");
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onCustomBlockBreak(CustomBlockBreakEvent event) {
+        System.out.println("我打碎了一个自定义方块");
+        if (doUseCustomBlock()) {
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onCustomBlockInteract(CustomBlockInteractEvent event) {
+        if (doUseCustomBlock()) {
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onCustomBlockPlace(CustomBlockPlaceEvent event) {
+        if (doUseCustomBlock()) {
+        }
     }
 }

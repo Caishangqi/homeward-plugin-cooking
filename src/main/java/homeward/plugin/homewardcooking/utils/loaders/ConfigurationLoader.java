@@ -3,6 +3,7 @@ package homeward.plugin.homewardcooking.utils.loaders;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.Button;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -21,6 +22,7 @@ public class ConfigurationLoader {
     public void loadConfiguration() {
 
 
+        //Load Configuration用来读取更改过的磁盘文件加载到内存中
         mainConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "config.yml"));
         databaseConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "database.yml"));
         messageConfiguration = YamlConfiguration.loadConfiguration(new File(HomewardCooking.getInstance().getDataFolder(), "message.yml"));
@@ -75,5 +77,10 @@ public class ConfigurationLoader {
     public String getGUITitle() {
         return mainConfiguration.getString("gui-settings.gui-name", "Cooking Pot");
     }
+
+    public ConfigurationSection getGeneralSettings() {
+        return mainConfiguration.getConfigurationSection("general-settings.");
+    }
+
 
 }

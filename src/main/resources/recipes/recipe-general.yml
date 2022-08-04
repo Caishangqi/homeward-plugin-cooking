@@ -65,7 +65,7 @@ example-cooking-2:
         type: command
         command: "say hello"
 example-cooking-mmoItems:
-  recipe-name: "炼金术"
+  recipe-name: "示例菜肴 MMOItems"
   recipe-namespace: dining
   recipe-inputs:
     first-input:
@@ -124,6 +124,41 @@ example-cooking-itemsAdder:
       mmoitem:
         type: CONSUMABLE
         id: ROCK
+      quantity: 4
+  recipe-outputs:
+    main-output:
+      itemsadder:
+        namespace: z_iainternal
+        id: icon_arrow_chest
+      quantity: 2
+    additional-output:
+      1:
+        type: command
+        command: "say hello"
+example-cooking-mixtest:
+  recipe-name: "示例菜肴 mixTest"
+  recipe-namespace: dining
+  recipe-inputs:
+    first-input:
+      time-required: 2
+      type: minecraft
+      material: APPLE
+      quantity: 1
+    second-input:
+      time-required: 2
+      type: minecraft
+      material: BREAD
+      quantity: 1
+    third-input:
+      time-required: 2
+      mmoitem:
+        type: CONSUMABLE
+        id: ROCK
+      quantity: 2
+    fourth-input:
+      time-required: 2
+      type: minecraft
+      material: DIAMOND
       quantity: 4
   recipe-outputs:
     main-output:

@@ -75,8 +75,6 @@ public class CookingInitialListener implements Listener {
                 ItemStack recipeItemStack = recipeContent.getObjectMaterial();
                 //TODO
                 itemStacks.forEach(preparedItem -> {
-                    //System.out.println("(!)" + preparedItem.getType() + "-" + preparedItem.getAmount() + "<>" + recipeContent.getMaterial() + "-" + recipeContent.getQuantity());
-
                     if (CommonUtils.isSimilar(recipeItemStack, preparedItem) && preparedItem.getAmount() >= recipeContent.getQuantity()) {
                         totalMatch.set(totalMatch.get() + 1);
                     }
@@ -86,7 +84,6 @@ public class CookingInitialListener implements Listener {
         }
 
 
-        //System.out.println("isNumberValid(): " + totalMatch.get());
         return totalMatch.get() == 4;
     }
 
@@ -101,13 +98,12 @@ public class CookingInitialListener implements Listener {
                 itemStacks.forEach(itemStack -> {
 
                     if (CommonUtils.isSimilar(objectMaterial, itemStack)) {
-                        //System.out.println("匹配到了一个捏");
                         totalMatch.set(totalMatch.get() + 1);
                     }
 
                 });
             });
-            //System.out.println("isPresentRecipe(): " + totalMatch.get());
+
             if (totalMatch.get() == 4)
                 cookingRecipe[0] = COOKINGRECIPE;
         });

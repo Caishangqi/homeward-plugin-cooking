@@ -189,6 +189,7 @@ public class CommonUtils {
                             ItemsAdderCompatibility.saveItemAdderCompatibility(cookingData.getInputSlot());
                             ItemsAdderCompatibility.saveItemAdderCompatibility(cookingProcessObject.getCookingRecipe().getContents());
                         }
+                        //End with ItemsAdder
                         ItemStack deserializeItem = cookingProcessObject.getCookingRecipe().getMainOutPut().getObjectMaterial();
                         cookingProcessObject.getCookingRecipe().getMainOutPut().setObjectMaterial(deserializeItem);
                         cookingData.setProcessObject(cookingProcessObject);
@@ -196,7 +197,7 @@ public class CommonUtils {
                         try {
                             file.save();
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            e.printStackTrace();
                         }
                     }
 
@@ -228,7 +229,7 @@ public class CommonUtils {
                     CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(F, byte[].class));
                     Location location = toBukkitBlockLocationKey(F, K);
 
-                    if (cookingData != null && cookingData.getProcessObject() !=null) {
+                    if (cookingData != null && cookingData.getProcessObject() != null) {
 
                         try {
                             CookingProcessObject cookingProcessObject = cookingData.getProcessObject();
@@ -241,13 +242,13 @@ public class CommonUtils {
                             file.setObject(F, StreamItemsUtils.serializeAsBytes(cookingData));
 
                         } catch (Exception exception) {
-                            CommonUtils.log(Level.ALL,Type.UNLOADED,"一个保存的任务 " + cookingData.getRecipeKey() + " 未能加载 原因是: " );
+                            CommonUtils.log(Level.ALL, Type.UNLOADED, "一个保存的任务 " + cookingData.getRecipeKey() + " 未能加载 原因是: ");
                             exception.printStackTrace();
-                        }finally {
+                        } finally {
                             try {
                                 file.save();
                             } catch (IOException e) {
-                                throw new RuntimeException(e);
+                                e.printStackTrace();
                             }
                         }
 
