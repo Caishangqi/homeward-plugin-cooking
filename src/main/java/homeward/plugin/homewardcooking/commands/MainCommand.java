@@ -1,6 +1,7 @@
 package homeward.plugin.homewardcooking.commands;
 
 import de.tr7zw.changeme.nbtapi.NBTCompound;
+import de.tr7zw.changeme.nbtapi.NBTFile;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
@@ -9,12 +10,14 @@ import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
+import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -22,9 +25,11 @@ import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Level;
 
 @Command("hwc")
 public class MainCommand extends CommandBase {
@@ -139,6 +144,31 @@ public class MainCommand extends CommandBase {
         } catch (Exception e) {
             CommonUtils.sendPluginMessageInServer(player, "&6&l当前没有正在进行的配方");
         }
+
+
+    }
+
+    @SubCommand("clearredundant")
+    @Alias({"credundant", "cr"})
+    public void clearRedundant(CommandSender commandSender) {
+        Player player = (Player) commandSender;
+
+
+        Bukkit.getServer().getWorlds().forEach(K -> {
+            try {
+                NBTFile file = new NBTFile(new File(K.getWorldFolder().getName(), "cooking-data.nbt"));
+                Set<String> keys = file.getKeys();
+                keys.forEach(O -> {
+                    Location location = CommonUtils.toBukkitBlockLocationKey(O, K);
+                    if (K.getBlockAt(location).isEmpty()) { //初始方法，其实应该判断配置文件中设置的方块并且也为空
+                        file.removeKey(O);
+                        CommonUtils.log(Level.ALL, Type.WARN, "&7清除无效的缓存，位于 &6" + location);
+                    }
+                });
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
 
     }
