@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 public class CookingProcessEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final boolean async = true;
     private Player whoCalled;
     private CookingRecipe targetRecipe;
     private String locationKey;
     private boolean cancelledFlag = false;
-    private final boolean async = true;
 
     public CookingProcessEvent(Player player, CookingRecipe cookingRecipe, String locationKey) {
         this.whoCalled = player;

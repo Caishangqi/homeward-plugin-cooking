@@ -2,11 +2,12 @@ package homeward.plugin.homewardcooking.compatibilities.provided.mmoitems;
 
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityPlugin;
 import io.lumine.mythic.lib.api.item.NBTItem;
+import net.Indyuce.mmoitems.MMOItems;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
 
-public class MMOItemsCompatibility<Plugin> extends CompatibilityPlugin {
+public class MMOItemsCompatibility<Plugin> extends CompatibilityPlugin<MMOItems> {
 
     public static boolean isSimilar(ItemStack firstItems, ItemStack secondItems) {
 

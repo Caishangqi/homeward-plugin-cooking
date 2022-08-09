@@ -1,7 +1,6 @@
 package homeward.plugin.homewardcooking.scheduler;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
-import dev.lone.itemsadder.api.ItemsAdder;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.pojo.Button;

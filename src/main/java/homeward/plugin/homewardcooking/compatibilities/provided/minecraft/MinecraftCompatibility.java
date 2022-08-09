@@ -2,8 +2,6 @@ package homeward.plugin.homewardcooking.compatibilities.provided.minecraft;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import dev.lone.itemsadder.api.CustomBlock;
-import dev.lone.itemsadder.api.ItemsAdder;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityPlugin;
 import homeward.plugin.homewardcooking.events.GUIOpenEvent;
@@ -32,7 +30,7 @@ import static org.bukkit.Material.CAULDRON;
 import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
 import static org.bukkit.inventory.EquipmentSlot.HAND;
 
-public class MinecraftCompatibility extends CompatibilityPlugin {
+public class MinecraftCompatibility extends CompatibilityPlugin<HomewardCooking> {
 
     public static boolean isSimilar(ItemStack firstItems, ItemStack secondItems) {
         //Vanilla method
@@ -95,17 +93,13 @@ public class MinecraftCompatibility extends CompatibilityPlugin {
             if (event.getClickedBlock() != null && action == RIGHT_CLICK_BLOCK) {
                 Block clickedBlock = event.getClickedBlock();
 
-                int blockX = clickedBlock.getLocation().getBlockX();
-                int blockY = clickedBlock.getLocation().getBlockY();
-                int blockZ = clickedBlock.getLocation().getBlockZ();
-
                 NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
 
-                String locationKey = clickedBlock.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
+                String toStringBlockLocationKey = CommonUtils.toStringBlockLocationKey(clickedBlock.getLocation());
 
                 //PlayerInteractEvent默认主手副手都触发 除非判断主手
-                if (file.hasKey(locationKey) && event.getHand() == HAND) {
-                    Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player, locationKey));
+                if (file.hasKey(toStringBlockLocationKey) && event.getHand() == HAND) {
+                    Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player, toStringBlockLocationKey));
                     // ->
                 }
 
@@ -125,16 +119,12 @@ public class MinecraftCompatibility extends CompatibilityPlugin {
             NBTItem nbti = new NBTItem(itemInHand);
             Block blockPlaced = event.getBlockPlaced();
             if (blockPlaced.getBlockData().getMaterial() == CAULDRON && nbti.hasKey("CookingPot")) {
-                System.out.println(itemInHand.getType());
                 NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
-                int blockX = blockPlaced.getLocation().getBlockX();
-                int blockY = blockPlaced.getLocation().getBlockY();
-                int blockZ = blockPlaced.getLocation().getBlockZ();
 
-                String locationKey = blockPlaced.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
 
-                if (!file.hasKey(locationKey)) {
-                    file.setObject(locationKey, StreamItemsUtils.serializeAsBytes(new CookingData()));
+                String toStringBlockLocationKey = CommonUtils.toStringBlockLocationKey(blockPlaced.getLocation());
+                if (!file.hasKey(toStringBlockLocationKey)) {
+                    file.setObject(toStringBlockLocationKey, StreamItemsUtils.serializeAsBytes(new CookingData()));
                     Bukkit.getScheduler().runTaskAsynchronously(HomewardCooking.getInstance(), () -> {
                         try {
                             file.save();
@@ -151,6 +141,41 @@ public class MinecraftCompatibility extends CompatibilityPlugin {
 
 
         }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityExplode(EntityExplodeEvent event) throws IOException {
+        List<Block> blocks = event.blockList();
+        NBTFile file = new NBTFile(new File(event.getLocation().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
+        blocks.forEach(K -> {
+            //TODO 爆炸兼容
+            String toStringBlockLocationKey = CommonUtils.toStringBlockLocationKey(K.getLocation());
+            if (file.hasKey(toStringBlockLocationKey)) {
+
+                if (HomewardCooking.GUIPools.containsKey(toStringBlockLocationKey)) {
+                    List<Player> openedPlayers = HomewardCooking.GUIPools.get(toStringBlockLocationKey).getOpenedPlayers();
+                    openedPlayers.forEach(HumanEntity::closeInventory);
+                }
+
+                //爆物品
+                CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(toStringBlockLocationKey, byte[].class));
+                List<ItemStack> containedItemsInData = CommonUtils.getContainedItemsInData(cookingData);
+
+
+                file.removeKey(toStringBlockLocationKey);
+
+                try {
+                    file.save();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                containedItemsInData.forEach(V -> {
+                    if (V != null)
+                        Bukkit.getServer().getWorld(event.getLocation().getWorld().getName()).dropItem(K.getLocation(), V);
+                });
+            }
+        });
     }
 }
 

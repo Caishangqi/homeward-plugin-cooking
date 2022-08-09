@@ -369,5 +369,16 @@ public class CommonUtils {
         return result.get();
     }
 
+    public static void loadDefaultPluginConfig() {
+        if (!new File("plugins/" + HomewardCooking.getInstance().getDataFolder().getName() + "/" + "database.yml").exists())
+            HomewardCooking.getInstance().saveResource("database.yml", false);
+        if (!new File("plugins/" + HomewardCooking.getInstance().getDataFolder().getName() + "/" + "message.yml").exists())
+            HomewardCooking.getInstance().saveResource("message.yml", false);
+        if (!new File("plugins/" + HomewardCooking.getInstance().getDataFolder().getName() + "/" + "dictionary/dictionary.yml").exists())
+            HomewardCooking.getInstance().saveResource("dictionary/dictionary.yml", false);
+        if (!new File("plugins/" + HomewardCooking.getInstance().getDataFolder().getName() + "/" + "recipes/recipe-general.yml").exists())
+            HomewardCooking.getInstance().saveResource("recipes/recipe-general.yml", false);
+    }
+
 
 }

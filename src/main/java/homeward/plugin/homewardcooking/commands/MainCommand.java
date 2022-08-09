@@ -1,15 +1,12 @@
 package homeward.plugin.homewardcooking.commands;
 
-import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTFile;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.CookingRecipe;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.DictionaryLabel;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
-import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
 import homeward.plugin.homewardcooking.utils.Type;
 import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
@@ -29,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
 @Command("hwc")
@@ -152,6 +150,7 @@ public class MainCommand extends CommandBase {
     @Alias({"credundant", "cr"})
     public void clearRedundant(CommandSender commandSender) {
         Player player = (Player) commandSender;
+        AtomicReference<Integer> total = new AtomicReference<>(0);
 
         Bukkit.getServer().getWorlds().forEach(K -> {
             try {
@@ -162,15 +161,16 @@ public class MainCommand extends CommandBase {
                     if (K.getBlockAt(location).isEmpty()) { //初始方法，其实应该判断配置文件中设置的方块并且也为空
                         file.removeKey(O);
                         CommonUtils.log(Level.ALL, Type.WARN, "&7清除无效的缓存，位于 &6" + location);
+                        total.getAndSet(total.get() + 1);
                     }
                 });
                 file.save();
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-
             }
         });
+
+        CommonUtils.sendPluginMessageInServer(player, "&7总共清除: &6" + total.get() + " &7个无效缓存数据!");
 
 
     }
@@ -178,7 +178,8 @@ public class MainCommand extends CommandBase {
 
     @Default
     public void defaultCommand(final CommandSender commandSender) {
-
+        Player player = (Player) commandSender;
+        CommonUtils.sendPluginMessageInServer(player, "协调烹饪 &6HomewardCooking &7By &6Caizii &7版本: &6" + HomewardCooking.pluginVersion);
 
     }
 }

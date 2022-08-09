@@ -22,6 +22,7 @@ import java.util.logging.Level;
 public final class HomewardCooking extends JavaPlugin {
 
     public final static String packageName = HomewardCooking.class.getPackageName();
+    public final static String pluginVersion = "1.9-SNAPSHOT";
 
     //插件主类
     public static HomewardCooking plugin;
@@ -75,11 +76,9 @@ public final class HomewardCooking extends JavaPlugin {
         saveDefaultConfig();
         config = getConfig();
 
+
         try {
-            this.saveResource("recipes/recipe-general.yml", false);
-            this.saveResource("dictionary/dictionary.yml", false); //type: dictionary
-            this.saveResource("message.yml", false);
-            this.saveResource("database.yml", false);
+            CommonUtils.loadDefaultPluginConfig();
         } catch (Exception exception) {
             CommonUtils.log(Level.ALL, Type.FATAL, "初始化插件配置文件失败! 原因: ");
             exception.printStackTrace();

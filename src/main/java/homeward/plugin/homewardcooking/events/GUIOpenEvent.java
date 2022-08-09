@@ -9,10 +9,10 @@ import org.jetbrains.annotations.NotNull;
 public class GUIOpenEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final boolean async = true;
     private Player player;
     private String locationKey;
     private boolean cancelledFlag = false;
-    private final boolean async = true;
 
     public GUIOpenEvent(Player player, String locationKey) {
         this.player = player;

@@ -8,11 +8,11 @@ import dev.lone.itemsadder.api.Events.CustomBlockBreakEvent;
 import dev.lone.itemsadder.api.Events.CustomBlockInteractEvent;
 import dev.lone.itemsadder.api.Events.CustomBlockPlaceEvent;
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent;
+import dev.lone.itemsadder.api.ItemsAdder;
 import homeward.plugin.homewardcooking.HomewardCooking;
 import homeward.plugin.homewardcooking.compatibilities.CompatibilityPlugin;
 import homeward.plugin.homewardcooking.events.GUIOpenEvent;
 import homeward.plugin.homewardcooking.pojo.CookingData;
-import homeward.plugin.homewardcooking.pojo.CookingPotThing;
 import homeward.plugin.homewardcooking.pojo.cookingrecipe.RecipeContent;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
@@ -38,7 +38,7 @@ import java.util.logging.Level;
 import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
 import static org.bukkit.inventory.EquipmentSlot.HAND;
 
-public class ItemsAdderCompatibility extends CompatibilityPlugin {
+public class ItemsAdderCompatibility extends CompatibilityPlugin<ItemsAdder> {
 
     public static boolean isSimilar(ItemStack firstItems, ItemStack secondItems) {
 

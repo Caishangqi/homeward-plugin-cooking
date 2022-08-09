@@ -12,12 +12,12 @@ import java.util.List;
 public class CookingInitialEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final boolean async = true;
     private Player player;
     private List<ItemStack> containedMaterial;
     private String locationKey;
     private ItemStack remainedOutPutStack;
     private boolean cancelledFlag = false;
-    private final boolean async = true;
 
     public CookingInitialEvent(Player player, List<ItemStack> containedMaterial, String locationKey) {
         this.player = player;
