@@ -74,7 +74,7 @@ dependencies {
 
 
 group = 'homeward.plugin'
-version = '1.9-SNAPSHOT'
+version = '1.10-SNAPSHOT'
 description = 'HomewardCooking'
 
 def targetJavaVersion = 16
