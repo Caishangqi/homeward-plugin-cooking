@@ -14,6 +14,7 @@ public class CookingProcessEvent extends Event implements Cancellable {
     private CookingRecipe targetRecipe;
     private String locationKey;
     private boolean cancelledFlag = false;
+    private final boolean async = true;
 
     public CookingProcessEvent(Player player, CookingRecipe cookingRecipe, String locationKey) {
         this.whoCalled = player;

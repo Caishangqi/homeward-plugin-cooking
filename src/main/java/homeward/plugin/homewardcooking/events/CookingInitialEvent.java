@@ -17,6 +17,7 @@ public class CookingInitialEvent extends Event implements Cancellable {
     private String locationKey;
     private ItemStack remainedOutPutStack;
     private boolean cancelledFlag = false;
+    private final boolean async = true;
 
     public CookingInitialEvent(Player player, List<ItemStack> containedMaterial, String locationKey) {
         this.player = player;

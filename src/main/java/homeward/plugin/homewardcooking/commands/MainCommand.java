@@ -153,7 +153,6 @@ public class MainCommand extends CommandBase {
     public void clearRedundant(CommandSender commandSender) {
         Player player = (Player) commandSender;
 
-
         Bukkit.getServer().getWorlds().forEach(K -> {
             try {
                 NBTFile file = new NBTFile(new File(K.getWorldFolder().getName(), "cooking-data.nbt"));
@@ -165,8 +164,11 @@ public class MainCommand extends CommandBase {
                         CommonUtils.log(Level.ALL, Type.WARN, "&7清除无效的缓存，位于 &6" + location);
                     }
                 });
+                file.save();
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            } finally {
+
             }
         });
 

@@ -12,6 +12,7 @@ public class GUIOpenEvent extends Event implements Cancellable {
     private Player player;
     private String locationKey;
     private boolean cancelledFlag = false;
+    private final boolean async = true;
 
     public GUIOpenEvent(Player player, String locationKey) {
         this.player = player;

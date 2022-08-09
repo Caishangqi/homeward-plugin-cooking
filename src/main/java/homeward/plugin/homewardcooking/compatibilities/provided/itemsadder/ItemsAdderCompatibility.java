@@ -2,6 +2,7 @@ package homeward.plugin.homewardcooking.compatibilities.provided.itemsadder;
 
 import de.tr7zw.changeme.nbtapi.NBTFile;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import dev.lone.itemsadder.api.CustomBlock;
 import dev.lone.itemsadder.api.CustomStack;
 import dev.lone.itemsadder.api.Events.CustomBlockBreakEvent;
 import dev.lone.itemsadder.api.Events.CustomBlockInteractEvent;
@@ -24,6 +25,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -91,7 +93,7 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin {
         CommonUtils.log(Level.INFO, Type.LOADED, "配方加载成功 (顺序改变因为 &6ItemsAdder&7)");
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onCustomBlockBreak(CustomBlockBreakEvent event) {
         System.out.println("我打碎了一个自定义方块?");
         if (doUseCustomBlock()) {
@@ -146,6 +148,48 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin {
             }
 
         }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) throws IOException {
+
+        if (doUseCustomBlock()) {
+            NBTFile file = null;
+            file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
+
+            Location blockLocation = event.getBlock().getLocation();
+            Player player = event.getPlayer();
+            String toStringBlockLocationKey = CommonUtils.toStringBlockLocationKey(blockLocation);
+
+            if (file.hasKey(toStringBlockLocationKey)) {
+
+
+                //如果其他人打碎Pot那么需要关闭打开这个Pot所有玩家的GUI防止刷物品
+                if (HomewardCooking.GUIPools.containsKey(toStringBlockLocationKey)) {
+                    List<Player> openedPlayers = HomewardCooking.GUIPools.get(toStringBlockLocationKey).getOpenedPlayers();
+                    openedPlayers.forEach(HumanEntity::closeInventory);
+                }
+
+                //爆物品
+                CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(toStringBlockLocationKey, byte[].class));
+                List<ItemStack> containedItemsInData = CommonUtils.getContainedItemsInData(cookingData);
+
+                event.setDropItems(false);
+                file.removeKey(toStringBlockLocationKey);
+                file.save();
+                player.sendMessage("移除物品数据成功");
+                //聪明代码 //CookingPotThing.getVanillaItemStack() CustomBlock.byAlreadyPlaced(event.getBlock());
+                Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(blockLocation, CustomBlock.byAlreadyPlaced(event.getBlock()).getItemStack());
+                containedItemsInData.forEach(K -> {
+                    if (K != null)
+                        Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(blockLocation, K);
+                });
+
+
+            }
+        }
+
+
     }
 
     @EventHandler
