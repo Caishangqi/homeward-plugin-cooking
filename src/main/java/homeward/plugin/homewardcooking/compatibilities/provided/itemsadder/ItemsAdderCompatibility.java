@@ -203,17 +203,13 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin<ItemsAdder> {
             if (Objects.equals(namespacedID, customBlockNameSpace) && action == RIGHT_CLICK_BLOCK) {
                 Block clickedBlock = event.getBlockClicked();
 
-                int blockX = clickedBlock.getLocation().getBlockX();
-                int blockY = clickedBlock.getLocation().getBlockY();
-                int blockZ = clickedBlock.getLocation().getBlockZ();
+                String toStringBlockLocationKey = CommonUtils.toStringBlockLocationKey(clickedBlock.getLocation());
 
                 NBTFile file = new NBTFile(new File(event.getPlayer().getWorld().getWorldFolder().getName(), "cooking-data.nbt"));
 
-                String locationKey = clickedBlock.getWorld() + " " + blockX + " " + blockY + " " + blockZ;
-
                 //PlayerInteractEvent默认主手副手都触发 除非判断主手
-                if (file.hasKey(locationKey) && event.getHand() == HAND) {
-                    Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player, locationKey));
+                if (file.hasKey(toStringBlockLocationKey) && event.getHand() == HAND) {
+                    Bukkit.getServer().getPluginManager().callEvent(new GUIOpenEvent(player, toStringBlockLocationKey));
                     // ->
                 }
 

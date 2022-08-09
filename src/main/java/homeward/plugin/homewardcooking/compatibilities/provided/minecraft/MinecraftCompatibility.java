@@ -32,6 +32,7 @@ import static org.bukkit.inventory.EquipmentSlot.HAND;
 
 public class MinecraftCompatibility extends CompatibilityPlugin<HomewardCooking> {
 
+    @SuppressWarnings("unused") //invoke
     public static boolean isSimilar(ItemStack firstItems, ItemStack secondItems) {
         //Vanilla method
         return firstItems.isSimilar(secondItems);
@@ -172,6 +173,7 @@ public class MinecraftCompatibility extends CompatibilityPlugin<HomewardCooking>
 
                 containedItemsInData.forEach(V -> {
                     if (V != null)
+                        //noinspection ConstantConditions ?
                         Bukkit.getServer().getWorld(event.getLocation().getWorld().getName()).dropItem(K.getLocation(), V);
                 });
             }

@@ -84,10 +84,8 @@ public final class HomewardCooking extends JavaPlugin {
             exception.printStackTrace();
         }
 
-
         configurationLoader = new ConfigurationLoader();
         configurationLoader.loadConfiguration();
-
 
     }
 
