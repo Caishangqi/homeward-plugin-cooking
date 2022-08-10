@@ -6,8 +6,10 @@ import homeward.plugin.homewardcooking.events.GUIOpenEvent;
 import homeward.plugin.homewardcooking.guis.CookingGUI;
 import homeward.plugin.homewardcooking.guis.GUI;
 import homeward.plugin.homewardcooking.pojo.CookingData;
+import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
+import homeward.plugin.homewardcooking.utils.Type;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +18,7 @@ import org.bukkit.event.Listener;
 import java.io.File;
 import java.io.IOException;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 
 public class GUIOpenListener implements Listener {
 
@@ -28,7 +31,10 @@ public class GUIOpenListener implements Listener {
         CookingData cookingData = (CookingData) StreamItemsUtils.deserializeBytes(file.getObject(locationKey, byte[].class));
 
         if (HomewardCooking.GUIPools.containsKey(locationKey)) {
-            System.out.println("上方");
+
+            if (HomewardCooking.configurationLoader.isDebugMode())
+                CommonUtils.log(Level.ALL, Type.LOG, "所点击的GUI位于: " + "&6上方");
+
             CookingGUI currentPotGUI = HomewardCooking.GUIPools.get(locationKey);
             currentPotGUI.addPlayerToOpenPlayers(player);
 

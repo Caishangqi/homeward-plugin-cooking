@@ -70,7 +70,9 @@ public class MinecraftCompatibility extends CompatibilityPlugin<HomewardCooking>
                 event.setDropItems(false);
                 file.removeKey(toStringBlockLocationKey);
                 file.save();
-                player.sendMessage("移除物品数据成功");
+                if (HomewardCooking.configurationLoader.isDebugMode())
+                    player.sendMessage("移除物品数据成功");
+
                 //聪明代码 //CookingPotThing.getVanillaItemStack() CustomBlock.byAlreadyPlaced(event.getBlock());
                 Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(blockLocation, CookingPotThing.getVanillaItemStack());
                 containedItemsInData.forEach(K -> {
@@ -134,7 +136,9 @@ public class MinecraftCompatibility extends CompatibilityPlugin<HomewardCooking>
                         }
                     });
 
-                    player.sendMessage("设置物品信息成功");
+                    if (HomewardCooking.configurationLoader.isDebugMode())
+                        player.sendMessage("设置物品信息成功");
+
                 }
 
 
@@ -179,6 +183,8 @@ public class MinecraftCompatibility extends CompatibilityPlugin<HomewardCooking>
             }
         });
     }
+
+
 }
 
 

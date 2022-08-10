@@ -82,5 +82,9 @@ public class ConfigurationLoader {
         return mainConfiguration.getConfigurationSection("general-settings.");
     }
 
+    public Boolean isDebugMode() {
+        return mainConfiguration.getBoolean("enable-debug", false);
+    }
+
 
 }

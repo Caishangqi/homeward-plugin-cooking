@@ -8,6 +8,7 @@ import homeward.plugin.homewardcooking.pojo.CookingData;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.StreamItemsUtils;
+import homeward.plugin.homewardcooking.utils.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ProcessCookingScheduler {
 
@@ -98,7 +100,8 @@ public class ProcessCookingScheduler {
                     V.setRemainTime(V.getRemainTime() - 1);
                     //TODO GUI Process Alter
                     refreshGUIInfo();
-                    System.out.println("剩余时间" + V.getRemainTime() + "s");
+                    if (HomewardCooking.configurationLoader.isDebugMode())
+                        CommonUtils.log(Level.ALL, Type.LOG, "剩余时间" + V.getRemainTime() + "s");
                 });
             }
 

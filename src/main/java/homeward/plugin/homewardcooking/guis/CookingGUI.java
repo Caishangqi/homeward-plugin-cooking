@@ -7,6 +7,7 @@ import homeward.plugin.homewardcooking.pojo.CommonMaterial;
 import homeward.plugin.homewardcooking.pojo.CookingProcessObject;
 import homeward.plugin.homewardcooking.utils.CommonUtils;
 import homeward.plugin.homewardcooking.utils.GUIManipulation;
+import homeward.plugin.homewardcooking.utils.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static org.bukkit.event.inventory.InventoryAction.MOVE_TO_OTHER_INVENTORY;
@@ -81,7 +83,8 @@ public class CookingGUI extends GUI {
     public void handelMenu(InventoryClickEvent e) {
 
         if (e.getAction() == MOVE_TO_OTHER_INVENTORY) {
-            System.out.println("move out");
+            if (HomewardCooking.configurationLoader.isDebugMode())
+                CommonUtils.log(Level.ALL, Type.LOG, "操作类型: &6move out");
             e.setCancelled(true);
         }
 
@@ -126,7 +129,9 @@ public class CookingGUI extends GUI {
     @Override
     public void dragItem(InventoryDragEvent e) throws InterruptedException {
 
-        System.out.println(e.getRawSlots());
+        if (HomewardCooking.configurationLoader.isDebugMode())
+            CommonUtils.log(Level.ALL, Type.LOG, "拖拽的物品栏为: " + e.getRawSlots());
+
         e.setCancelled(true);
         //如果是上方则取消drag
         if (!GUIManipulation.isDragOnTop(e.getRawSlots(), e.getView().getTopInventory().getSize())) {

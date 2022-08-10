@@ -62,7 +62,8 @@ public class CookingGUICloseListener implements Listener {
             //如果这个GUI没有任何人查看，就直接把他删除否则一直存放到 GUIPoll中
             if (HomewardCooking.GUIPools.get(locationKey).getOpenedPlayers().size() == 0) {
                 HomewardCooking.GUIPools.remove(locationKey);
-                player.sendMessage("移除无人查看的GUI");
+                if (HomewardCooking.configurationLoader.isDebugMode())
+                    player.sendMessage("移除无人查看的GUI");
             }
 
         }

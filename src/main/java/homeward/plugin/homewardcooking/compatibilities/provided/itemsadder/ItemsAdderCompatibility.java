@@ -95,7 +95,6 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin<ItemsAdder> {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onCustomBlockBreak(CustomBlockBreakEvent event) {
-        System.out.println("我打碎了一个自定义方块?");
         if (doUseCustomBlock()) {
 
             Player player = event.getPlayer();
@@ -136,7 +135,8 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin<ItemsAdder> {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    player.sendMessage("移除物品数据成功");
+                    if (HomewardCooking.configurationLoader.isDebugMode())
+                        player.sendMessage("移除物品数据成功");
                     //聪明代码
                     //Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(breakBlock.getLocation(), CookingPotThing.getVanillaItemStack());
                     containedItemsInData.forEach(K -> {
@@ -177,7 +177,8 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin<ItemsAdder> {
                 event.setDropItems(false);
                 file.removeKey(toStringBlockLocationKey);
                 file.save();
-                player.sendMessage("移除物品数据成功");
+                if (HomewardCooking.configurationLoader.isDebugMode())
+                    player.sendMessage("移除物品数据成功");
                 //聪明代码 //CookingPotThing.getVanillaItemStack() CustomBlock.byAlreadyPlaced(event.getBlock());
                 Bukkit.getServer().getWorld(event.getPlayer().getWorld().getName()).dropItem(blockLocation, CustomBlock.byAlreadyPlaced(event.getBlock()).getItemStack());
                 containedItemsInData.forEach(K -> {
@@ -240,8 +241,9 @@ public class ItemsAdderCompatibility extends CompatibilityPlugin<ItemsAdder> {
                             throw new RuntimeException(e);
                         }
                     });
+                    if (HomewardCooking.configurationLoader.isDebugMode())
+                        event.getPlayer().sendMessage("设置物品信息成功");
 
-                    event.getPlayer().sendMessage("设置物品信息成功");
                 }
             }
         }

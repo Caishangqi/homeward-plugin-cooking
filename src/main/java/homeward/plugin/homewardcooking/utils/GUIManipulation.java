@@ -7,6 +7,7 @@ import homeward.plugin.homewardcooking.pojo.CookingData;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class GUIManipulation {
 
@@ -30,7 +31,8 @@ public class GUIManipulation {
 
             if (number <= size - 1) {
                 cache = true;
-                System.out.println("下面的" + cache);
+                if (HomewardCooking.configurationLoader.isDebugMode())
+                    CommonUtils.log(Level.ALL, Type.LOG, "拖拽物品影响下方物品栏: &6" + cache);
                 return cache;
             }
 

@@ -5,6 +5,7 @@ public class Type {
     public static final Type UNLOADED = new Type("&7[&c-&7]", 0);
     public static final Type FATAL = new Type("&7[&cx&7]", -999);
     public static final Type WARN = new Type("&7[&6!&7]", -998);
+    public static final Type LOG = new Type("&7[&3🔍&7]", -997);
     private final String name;
     private final int value;
 
