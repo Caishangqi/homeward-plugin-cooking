@@ -45,3 +45,4 @@ task compileAll {
     dependsOn motso
     dependsOn copyJar
 }
+

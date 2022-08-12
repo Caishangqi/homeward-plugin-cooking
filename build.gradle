@@ -115,6 +115,7 @@ tasks.withType(JavaCompile) {
 }
 
 shadowJar {
+
     minimize()
     archiveBaseName.set rootProject.name
     archiveClassifier.set ''

@@ -69,6 +69,8 @@
 | [Homeward Cooking 协调烹饪](https://github.com/Caishangqi/homeward-plugin-cooking) | Caishangqi | 1.18.2 |
 |-----------------------|------------|--------|
 | **[Homeward Brewing 协调酿造](https://github.com/Ba1oretto/Brewing)** |  **Ba1oretto**          | **1.18.2** |
+| **[Homeward Libs 协调核心](https://github.com/Caishangqi/homeward-plugin-lib)**    | **Caishangqi** | **1.18.2** |
+| **[Homeward InfoBar 协调浮窗](https://github.com/Caishangqi/homeward-plugin-infobar)** | **Caishangqi** | **1.18.2** |
 
 ## 特别说明 Special Information
 
